@@ -63,7 +63,9 @@ class _BookingViewState extends State<BookingView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               CupertinoIcons.back,
               color: Color.fromRGBO(191, 68, 116, 1),
@@ -101,7 +103,7 @@ class _BookingViewState extends State<BookingView> {
                                   color: textcolor[index],
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text("Kozhikode",
+                          Text("--",
                               style: TextStyle(
                                   color: textcolor[index],
                                   fontWeight: FontWeight.bold)),

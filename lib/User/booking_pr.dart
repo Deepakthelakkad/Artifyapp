@@ -1,3 +1,5 @@
+import 'package:artify_app/User/add_booking.dart';
+import 'package:artify_app/User/artist_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,7 +67,9 @@ class _BookingState extends State<Booking> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               CupertinoIcons.back,
               color: Color.fromRGBO(191, 68, 116, 1),
@@ -90,6 +94,9 @@ class _BookingState extends State<Booking> {
                     color: color[index],
                     elevation: 4,
                     child: ListTile(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Add_Booking()));
+                      },
                       leading: Container(
                         child: CircleAvatar(
                             backgroundColor: circlecolor[index]),
@@ -103,7 +110,7 @@ class _BookingState extends State<Booking> {
                                   color: textcolor[index],
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text("Kozhikode",
+                          Text("--",
                               style: TextStyle(
                                   color: textcolor[index],
                                   fontWeight: FontWeight.bold)),

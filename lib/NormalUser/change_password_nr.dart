@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChangePasswordpr extends StatefulWidget {
-  const ChangePasswordpr({super.key});
+class ChangePasswordNr extends StatefulWidget {
+  const ChangePasswordNr({super.key});
 
   @override
-  State<ChangePasswordpr> createState() => _ChangePasswordprState();
+  State<ChangePasswordNr> createState() => _ChangePasswordNrState();
 }
 
-class _ChangePasswordprState extends State<ChangePasswordpr> {
+class _ChangePasswordNrState extends State<ChangePasswordNr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

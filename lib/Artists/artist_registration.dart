@@ -1,20 +1,15 @@
-import 'package:artify_app/User/user_login_pr.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:artify_app/Artists/artist_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RegistrationPr extends StatefulWidget {
-  const RegistrationPr({super.key});
+class RegistrationArtist extends StatefulWidget {
+  const RegistrationArtist({super.key});
 
   @override
-  State<RegistrationPr> createState() => _RegistrationPrState();
+  State<RegistrationArtist> createState() => _RegistrationArtistState();
 }
 
-class _RegistrationPrState extends State<RegistrationPr> {
-  final List<String> selectedrole = [
-    'premium','normal'
-  ];
-  String selectedValue = "normal";
+class _RegistrationArtistState extends State<RegistrationArtist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +61,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                 contentPadding: EdgeInsets.all(5),
                                 border: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: Colors.black)),
+                                    BorderSide(color: Colors.black)),
                                 labelText: "FirstName",
                                 labelStyle: TextStyle(color: Colors.black)),
                           ),
@@ -78,7 +73,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Email",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -89,7 +84,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Password",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -100,7 +95,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Re-Enter Password",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -111,7 +106,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Address",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -122,51 +117,52 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Phone",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
-                        SizedBox(
-                          height: 10,
+                        Container(
+                          height: 50,
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(5),
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Colors.black)),
+                                  labelText: "Social Media Id",
+                                  labelStyle: TextStyle(color: Colors.black))),
                         ),
                         Container(
-                          width: 155,
-                          child: DropdownButtonFormField(
-                            value: selectedValue,
-                            decoration: const InputDecoration(
-                              contentPadding:
-                              EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.black)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.black)),
-                              border: InputBorder.none,
-                              hintText: "Blood Type",
-                            ),
-                            items: selectedrole.map((String e) => DropdownMenuItem<String>(
-                              value: e,
-                              child: Text(e,style: TextStyle(color: Colors.white,backgroundColor: Color(0XFF1D2C6F),),),
-                            ))
-                                .toList(),
-
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedValue = value!;
-                              });
-                            },
-                          ),
+                          height: 50,
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(5),
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Colors.black)),
+                                  labelText: "Fee per Program",
+                                  labelStyle: TextStyle(color: Colors.black))),
+                        ),
+                        Container(
+                          height: 50,
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(5),
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Colors.black)),
+                                  labelText: "City",
+                                  labelStyle: TextStyle(color: Colors.black))),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 12,
                         ),
                         InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => UserLogin()));
+                                    builder: (context) => ArtistLogin()));
                           },
                           child: Container(
                             height: 51,

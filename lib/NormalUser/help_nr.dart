@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChangePasswordpr extends StatefulWidget {
-  const ChangePasswordpr({super.key});
+class HelpNr extends StatefulWidget {
+  const HelpNr({super.key});
 
   @override
-  State<ChangePasswordpr> createState() => _ChangePasswordprState();
+  State<HelpNr> createState() => _HelpNrState();
 }
 
-class _ChangePasswordprState extends State<ChangePasswordpr> {
+class _HelpNrState extends State<HelpNr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,21 +40,11 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 140,top: 30),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Change ',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,fontSize: 20),
-                                ),
-                                Text(
-                                  'Password',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,fontSize: 20),
-                                ),
-                              ],
+                            child: Text(
+                              'Help',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,fontSize: 20),
                             ),
                           ),
                         ],
@@ -92,46 +82,24 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                     padding: const EdgeInsets.only(left: 20,right: 20),
                     child: Column(
                       children: [
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Current Password:'),
+                            Text('Describe  your problem')
                           ],
                         ),
-                        TextFormField(
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                        TextField(
+                          minLines: 6,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null, // Allows multiline input
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
-                              labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintText: 'Enter your complaint here...',
+                            border: OutlineInputBorder(),
+                          ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('New Password:'),
-                          ],
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
-                              labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Re-enter Password:'),
-                          ],
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
-                              labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.4,),
                         InkWell(onTap: (){
                           Navigator.pop(context);
                         },

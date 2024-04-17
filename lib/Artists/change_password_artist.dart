@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChangePasswordpr extends StatefulWidget {
-  const ChangePasswordpr({super.key});
+class ChangePasswordArtist extends StatefulWidget {
+  const ChangePasswordArtist({super.key});
 
   @override
-  State<ChangePasswordpr> createState() => _ChangePasswordprState();
+  State<ChangePasswordArtist> createState() => _ChangePasswordArtistState();
 }
 
-class _ChangePasswordprState extends State<ChangePasswordpr> {
+class _ChangePasswordArtistState extends State<ChangePasswordArtist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +44,13 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                               children: [
                                 Text(
                                   'Change ',
-                                  style: TextStyle(
+                                  style: GoogleFonts.ubuntu(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,fontSize: 20),
                                 ),
                                 Text(
                                   'Password',
-                                  style: TextStyle(
+                                  style: GoogleFonts.ubuntu(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,fontSize: 20),
                                 ),
@@ -99,6 +99,7 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                             Text('Current Password:'),
                           ],
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -112,6 +113,7 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                             Text('New Password:'),
                           ],
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -125,6 +127,7 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                             Text('Re-enter Password:'),
                           ],
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

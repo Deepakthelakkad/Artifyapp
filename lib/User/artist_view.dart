@@ -1,11 +1,12 @@
 
+import 'package:artify_app/User/booking_pr.dart';
 import 'package:artify_app/User/events.dart';
-import 'package:artify_app/User/user_homepage.dart';
+import 'package:artify_app/User/user_homepage_pr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'achievement.dart';
+import 'achievement_pr.dart';
 
 class ArtistView extends StatefulWidget {
   const ArtistView({super.key});
@@ -54,10 +55,7 @@ class _ArtistViewState extends State<ArtistView> {
                       child: Row(
                         children: [
                           IconButton(onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserHomepage()));
+                            Navigator.pop(context);
                           }, icon: Icon(CupertinoIcons.back, color: Colors.white),),
                           Spacer(),
                           Icon(CupertinoIcons.bookmark_fill,
@@ -264,37 +262,45 @@ class _ArtistViewState extends State<ArtistView> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 3),
-                child: Container(
-                  height: 87,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(44, 113, 109, 1),
-                          Color.fromRGBO(72, 200, 200, 1),
-                        ],
-                      )),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text('Book Now',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 44,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 13),
-                        child: Image(
-                          image: AssetImage('assets/book.png'),
-                          height: 67,
-                          width: 102,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Booking()));
+                  },
+                  child: Container(
+                    height: 87,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color.fromRGBO(44, 113, 109, 1),
+                            Color.fromRGBO(72, 200, 200, 1),
+                          ],
+                        )),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text('Book Now',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 44,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 13),
+                          child: Image(
+                            image: AssetImage('assets/book.png'),
+                            height: 67,
+                            width: 102,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

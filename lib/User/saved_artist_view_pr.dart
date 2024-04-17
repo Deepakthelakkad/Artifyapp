@@ -1,10 +1,13 @@
+import 'package:artify_app/User/achievement_view.dart';
+import 'package:artify_app/User/booking_view_saved.dart';
+import 'package:artify_app/User/event_pr.dart';
 import 'package:artify_app/User/events.dart';
 import 'package:artify_app/User/saved_artist_pr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'achievement.dart';
+import 'achievement_pr.dart';
 
 class SavedArtistView extends StatefulWidget {
   const SavedArtistView({super.key});
@@ -50,10 +53,7 @@ class _SavedArtistViewState extends State<SavedArtistView> {
                       child: Row(
                         children: [
                           IconButton(onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SavedArtists()));
+                            Navigator.pop(context);
                           }, icon: Icon(CupertinoIcons.back, color: Colors.white),),
                           Spacer(),
                           Icon(CupertinoIcons.bookmark_fill,
@@ -203,7 +203,7 @@ class _SavedArtistViewState extends State<SavedArtistView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Events()));
+                                        builder: (context) => EventPr()));
                               },
                               child: Text("Events"),
                               style: ElevatedButton.styleFrom(
@@ -239,7 +239,7 @@ class _SavedArtistViewState extends State<SavedArtistView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Acheivement()));
+                                        builder: (context) => AchievementView()));
                               },
                               child: Text("Acheivement"),
                               style: ElevatedButton.styleFrom(
@@ -260,37 +260,42 @@ class _SavedArtistViewState extends State<SavedArtistView> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 3),
-                child: Container(
-                  height: 87,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(44, 113, 109, 1),
-                          Color.fromRGBO(72, 200, 200, 1),
-                        ],
-                      )),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text('Book Now',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 44,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 13),
-                        child: Image(
-                          image: AssetImage('assets/book.png'),
-                          height: 67,
-                          width: 102,
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BookingViewSaved()));
+                  },
+                  child: Container(
+                    height: 87,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color.fromRGBO(44, 113, 109, 1),
+                            Color.fromRGBO(72, 200, 200, 1),
+                          ],
+                        )),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text('Book Now',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 44,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 13),
+                          child: Image(
+                            image: AssetImage('assets/book.png'),
+                            height: 67,
+                            width: 102,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -1,9 +1,11 @@
 import 'package:artify_app/User/saved_artist_pr.dart';
+import 'package:artify_app/User/settings_pr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'edit_profile.dart';
+import 'edit_profile_pr.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -36,26 +38,41 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
               ),
-              child: Row(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: ClipOval(
-                      child: Image.asset(
-                        "assets/devanand.png",
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.fill,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingPr()));
+                    }, icon: Icon(CupertinoIcons.square_grid_2x2_fill,color: Colors.white,size: 30,)),
+                  ],
+                ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: ClipOval(
+                          child: Image.asset(
+                            "assets/devanand.png",
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Text(
-                    "Devanand",
-                    style: GoogleFonts.ubuntu(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                      Text(
+                        "Devanand",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -1,4 +1,4 @@
-import 'package:artify_app/NormalUser/artist_profile_check.dart';
+import 'package:artify_app/NormalUser/artist_view_nr.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,7 +53,7 @@ class _HomeNrUserState extends State<HomeNrUser> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ArtistProfileCheck()));
+                                builder: (context) => ArtistViewNr()));
                       },
                       child: Container(
                         height: 28,

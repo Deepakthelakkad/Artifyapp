@@ -1,12 +1,12 @@
-import 'package:artify_app/NormalUser/add_booking_nr.dart';
+import 'package:artify_app/Artists/add_schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BookingNr extends StatefulWidget {
-  const BookingNr({super.key});
+class Schedule extends StatefulWidget {
+  const Schedule({super.key});
 
   @override
-  State<BookingNr> createState() => _BookingNrState();
+  State<Schedule> createState() => _ScheduleState();
 }
 List<Color> color = [
   Color(0XFFE9EAF4),
@@ -57,7 +57,7 @@ List<Color> circlecolor = [
   Color(0XFFC0EFFC),
 ];
 
-class _BookingNrState extends State<BookingNr> {
+class _ScheduleState extends State<Schedule> {
   var feature = "1234567890";
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _BookingNrState extends State<BookingNr> {
         title: Padding(
           padding: const EdgeInsets.only(left: 80),
           child: Text(
-            'Booking',
+            'Schedule',
             style: TextStyle(
                 color: Color.fromRGBO(191, 68, 116, 1),
                 fontWeight: FontWeight.bold),
@@ -92,7 +92,7 @@ class _BookingNrState extends State<BookingNr> {
                     elevation: 4,
                     child: ListTile(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBookingNr()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddSchedule()));
                       },
                       leading: Container(
                         child: CircleAvatar(

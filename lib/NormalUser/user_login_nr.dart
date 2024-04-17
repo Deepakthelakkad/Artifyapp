@@ -1,16 +1,20 @@
-import 'package:artify_app/Artists/artist_registration.dart';
-import 'package:artify_app/Artists/bottum_button_artist.dart';
+import 'package:artify_app/NormalUser/bottom_button_nr.dart';
+import 'package:artify_app/NormalUser/registration_nr.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ArtistLogin extends StatefulWidget {
-  const ArtistLogin({super.key});
+class UserLoginNr extends StatefulWidget {
+  const UserLoginNr({super.key});
 
   @override
-  State<ArtistLogin> createState() => _ArtistLoginState();
+  State<UserLoginNr> createState() => _UserLoginNrState();
 }
 
-class _ArtistLoginState extends State<ArtistLogin> {
+class _UserLoginNrState extends State<UserLoginNr> {
+  final List<String> selectedrole = [
+    'premium','normal'
+  ];
+  String selectedValue = "normal";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,13 +63,43 @@ class _ArtistLoginState extends State<ArtistLogin> {
                             border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                             labelText: "Password",
                             labelStyle: TextStyle(color: Colors.black54))),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        Container(
+                          width: 200,
+                          child: DropdownButtonFormField(
+                            value: selectedValue,
+                            decoration: const InputDecoration(
+                              contentPadding:
+                              EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.black)),
+                              border: InputBorder.none,
+                              hintText: "Select Type",
+                            ),
+                            items: selectedrole.map((String e) => DropdownMenuItem<String>(
+                              value: e,
+                              child: Text(e,style: TextStyle(color: Colors.black,),),
+                            ))
+                                .toList(),
+
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedValue = value!;
+                              });
+                            },
+                          ),
+                        ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                         InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BottomButtonArtist()));
+                                    builder: (context) => BottomButtonNr()));
                           },
                           child: Container(
                             height: 51,
@@ -84,7 +118,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RegistrationArtist()));
+                                  builder: (context) => RegistrationNr()));
                         },
                             child: Text('SignUp',style: TextStyle(decoration: TextDecoration.underline,color: Colors.black,fontSize: 20),)),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.01),

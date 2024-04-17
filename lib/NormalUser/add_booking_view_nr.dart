@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Add_Booking extends StatefulWidget {
-  const Add_Booking({super.key});
+class AddBookingViewNr extends StatefulWidget {
+  const AddBookingViewNr({super.key});
 
   @override
-  State<Add_Booking> createState() => _Add_BookingState();
+  State<AddBookingViewNr> createState() => _AddBookingViewNrState();
 }
 
-class _Add_BookingState extends State<Add_Booking> {
+class _AddBookingViewNrState extends State<AddBookingViewNr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +73,7 @@ class _Add_BookingState extends State<Add_Booking> {
                 ),
               ),
               InkWell(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Container(

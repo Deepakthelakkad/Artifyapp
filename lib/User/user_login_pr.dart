@@ -1,5 +1,6 @@
+import 'package:artify_app/User/bottom_button_pr.dart';
 import 'package:artify_app/User/registration_pr_user.dart';
-import 'package:artify_app/User/user_homepage.dart';
+import 'package:artify_app/User/user_homepage_pr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,10 @@ class UserLogin extends StatefulWidget {
 }
 
 class _UserLoginState extends State<UserLogin> {
+  final List<String> selectedrole = [
+    'premium','normal'
+  ];
+  String selectedValue = "normal";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +40,7 @@ class _UserLoginState extends State<UserLogin> {
                   ],
                 ),
                 SizedBox(
-                  height: 45,
+                  height: 75,
                 ),
                 Container(
                   color: Color.fromRGBO(217, 217, 217, 0.3),
@@ -46,11 +51,8 @@ class _UserLoginState extends State<UserLogin> {
                         TextFormField(
                           decoration: const InputDecoration(
                               border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                              labelText: "Userame",
+                              labelText: "UserName",
                               labelStyle: TextStyle(color: Colors.black54)),
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         TextFormField(decoration: const InputDecoration(
                             border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
@@ -63,15 +65,43 @@ class _UserLoginState extends State<UserLogin> {
                             border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                             labelText: "Password",
                             labelStyle: TextStyle(color: Colors.black54))),
-                        SizedBox(
-                          height: 10,
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        Container(
+                          width: 200,
+                          child: DropdownButtonFormField(
+                            value: selectedValue,
+                            decoration: const InputDecoration(
+                              contentPadding:
+                              EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.black)),
+                              border: InputBorder.none,
+                              hintText: "Select Type",
+                            ),
+                            items: selectedrole.map((String e) => DropdownMenuItem<String>(
+                              value: e,
+                              child: Text(e,style: TextStyle(color: Colors.black,),),
+                            ))
+                                .toList(),
+
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedValue = value!;
+                              });
+                            },
+                          ),
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                         InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => UserHomepage()));
+                                    builder: (context) => BottomButton()));
                           },
                           child: Container(
                             height: 51,
@@ -85,12 +115,15 @@ class _UserLoginState extends State<UserLogin> {
                             ),
                           ),
                         ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextButton(onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RegistrationPr()));
-                        }, child: Text('SignUp',style: TextStyle(decoration: TextDecoration.underline,color: Colors.black,fontSize: 20),))
+                        },
+                            child: Text('SignUp',style: TextStyle(decoration: TextDecoration.underline,color: Colors.black,fontSize: 20),)),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                       ],
                     ),
                   ),

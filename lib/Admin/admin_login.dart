@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -12,96 +15,144 @@ class AdminLogin extends StatefulWidget {
 class _AdminLoginState extends State<AdminLogin> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(130),
-      color: Color.fromRGBO(25, 93, 120, 1),
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Center(
-        //       child: Text(
-        //     "Artify",
-        //     style: TextStyle(fontSize: 25, color: Colors.purple),
-        //   )),
-        //   backgroundColor: Colors.amber,
-        // ),
+    return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Color.fromRGBO(115, 147, 174, 1)),
-          padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.white,
-                child: Image.asset('assets/A12.png'),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: "Userid",
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 10,
-                    )),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Sign Up"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(191, 70, 114, 1),
-                  foregroundColor: Colors.white,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/bg.png'), fit: BoxFit.cover)),
+      width: double.infinity,
+      height: double.infinity,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 1000,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromRGBO(25, 93, 120, 0.60),
+                    Color.fromRGBO(44, 122, 154, 0.56),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 15,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(
+                  color: Colors.blue.shade900
+                      .withOpacity(.3), // Adjust the opacity as needed
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.center,
+            ),
+          ),
+          Positioned(
+              top: 120,
+              left: 0,
+              right: 0,
+              child: CircleAvatar(
+                backgroundColor: Colors.grey.shade300,
+                radius: 80,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: CircleAvatar(
+                    // backgroundColor: Colors.green,
+                    radius: 105,
+                    foregroundImage: AssetImage('assets/A12.png'),
+                  ),
+                ),
+              )),
+          Positioned(
+            top: 320,
+            left: 20,
+            right: 20,
+            child: Container(
+              height: 280,
+              width: 280,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue.shade100),
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white.withOpacity(.3),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue)),
+                          hintText: 'Enter your username',
+                          hintStyle: TextStyle(color: Colors.white30),
+                          labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey, fontSize: 20)),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue)),
+                          hintText: "Enter your password",
+                          hintStyle: TextStyle(color: Colors.white30),
+                          labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey, fontSize: 20)),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 50,
+                        width: 366,
+                        child: Center(
                           child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
+                            "Sign Up",
+                            style: GoogleFonts.ubuntu(
                               color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color.fromRGBO(191, 70, 114, 1),
+                              Color.fromRGBO(198, 82, 100, 0.948),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(
                               decoration: TextDecoration.underline,
                               decorationColor: Colors.white,
-                              decorationThickness: 2,
-                            ),
-                          ))),
-                ],
+                              color: Colors.white,
+                              fontSize: 16),
+                        ),
+                    )
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
-    );
+    ));
   }
 }

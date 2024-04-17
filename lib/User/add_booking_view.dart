@@ -15,7 +15,9 @@ class _AddBookingViewState extends State<AddBookingView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               CupertinoIcons.back,
               color: Color.fromRGBO(191, 68, 116, 1),

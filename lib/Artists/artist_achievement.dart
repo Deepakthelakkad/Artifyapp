@@ -1,16 +1,17 @@
+import 'package:artify_app/Artists/add_achievement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AchievementNr extends StatefulWidget {
-  const AchievementNr({super.key});
+class ArtistAchievement extends StatefulWidget {
+  const ArtistAchievement({super.key});
 
   @override
-  State<AchievementNr> createState() => _AchievementNrState();
+  State<ArtistAchievement> createState() => _ArtistAchievementState();
 }
 
-class _AchievementNrState extends State<AchievementNr> {
+class _ArtistAchievementState extends State<ArtistAchievement> {
   var feature = "abc";
 
   final Uri _url = Uri.parse('https://flutter.dev');
@@ -20,16 +21,27 @@ class _AchievementNrState extends State<AchievementNr> {
       throw Exception('Could not launch $_url');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              CupertinoIcons.back,
+              color: Color.fromRGBO(191, 68, 116, 1),
+            )),
         title: Padding(
           padding: const EdgeInsets.only(left: 70),
-          child: Text('Acheivements',style: TextStyle(color: Color.fromRGBO(191, 68, 116, 1),fontWeight: FontWeight.bold),),
+          child: Text(
+            'Acheivements',
+            style: TextStyle(
+                color: Color.fromRGBO(191, 68, 116, 1),
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: Container(
@@ -62,7 +74,9 @@ class _AchievementNrState extends State<AchievementNr> {
                           children: [
                             Text(
                               'Shared a collaboration work with Asianet',
-                              style: GoogleFonts.ubuntu(fontSize: 14,color: Color.fromRGBO(42, 40, 40, 1)),
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(42, 40, 40, 1)),
                             ),
                           ],
                         ),
@@ -72,10 +86,17 @@ class _AchievementNrState extends State<AchievementNr> {
                           children: [
                             Text(
                               'Asianet Film Award',
-                              style: GoogleFonts.ubuntu(fontSize: 24,),
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 24,
+                              ),
                             ),
-                            IconButton(onPressed:_launchUrl, icon: Icon(CupertinoIcons.link,size: 34,),)
-
+                            IconButton(
+                              onPressed: _launchUrl,
+                              icon: Icon(
+                                CupertinoIcons.link,
+                                size: 34,
+                              ),
+                            )
                           ],
                         ),
                       ],
@@ -84,6 +105,37 @@ class _AchievementNrState extends State<AchievementNr> {
                 ),
               );
             }),
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddAchievement()));
+            },
+            child: Container(
+                height: 33,
+                width: 81,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromRGBO(123, 191, 69, 1),
+                      Color.fromRGBO(126, 203, 64, 1),
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 5, 5),
+                  child: Text('Add+',
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+
+                      )),
+                ))),
       ),
     );
   }

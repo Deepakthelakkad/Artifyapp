@@ -1,12 +1,11 @@
-import 'package:artify_app/NormalUser/add_booking_nr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BookingNr extends StatefulWidget {
-  const BookingNr({super.key});
+class BookingViewNr extends StatefulWidget {
+  const BookingViewNr({super.key});
 
   @override
-  State<BookingNr> createState() => _BookingNrState();
+  State<BookingViewNr> createState() => _BookingViewNrState();
 }
 List<Color> color = [
   Color(0XFFE9EAF4),
@@ -57,7 +56,7 @@ List<Color> circlecolor = [
   Color(0XFFC0EFFC),
 ];
 
-class _BookingNrState extends State<BookingNr> {
+class _BookingViewNrState extends State<BookingViewNr> {
   var feature = "1234567890";
   @override
   Widget build(BuildContext context) {
@@ -91,9 +90,6 @@ class _BookingNrState extends State<BookingNr> {
                     color: color[index],
                     elevation: 4,
                     child: ListTile(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBookingNr()));
-                      },
                       leading: Container(
                         child: CircleAvatar(
                             backgroundColor: circlecolor[index]),

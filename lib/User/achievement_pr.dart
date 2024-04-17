@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AchievementNr extends StatefulWidget {
-  const AchievementNr({super.key});
+import 'artist_view.dart';
+
+
+
+class Acheivement extends StatefulWidget {
+  const Acheivement({super.key});
 
   @override
-  State<AchievementNr> createState() => _AchievementNrState();
+  State<Acheivement> createState() => _AcheivementState();
 }
 
-class _AchievementNrState extends State<AchievementNr> {
+class _AcheivementState extends State<Acheivement> {
   var feature = "abc";
 
   final Uri _url = Uri.parse('https://flutter.dev');
@@ -20,6 +24,7 @@ class _AchievementNrState extends State<AchievementNr> {
       throw Exception('Could not launch $_url');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +76,9 @@ class _AchievementNrState extends State<AchievementNr> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Asianet Film Award',
-                              style: GoogleFonts.ubuntu(fontSize: 24,),
-                            ),
+                            'Asianet Film Award',
+                            style: GoogleFonts.ubuntu(fontSize: 24,),
+                          ),
                             IconButton(onPressed:_launchUrl, icon: Icon(CupertinoIcons.link,size: 34,),)
 
                           ],

@@ -1,4 +1,4 @@
-import 'package:artify_app/NormalUser/artist_profile_check.dart';
+import 'package:artify_app/NormalUser/artist_view_nr.dart';
 import 'package:artify_app/NormalUser/profile_nr_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _SavedArtistNrState extends State<SavedArtistNr> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ArtistProfileCheck()));
+                                  builder: (context) => ArtistViewNr()));
                         },
                         child: Container(
                           height: 28,

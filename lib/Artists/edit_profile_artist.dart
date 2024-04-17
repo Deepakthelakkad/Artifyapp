@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EditProfileNr extends StatefulWidget {
-  const EditProfileNr({super.key});
+class EditProfileArtist extends StatefulWidget {
+  const EditProfileArtist({super.key});
 
   @override
-  State<EditProfileNr> createState() => _EditProfileNrState();
+  State<EditProfileArtist> createState() => _EditProfileArtistState();
 }
 
-class _EditProfileNrState extends State<EditProfileNr> {
+class _EditProfileArtistState extends State<EditProfileArtist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +40,7 @@ class _EditProfileNrState extends State<EditProfileNr> {
                 ),
                 child: Column(
                   children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Row(
                       children: [
                         IconButton(onPressed: (){

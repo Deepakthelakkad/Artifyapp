@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AboutUsNr extends StatefulWidget {
-  const AboutUsNr({super.key});
+class AboutUsPr extends StatefulWidget {
+  const AboutUsPr({super.key});
 
   @override
-  State<AboutUsNr> createState() => _AboutUsNrState();
+  State<AboutUsPr> createState() => _AboutUsPrState();
 }
 
-class _AboutUsNrState extends State<AboutUsNr> {
+class _AboutUsPrState extends State<AboutUsPr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,9 @@ class _AboutUsNrState extends State<AboutUsNr> {
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             icon: Icon(
                               CupertinoIcons.back,
                               color: Colors.white,
@@ -82,9 +84,12 @@ class _AboutUsNrState extends State<AboutUsNr> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
                     Text(
                       'Artify :  A digital world for music passionate',
-                      style: TextStyle(fontSize: 24),
+                      style: GoogleFonts.ubuntu(fontSize: 25),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
@@ -94,7 +99,7 @@ class _AboutUsNrState extends State<AboutUsNr> {
                       ' Through this app most of the artists going to be popular in public.'
                       ' The old way of event processes are going to change in this digital world. '
                       'This app help to bring up the artists for popularity and financial stability.',
-                      style: GoogleFonts.ubuntu(fontSize: 14),
+                      style: TextStyle(fontSize: 14,height: 2.5),
                     ),
                   ],
                 ),
@@ -103,6 +108,7 @@ class _AboutUsNrState extends State<AboutUsNr> {
           ),
         ],
       ),
-    ));
+    )
+    );
   }
 }

@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Add_Booking extends StatefulWidget {
-  const Add_Booking({super.key});
+class AddSchedule extends StatefulWidget {
+  const AddSchedule({super.key});
 
   @override
-  State<Add_Booking> createState() => _Add_BookingState();
+  State<AddSchedule> createState() => _AddScheduleState();
 }
 
-class _Add_BookingState extends State<Add_Booking> {
+class _AddScheduleState extends State<AddSchedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _Add_BookingState extends State<Add_Booking> {
         title: Padding(
           padding: const EdgeInsets.only(left: 80),
           child: Text(
-            'Booking',
+            'Schedule',
             style: TextStyle(
                 color: Color.fromRGBO(191, 68, 116, 1),
                 fontWeight: FontWeight.bold),
@@ -144,8 +144,8 @@ class _Add_BookingState extends State<Add_Booking> {
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(18, 5, 5, 5),
-                          child: Text('Book',
+                          padding: const EdgeInsets.fromLTRB(22, 8, 5, 5),
+                          child: Text('Add+',
                               style: GoogleFonts.ubuntu(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,

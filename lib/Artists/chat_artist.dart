@@ -1,16 +1,15 @@
-import 'package:artify_app/NormalUser/artist_profile_check.dart';
+import 'package:artify_app/Artists/chat_artist_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class ChatList extends StatefulWidget {
-  const ChatList({super.key});
+class ChatArtist extends StatefulWidget {
+  const ChatArtist({super.key});
 
   @override
-  State<ChatList> createState() => _ChatListState();
+  State<ChatArtist> createState() => _ChatArtistState();
 }
 
-class _ChatListState extends State<ChatList> {
+class _ChatArtistState extends State<ChatArtist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +58,9 @@ class _ChatListState extends State<ChatList> {
           ),
           Card(
             child: ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatArtistProfile()));
+              },
               leading: Container(
                 child: ClipOval(
                   child: Image.asset(
@@ -70,7 +72,7 @@ class _ChatListState extends State<ChatList> {
                 ),
               ),
               title: Text("Akash"),
-              subtitle: Text("online"),
+              subtitle: Text("online",style: TextStyle(color: Color.fromRGBO(86, 227, 159, 1)),),
             ),
           )
         ],

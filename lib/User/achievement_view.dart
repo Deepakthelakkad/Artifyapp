@@ -1,3 +1,4 @@
+import 'package:artify_app/User/saved_artist_view_pr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,19 +23,27 @@ class _AchievementViewState extends State<AchievementView> {
       throw Exception('Could not launch $_url');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ArtistView()));
-        }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              CupertinoIcons.back,
+              color: Color.fromRGBO(191, 68, 116, 1),
+            )),
         title: Padding(
           padding: const EdgeInsets.only(left: 70),
-          child: Text('Acheivements',style: TextStyle(color: Color.fromRGBO(191, 68, 116, 1),fontWeight: FontWeight.bold),),
+          child: Text(
+            'Acheivements',
+            style: TextStyle(
+                color: Color.fromRGBO(191, 68, 116, 1),
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: Container(
@@ -67,7 +76,9 @@ class _AchievementViewState extends State<AchievementView> {
                           children: [
                             Text(
                               'Shared a collaboration work with Asianet',
-                              style: GoogleFonts.ubuntu(fontSize: 14,color: Color.fromRGBO(42, 40, 40, 1)),
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(42, 40, 40, 1)),
                             ),
                           ],
                         ),
@@ -77,10 +88,17 @@ class _AchievementViewState extends State<AchievementView> {
                           children: [
                             Text(
                               'Asianet Film Award',
-                              style: GoogleFonts.ubuntu(fontSize: 24,),
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 24,
+                              ),
                             ),
-                            IconButton(onPressed:_launchUrl, icon: Icon(CupertinoIcons.link,size: 34,),)
-
+                            IconButton(
+                              onPressed: _launchUrl,
+                              icon: Icon(
+                                CupertinoIcons.link,
+                                size: 34,
+                              ),
+                            )
                           ],
                         ),
                       ],

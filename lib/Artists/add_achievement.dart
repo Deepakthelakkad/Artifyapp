@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChangePasswordpr extends StatefulWidget {
-  const ChangePasswordpr({super.key});
+class AddAchievement extends StatefulWidget {
+  const AddAchievement({super.key});
 
   @override
-  State<ChangePasswordpr> createState() => _ChangePasswordprState();
+  State<AddAchievement> createState() => _AddAchievementState();
 }
 
-class _ChangePasswordprState extends State<ChangePasswordpr> {
+class _AddAchievementState extends State<AddAchievement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,23 +38,14 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                                   color: Colors.white,size: 23,
                                 )),
                           ),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                           Padding(
-                            padding: const EdgeInsets.only(left: 140,top: 30),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Change ',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,fontSize: 20),
-                                ),
-                                Text(
-                                  'Password',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,fontSize: 20),
-                                ),
-                              ],
+                            padding: const EdgeInsets.only(top: 30,left: 70),
+                            child: Text(
+                              'Add Achievement',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,fontSize: 20),
                             ),
                           ),
                         ],
@@ -96,39 +87,42 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Current Password:'),
+                            Text('Content:',style: GoogleFonts.ubuntu(fontSize: 14)),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
                           ],
                         ),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
+                              hintText: 'Enter Content',
                               labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('New Password:'),
+                            Text('Title:',style: GoogleFonts.ubuntu(fontSize: 14)),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
                           ],
                         ),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
+                              hintText: 'Enter Title',
                               labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Re-enter Password:'),
+                            Text('Link:',style: GoogleFonts.ubuntu(fontSize: 14),),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
                           ],
                         ),
                         TextFormField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
+                              hintText: 'Enter your link',
                               labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.3,),

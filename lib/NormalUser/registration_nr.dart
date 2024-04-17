@@ -1,16 +1,16 @@
-import 'package:artify_app/User/user_login_pr.dart';
+import 'package:artify_app/NormalUser/user_login_nr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RegistrationPr extends StatefulWidget {
-  const RegistrationPr({super.key});
+class RegistrationNr extends StatefulWidget {
+  const RegistrationNr({super.key});
 
   @override
-  State<RegistrationPr> createState() => _RegistrationPrState();
+  State<RegistrationNr> createState() => _RegistrationNrState();
 }
 
-class _RegistrationPrState extends State<RegistrationPr> {
+class _RegistrationNrState extends State<RegistrationNr> {
   final List<String> selectedrole = [
     'premium','normal'
   ];
@@ -66,7 +66,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                 contentPadding: EdgeInsets.all(5),
                                 border: UnderlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: Colors.black)),
+                                    BorderSide(color: Colors.black)),
                                 labelText: "FirstName",
                                 labelStyle: TextStyle(color: Colors.black)),
                           ),
@@ -78,7 +78,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Email",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -89,7 +89,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Password",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -100,7 +100,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Re-Enter Password",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -111,7 +111,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Address",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
@@ -122,12 +122,12 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   labelText: "Phone",
                                   labelStyle: TextStyle(color: Colors.black))),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 14,
                         ),
                         Container(
                           width: 155,
@@ -159,14 +159,14 @@ class _RegistrationPrState extends State<RegistrationPr> {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 12,
                         ),
                         InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => UserLogin()));
+                                    builder: (context) => UserLoginNr()));
                           },
                           child: Container(
                             height: 51,

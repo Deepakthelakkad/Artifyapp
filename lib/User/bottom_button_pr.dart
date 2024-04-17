@@ -1,10 +1,10 @@
 
-import 'package:artify_app/User/user_homepage.dart';
-import 'package:artify_app/User/user_profile.dart';
+import 'package:artify_app/User/user_homepage_pr.dart';
+import 'package:artify_app/User/user_profile_pr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'chat_list.dart';
+import 'chat_list_pr.dart';
 
 class BottomButton extends StatefulWidget {
   const BottomButton({super.key});

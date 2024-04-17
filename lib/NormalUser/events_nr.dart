@@ -1,4 +1,3 @@
-import 'package:artify_app/NormalUser/artist_profile_check.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +14,7 @@ class _EventsNrState extends State<EventsNr> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: (){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ArtistProfileCheck()));
+          Navigator.pop(context);
         }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
         title: Padding(
           padding: const EdgeInsets.only(left: 100),

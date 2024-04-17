@@ -42,7 +42,9 @@ class _EditProfileState extends State<EditProfile> {
                   children: [
                     Row(
                       children: [
-                        IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.back,color: Colors.white,size: 25,)),
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(CupertinoIcons.back,color: Colors.white,size: 25,)),
                       ],
                     ),
                   ],
@@ -108,7 +110,9 @@ class _EditProfileState extends State<EditProfile> {
                             labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
-                  InkWell(onTap: (){},
+                  InkWell(onTap: (){
+                    Navigator.pop(context);
+                  },
                     child: Container(
                       height: 50,width: 366,
                       child: Center(

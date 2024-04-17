@@ -1,19 +1,19 @@
-import 'package:artify_app/User/about_us_pr.dart';
-import 'package:artify_app/User/change_password_pr.dart';
-import 'package:artify_app/User/help_pr.dart';
-import 'package:artify_app/User/user_login_pr.dart';
+import 'package:artify_app/NormalUser/about_us_nr.dart';
+import 'package:artify_app/NormalUser/change_password_nr.dart';
+import 'package:artify_app/NormalUser/help_nr.dart';
+import 'package:artify_app/NormalUser/user_login_nr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SettingPr extends StatefulWidget {
-  const SettingPr({super.key});
+class SettingsNr extends StatefulWidget {
+  const SettingsNr({super.key});
 
   @override
-  State<SettingPr> createState() => _SettingPrState();
+  State<SettingsNr> createState() => _SettingsNrState();
 }
 
-class _SettingPrState extends State<SettingPr> {
+class _SettingsNrState extends State<SettingsNr> {
   bool _notificationsEnabled = false;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _SettingPrState extends State<SettingPr> {
                         padding: const EdgeInsets.only(left: 140, top: 30),
                         child: Text(
                           'Settings',
-                          style: TextStyle(
+                          style: GoogleFonts.ubuntu(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
@@ -102,71 +102,78 @@ class _SettingPrState extends State<SettingPr> {
                           child: Column(
                             children: [
                               ListTile(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ChangePasswordpr()));
-                                },
-                                  leading: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: Color(0XFFF18A5C),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Icon(
-                                      CupertinoIcons.lock_fill,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  title: Text(
-                                    'Password',
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  subtitle: Text(
-                                    'Change Password',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
-                                  ),
-                                  trailing:  Icon(CupertinoIcons.forward),
-                                  ),
-                              Divider(
-                                indent: 20,
-                                endIndent: 20,
-                              ),
-                              ListTile(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpPr()));
+                                          builder: (context) =>
+                                              ChangePasswordNr()));
                                 },
                                 leading: Container(
                                   height: 30,
                                   width: 30,
                                   decoration: BoxDecoration(
-                                      color: Color(0XFF5CF198),
+                                      color: Color(0XFFF18A5C),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Icon(
-                                    CupertinoIcons.question_circle_fill,
+                                    CupertinoIcons.lock_fill,
                                     color: Colors.white,
                                   ),
                                 ),
                                 title: Text(
-                                  'Help',
-                                  style: TextStyle(fontSize: 14),
+                                  'Password',
+                                  style: GoogleFonts.ubuntu(fontSize: 14),
                                 ),
                                 subtitle: Text(
-                                  'Report a problem',
-                                  style: TextStyle(
+                                  'Change Password',
+                                  style: GoogleFonts.ubuntu(
                                       fontSize: 12, color: Colors.grey),
                                 ),
-                                trailing:  Icon(CupertinoIcons.forward)),
+                                trailing: Icon(CupertinoIcons.forward),
+                              ),
                               Divider(
                                 indent: 20,
                                 endIndent: 20,
                               ),
                               ListTile(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUsPr()));
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HelpNr()));
+                                  },
+                                  leading: Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        color: Color(0XFF5CF198),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Icon(
+                                      CupertinoIcons.question_circle_fill,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  title: Text(
+                                    'Help',
+                                    style: GoogleFonts.ubuntu(fontSize: 14),
+                                  ),
+                                  subtitle: Text(
+                                    'Report a problem',
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                  trailing: Icon(CupertinoIcons.forward)),
+                              Divider(
+                                indent: 20,
+                                endIndent: 20,
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AboutUsNr()));
                                 },
                                 leading: Container(
                                   height: 30,
@@ -181,14 +188,14 @@ class _SettingPrState extends State<SettingPr> {
                                 ),
                                 title: Text(
                                   'About us',
-                                  style: TextStyle(fontSize: 14),
+                                  style: GoogleFonts.ubuntu(fontSize: 14),
                                 ),
                                 subtitle: Text(
                                   'About application',
-                                  style: TextStyle(
+                                  style: GoogleFonts.ubuntu(
                                       fontSize: 12, color: Colors.grey),
                                 ),
-                                trailing:  Icon(CupertinoIcons.forward),
+                                trailing: Icon(CupertinoIcons.forward),
                               ),
                               Divider(
                                 indent: 20,
@@ -208,11 +215,11 @@ class _SettingPrState extends State<SettingPr> {
                                 ),
                                 title: Text(
                                   'Notification',
-                                  style: TextStyle(fontSize: 14),
+                                  style: GoogleFonts.ubuntu(fontSize: 14),
                                 ),
                                 subtitle: Text(
                                   'App notifications',
-                                  style: TextStyle(
+                                  style: GoogleFonts.ubuntu(
                                       fontSize: 12, color: Colors.grey),
                                 ),
                                 trailing: Switch(
@@ -232,7 +239,10 @@ class _SettingPrState extends State<SettingPr> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.3),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserLoginNr()));
                       },
                       child: Container(
                         height: 50,
@@ -269,6 +279,7 @@ class _SettingPrState extends State<SettingPr> {
           ),
         ],
       ),
-    ));
+    )
+    );
   }
 }

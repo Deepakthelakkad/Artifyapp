@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'artist_view.dart';
-
-
-
-class Acheivement extends StatefulWidget {
-  const Acheivement({super.key});
+class AchievementViewNr extends StatefulWidget {
+  const AchievementViewNr({super.key});
 
   @override
-  State<Acheivement> createState() => _AcheivementState();
+  State<AchievementViewNr> createState() => _AchievementViewNrState();
 }
 
-class _AcheivementState extends State<Acheivement> {
+class _AchievementViewNrState extends State<AchievementViewNr> {
   var feature = "abc";
 
   final Uri _url = Uri.parse('https://flutter.dev');
@@ -24,16 +20,12 @@ class _AcheivementState extends State<Acheivement> {
       throw Exception('Could not launch $_url');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: (){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ArtistView()));
+          Navigator.pop(context);
         }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
         title: Padding(
           padding: const EdgeInsets.only(left: 70),
@@ -79,9 +71,9 @@ class _AcheivementState extends State<Acheivement> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                            'Asianet Film Award',
-                            style: GoogleFonts.ubuntu(fontSize: 24,),
-                          ),
+                              'Asianet Film Award',
+                              style: GoogleFonts.ubuntu(fontSize: 24,),
+                            ),
                             IconButton(onPressed:_launchUrl, icon: Icon(CupertinoIcons.link,size: 34,),)
 
                           ],
