@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:artify_app/Admin/admin_manage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -109,7 +110,9 @@ class _AdminLoginState extends State<AdminLogin> {
                       height: MediaQuery.of(context).size.height * 0.04,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminManage()));
+                      },
                       child: Container(
                         height: 50,
                         width: 366,
@@ -153,6 +156,7 @@ class _AdminLoginState extends State<AdminLogin> {
           ),
         ],
       ),
-    ));
+    )
+    );
   }
 }

@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:artify_app/Artists/schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileArtist extends StatefulWidget {
   const EditProfileArtist({super.key});
@@ -10,6 +15,20 @@ class EditProfileArtist extends StatefulWidget {
 }
 
 class _EditProfileArtistState extends State<EditProfileArtist> {
+  final picker = ImagePicker();
+
+  File? _imageFile;
+
+  Future<void> getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +52,8 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color.fromRGBO(192, 70, 115, 1),
-                      Color.fromRGBO(207, 97, 82, 1),
+                      Color.fromRGBO(68, 160, 196, 1),
+                      Color.fromRGBO(98, 118, 128, 1),
                     ],
                   ),
                 ),
@@ -43,15 +62,83 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Row(
                       children: [
-                        IconButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, icon: Icon(CupertinoIcons.back,color: Colors.white,size: 25,)),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              CupertinoIcons.back,
+                              color: Colors.white,
+                              size: 25,
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Positioned(
+                          top: 0,
+                          child: Container(
+                            width: 90,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: _imageFile != null
+                                    ? FileImage(_imageFile!)
+                                    : const AssetImage('assets/AMLU.png')
+                                        as ImageProvider<Object>,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .04,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Amaleswar",
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Dancer",
+                                  style: GoogleFonts.ubuntu(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 13,
+                                ),
+                                Text(
+                                  "3y exp",
+                                  style: GoogleFonts.ubuntu(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-
             ),
             Positioned(
               top: 170,
@@ -64,89 +151,115 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
                     children: [
                       SizedBox(
                         height: 120,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('Name:'),
-                        ],
+                      TextFormField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: 'Enter your payment',
+                            labelStyle: GoogleFonts.ubuntu(
+                                color: Colors.grey, fontSize: 20)),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            hintText: 'Enter your name',
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter your Bio",
+                            labelStyle: GoogleFonts.ubuntu(
+                                color: Colors.grey, fontSize: 20)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Email",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter your Name",
+                            labelStyle: GoogleFonts.ubuntu(
+                                color: Colors.grey, fontSize: 20)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Mobile number",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Date of Birth",
+                            labelStyle: GoogleFonts.ubuntu(
+                                color: Colors.grey, fontSize: 20)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Date of Birth",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Other Account link",
+                            labelStyle: GoogleFonts.ubuntu(
+                                color: Colors.grey, fontSize: 20)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                      TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Place",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
-                      InkWell(onTap: (){
-                        Navigator.pop(context);
-                      },
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         child: Container(
-                          height: 50,width: 366,
+                          height: 50,
+                          width: 366,
                           child: Center(
-                            child: Text("Submit",style: GoogleFonts.ubuntu(color: Colors.white,fontSize: 20, ),
+                            child: Text(
+                              "Submit",
+                              style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromRGBO(191, 70, 114, 1),
-                              Color.fromRGBO(198, 82, 100, 0.948),
-                            ],
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromRGBO(69, 159, 195, 1),
+                                Color.fromRGBO(81, 162, 194, 1),
+                              ],
+                            ),
                           ),
-                          ),),)
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
             ),
             Positioned(
-                top: 120,
-                left: 0,
-                right: 0,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 80,
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundImage: AssetImage('assets/devanand.png'),
-                  ),
-                )),
+              left: 75,
+              top: 100,
+              child: IconButton(
+                onPressed: () async {
+                  await getImage();
+                },
+                icon: Icon(
+                  CupertinoIcons.plus_circle_fill,
+                  color: Colors.black,
+                  size: 25,
+                ),
+              ),
+            ),
           ],
         ),
       ),
