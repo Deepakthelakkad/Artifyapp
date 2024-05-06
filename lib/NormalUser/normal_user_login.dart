@@ -1,51 +1,19 @@
-import 'package:artify_app/Artists/artist_profile.dart';
-import 'package:artify_app/Artists/artist_registration.dart';
-import 'package:artify_app/Artists/bottum_button_artist.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:artify_app/NormalUser/bottom_button_nr.dart';
+import 'package:artify_app/NormalUser/registration_nr.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class ArtistLogin extends StatefulWidget {
-  const ArtistLogin({super.key});
+class NormalUserLogin extends StatefulWidget {
+  const NormalUserLogin({super.key});
 
   @override
-  State<ArtistLogin> createState() => _ArtistLoginState();
+  State<NormalUserLogin> createState() => _NormalUserLoginState();
 }
 
-class _ArtistLoginState extends State<ArtistLogin> {
+class _NormalUserLoginState extends State<NormalUserLogin> {
   final formkey = GlobalKey<FormState>();
-  var email = TextEditingController();
-  var password = TextEditingController();
-  String id ="";
-  void mechLogin() async {
-    final user = await FirebaseFirestore.instance
-        .collection('ArtReg')
-        .where('email', isEqualTo: email.text)
-        .where('password', isEqualTo: password.text)
-    // .where('status', isEqualTo: 1)
-        .get();
-    if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
-
-
-      SharedPreferences data = await SharedPreferences.getInstance();
-      data.setString('id', id);
-
-
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return ArtistProfile();
-        },
-      ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "username and password error",
-            style: TextStyle(color: Colors.red),
-          )));
-    }
-  }
+  final List<String> selectedrole = ['premium', 'normal'];
+  String selectedValue = "normal";
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -68,7 +36,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                          height: 323,
+                          height: 270,
                           width: 265,
                           child: Image.asset("assets/A12.png"))
                     ],
@@ -108,9 +76,6 @@ class _ArtistLoginState extends State<ArtistLogin> {
                                   labelText: "Email",
                                   labelStyle:
                                       TextStyle(color: Colors.black54))),
-                          SizedBox(
-                            height: 0,
-                          ),
                           TextFormField(
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -128,6 +93,43 @@ class _ArtistLoginState extends State<ArtistLogin> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
+                          Container(
+                            width: 200,
+                            child: DropdownButtonFormField(
+                              value: selectedValue,
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.black)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.black)),
+                                border: InputBorder.none,
+                                hintText: "Select Type",
+                              ),
+                              items: selectedrole
+                                  .map((String e) => DropdownMenuItem<String>(
+                                        value: e,
+                                        child: Text(
+                                          e,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedValue = value!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
                           InkWell(
                             onTap: () {
                               if (formkey.currentState!.validate()) {
@@ -135,7 +137,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            BottomButtonArtist()));
+                                            BottomButtonNr()));
                               }
                             },
                             child: Container(
@@ -161,7 +163,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RegistrationArtist()));
+                                            RegistrationNr()));
                               },
                               child: Text(
                                 'SignUp',

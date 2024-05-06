@@ -1,32 +1,61 @@
 import 'package:artify_app/NormalUser/artist_view_nr.dart';
-import 'package:artify_app/NormalUser/normal_user_profile.dart';
-import 'package:artify_app/NormalUser/saved_artists_view_nr.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SavedArtistNr extends StatefulWidget {
-  const SavedArtistNr({super.key});
+class NormalUserHomepage extends StatefulWidget {
+  const NormalUserHomepage({super.key});
 
   @override
-  State<SavedArtistNr> createState() => _SavedArtistNrState();
+  State<NormalUserHomepage> createState() => _NormalUserHomepageState();
 }
 
-class _SavedArtistNrState extends State<SavedArtistNr> {
+class _NormalUserHomepageState extends State<NormalUserHomepage> {
   var feature = "arun";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70),
-          child: Text('Saved Artists',style: TextStyle(color: Color.fromRGBO(191, 68, 116, 1),fontWeight: FontWeight.bold),),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            // child: Icon(CupertinoIcons.back,color: Color.fromRGBO(194, 74, 107, 1),),
+          ),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 80,top: 10),
+            child: Container(
+              child: Text(
+                "Artists",
+                style:
+                TextStyle(fontSize: 25, color: Color.fromRGBO(194, 74, 107, 1)),
+              ),
+            ),
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(70.0), // Adjust the height as needed
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  hintStyle: TextStyle(color: Color.fromRGBO(164, 172, 173, 1)),
+                  prefixIcon: Icon(Icons.search,color: Color.fromRGBO(164, 172, 173, 1),),
+                  contentPadding: EdgeInsets.symmetric( horizontal: 16.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade900), // Change focused border color
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey), // Change enabled border color
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
-      body: Container(
+        body: Container(
           child: ListView.builder(
               itemCount: feature.length,
               itemBuilder: (context, index) {
@@ -50,7 +79,7 @@ class _SavedArtistNrState extends State<SavedArtistNr> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SavedArtistsViewNr()));
+                                  builder: (context) => ArtistViewNr()));
                         },
                         child: Container(
                           height: 28,
@@ -78,7 +107,8 @@ class _SavedArtistNrState extends State<SavedArtistNr> {
                     ),
                   ),
                 );
-              })
+              }),
+        ),
       ),
     );
   }

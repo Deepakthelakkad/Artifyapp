@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "878879487474",
+    "firebase_url": "https://artify-cd144-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "artify-cd144",
+    "storage_bucket": "artify-cd144.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878879487474:android:fd6422412e0561d163676b",
+        "android_client_info": {
+          "package_name": "com.example.artify_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ZrHTWwq-FLyBruRK9hvC5lJ4ZA5fxLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

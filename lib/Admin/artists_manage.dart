@@ -1,3 +1,5 @@
+import 'package:artify_app/Admin/admin_artist_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,8 +16,16 @@ class _ArtistManageState extends State<ArtistManage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          // child: Icon(CupertinoIcons.back,color: Color.fromRGBO(194, 74, 107, 1),),
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                CupertinoIcons.back,
+                color: Color.fromRGBO(194, 74, 107, 1),size: 23,
+              )),
         ),
         title: Padding(
           padding: const EdgeInsets.only(left: 90),
@@ -37,7 +47,6 @@ class _ArtistManageState extends State<ArtistManage> {
                 child: Card(
                   elevation: 0,
                   child: ListTile(
-
                     leading: Container(
                       child: ClipOval(
                         child: Image.asset(
@@ -71,13 +80,13 @@ class _ArtistManageState extends State<ArtistManage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ArtistViewNr()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdminArtistView()));
                           },
                           child: Container(
                             height: 28,

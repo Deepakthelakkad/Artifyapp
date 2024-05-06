@@ -1,6 +1,8 @@
 import 'package:artify_app/Admin/admin_artist_view.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
+import 'package:artify_app/Admin/artists_manage.dart';
 import 'package:artify_app/Admin/rating.dart';
+import 'package:artify_app/section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,10 +54,10 @@ class _AdminManageState extends State<AdminManage> {
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(left: 130,top: 30),
+                            padding: const EdgeInsets.only(left: 110,top: 30),
                             child: Text(
                               'Manage',
-                              style: TextStyle(
+                              style: GoogleFonts.ubuntu(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,fontSize: 20),
                             ),
@@ -76,7 +78,7 @@ class _AdminManageState extends State<AdminManage> {
                     children: [
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminArtistView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ArtistManage()));
                         },
                         child: Container(
                           height: 80,
@@ -92,7 +94,7 @@ class _AdminManageState extends State<AdminManage> {
                               ],
                             ),
                           ),
-                          child: Center(child: Text('Artists',style: GoogleFonts.ubuntu(fontSize: 60,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
+                          child: Center(child: Text('Artists',style: GoogleFonts.ubuntu(fontSize: 45,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
                         ),
                       ),
                   SizedBox(
@@ -115,7 +117,7 @@ class _AdminManageState extends State<AdminManage> {
                               ],
                             ),
                           ),
-                          child: Center(child: Text('User',style: GoogleFonts.ubuntu(fontSize: 60,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
+                          child: Center(child: Text('User',style: GoogleFonts.ubuntu(fontSize: 45,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
                         ),
                       ),
                   SizedBox(
@@ -138,15 +140,17 @@ class _AdminManageState extends State<AdminManage> {
                               ],
                             ),
                           ),
-                          child: Center(child: Text('Rating & badge',style: GoogleFonts.ubuntu(fontSize: 40,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
+                          child: Center(child: Text('Rating & badge',style: GoogleFonts.ubuntu(fontSize: 35,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
                         ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.1,),
                       Padding(
-                        padding: const EdgeInsets.only(left: 160,top: 144),
+                        padding: const EdgeInsets.only(left: 168,top: 94),
                         child: InkWell(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SectionLogin()));
+                          },
                           child: Container(
                             height: 50,
                             width: 178,

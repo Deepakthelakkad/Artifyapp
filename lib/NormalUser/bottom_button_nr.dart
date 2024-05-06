@@ -1,5 +1,5 @@
-import 'package:artify_app/NormalUser/home_nr_user.dart';
-import 'package:artify_app/NormalUser/profile_nr_user.dart';
+import 'package:artify_app/NormalUser/normal_user_homepage.dart';
+import 'package:artify_app/NormalUser/normal_user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +14,8 @@ class _BottomButtonNrState extends State<BottomButtonNr> {
   int currentindex = 0;
   final pages = [
     const
-    HomeNrUser(),
-    ProfileNormalUser(),
+    NormalUserHomepage(),
+    NormalUserProfile(),
   ];
   @override
   Widget build(BuildContext context) {

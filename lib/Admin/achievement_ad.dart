@@ -28,7 +28,7 @@ class _AchievementAdState extends State<AchievementAd> {
           Navigator.pop(context);
         }, icon: Icon(CupertinoIcons.back,color: Color.fromRGBO(191, 68, 116, 1),)),
         title: Padding(
-          padding: const EdgeInsets.only(left: 70),
+          padding: const EdgeInsets.only(left: 50),
           child: Text('Acheivements',style: TextStyle(color: Color.fromRGBO(191, 68, 116, 1),fontWeight: FontWeight.bold),),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:artify_app/NormalUser/about_us_nr.dart';
 import 'package:artify_app/NormalUser/change_password_nr.dart';
 import 'package:artify_app/NormalUser/help_nr.dart';
-import 'package:artify_app/NormalUser/user_login_nr.dart';
+import 'package:artify_app/NormalUser/normal_user_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +45,7 @@ class _SettingsNrState extends State<SettingsNr> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 140, top: 30),
+                        padding: const EdgeInsets.only(left: 100, top: 30),
                         child: Text(
                           'Settings',
                           style: GoogleFonts.ubuntu(
@@ -98,7 +98,7 @@ class _SettingsNrState extends State<SettingsNr> {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           width: 330,
-                          height: 305,
+                          height: 340,
                           child: Column(
                             children: [
                               ListTile(
@@ -236,13 +236,13 @@ class _SettingsNrState extends State<SettingsNr> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                     InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserLoginNr()));
+                                builder: (context) => NormalUserLogin()));
                       },
                       child: Container(
                         height: 50,

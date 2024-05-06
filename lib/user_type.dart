@@ -1,44 +1,23 @@
 import 'dart:ui';
 
-import 'package:artify_app/Admin/admin_login.dart';
-import 'package:artify_app/Artists/artist_login.dart';
-import 'package:artify_app/Artists/schedule.dart';
+import 'package:artify_app/NormalUser/normal_user_login.dart';
 import 'package:artify_app/User/user_login_pr.dart';
-import 'package:artify_app/user_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SectionLogin extends StatefulWidget {
-  const SectionLogin({super.key});
+class UserType extends StatefulWidget {
+  const UserType({super.key});
 
   @override
-  State<SectionLogin> createState() => _SectionLoginState();
+  State<UserType> createState() => _UserTypeState();
 }
 
-class _SectionLoginState extends State<SectionLogin> {
-  bool isVisible = false;
-
-  void toggleVisibility() {
-    setState(() {
-      isVisible = !isVisible;
-    });
-  }
+class _UserTypeState extends State<UserType> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(automaticallyImplyLeading: false,
-      //   backgroundColor: Color.fromRGBO(106, 172, 197, 1),
-      //   actions: [
-      //     PopupMenuButton(itemBuilder: (context)=>[
-      //       PopupMenuItem(child: Container(
-      //         decoration: BoxDecoration(color: Colors.blue),
-      //         child: Text('Admin',style: TextStyle(color: Colors.white),),
-      //       ))
-      //     ],
-      //     )
-      //   ],
-      // ),
         body: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(103, 169, 193, 1),
               image: DecorationImage(
@@ -72,44 +51,14 @@ class _SectionLoginState extends State<SectionLogin> {
                   ),
                 ),
               ),
+              Positioned(child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.ellipsis_vertical,color: Colors.white,size: 30,))
+                ],
+              )),
               Positioned(
-                top: 30,
-                right: 0,
-                child: Row(
-                  children: [
-                    Visibility(
-                      visible: isVisible,
-                      child: InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminLogin()));
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: Colors.blue,),
-                          width: 125,
-                          height: 30,
-                          margin: EdgeInsets.all(5),
-                          padding: EdgeInsets.all(3),
-                          child: Row(
-                            children: [
-                              Icon(CupertinoIcons.person_crop_rectangle,color: Colors.white,),
-                              Text(
-                                ' Admin Login',
-                                style: GoogleFonts.ubuntu(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: toggleVisibility,
-                      icon: Icon(CupertinoIcons.ellipsis_vertical, color: Colors.white, size: 30),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 300,
+                top: 320,
                 left: 20,
                 right: 20,
                 child: Container(
@@ -125,18 +74,18 @@ class _SectionLoginState extends State<SectionLogin> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.056,
+                          height: MediaQuery.of(context).size.height * 0.04,
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ArtistLogin()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));
                           },
                           child: Container(
                             height: 78,
                             width: 197,
                             child: Center(
                               child: Text(
-                                "ARTIST",
+                                "Premium",
                                 style: GoogleFonts.rosario(
                                   color: Colors.black,
                                   fontSize: 32,
@@ -144,8 +93,8 @@ class _SectionLoginState extends State<SectionLogin> {
                               ),
                             ),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white
                             ),
                           ),
                         ),
@@ -154,14 +103,14 @@ class _SectionLoginState extends State<SectionLogin> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserType()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NormalUserLogin()));
                           },
                           child: Container(
                             height: 78,
                             width: 197,
                             child: Center(
                               child: Text(
-                                "USER",
+                                "Normal",
                                 style: GoogleFonts.rosario(
                                   color: Colors.black,
                                   fontSize: 32,

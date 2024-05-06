@@ -1,5 +1,7 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class EventAd extends StatefulWidget {
   const EventAd({super.key});
@@ -9,6 +11,17 @@ class EventAd extends StatefulWidget {
 }
 
 class _EventAdState extends State<EventAd> {
+  late FlickManager flickManager;
+  @override
+  void initState() {
+    super.initState();
+    flickManager = FlickManager(
+        videoPlayerController: VideoPlayerController.networkUrl(Uri.parse(
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+        ),
+        autoPlay: false
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +34,20 @@ class _EventAdState extends State<EventAd> {
           child: Text('Events',style: TextStyle(color: Color.fromRGBO(191, 68, 116, 1),fontWeight: FontWeight.bold),),
         ),
       ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 100,
+            ),
+            Center(
+              child: Container(
+                width: 200,
+                height: 200,
+                child: FlickVideoPlayer(flickManager: flickManager),
+              ),
+            )
+          ],
+        )
     );
   }
 }

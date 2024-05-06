@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfileNormalUser extends StatefulWidget {
-  const ProfileNormalUser({super.key});
+class NormalUserProfile extends StatefulWidget {
+  const NormalUserProfile({super.key});
 
   @override
-  State<ProfileNormalUser> createState() => _ProfileNormalUserState();
+  State<NormalUserProfile> createState() => _NormalUserProfileState();
 }
 
-class _ProfileNormalUserState extends State<ProfileNormalUser> {
+class _NormalUserProfileState extends State<NormalUserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class _ProfileNormalUserState extends State<ProfileNormalUser> {
         child: Column(
           children: [
             Container(
-              height: 150,
+              height: 165,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image:
@@ -38,16 +38,19 @@ class _ProfileNormalUserState extends State<ProfileNormalUser> {
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(onPressed: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SettingsNr()));
-                      }, icon: Icon(CupertinoIcons.square_grid_2x2_fill,color: Colors.white,size: 30,)),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30,right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingsNr()));
+                        }, icon: Icon(CupertinoIcons.square_grid_2x2_fill,color: Colors.white,size: 30,)),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -56,8 +59,8 @@ class _ProfileNormalUserState extends State<ProfileNormalUser> {
                         child: ClipOval(
                           child: Image.asset(
                             "assets/devanand.png",
-                            height: 100,
-                            width: 100,
+                            height: 80,
+                            width: 80,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -160,7 +163,7 @@ class _ProfileNormalUserState extends State<ProfileNormalUser> {
               ),
             ),
             SizedBox(
-              height: 100,
+              height: 80,
             ),
             InkWell(
                 onTap: () {

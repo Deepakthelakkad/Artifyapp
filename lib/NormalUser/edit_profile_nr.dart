@@ -40,12 +40,15 @@ class _EditProfileNrState extends State<EditProfileNr> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        IconButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, icon: Icon(CupertinoIcons.back,color: Colors.white,size: 25,)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Row(
+                        children: [
+                          IconButton(onPressed: (){
+                            Navigator.pop(context);
+                          }, icon: Icon(CupertinoIcons.back,color: Colors.white,size: 25,)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -69,47 +72,41 @@ class _EditProfileNrState extends State<EditProfileNr> {
                       SizedBox(
                         height: 120,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('Name:'),
-                        ],
-                      ),
                       TextFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                             hintText: 'Enter your name',
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                       TextFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Email",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintText: "Email",
+                            hintStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                       TextFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Mobile number",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintText: "Mobile number",
+                            hintStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                       TextFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Date of Birth",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintText: "Date of Birth",
+                            hintStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                       TextFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                            labelText: "Place",
-                            labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                            hintText: "Place",
+                            hintStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
                       InkWell(onTap: (){
                         Navigator.pop(context);
                       },
