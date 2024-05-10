@@ -1,4 +1,5 @@
 import 'package:artify_app/Artists/artist_login.dart';
+import 'package:artify_app/Artists/bottum_button_artist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,9 +19,9 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
   var reenterpassword = TextEditingController();
   var address = TextEditingController();
   var phone = TextEditingController();
-  var socialmediaid = TextEditingController();
+  var place = TextEditingController();
   var feeperprogram = TextEditingController();
-  var city = TextEditingController();
+  var exp = TextEditingController();
 
   Future<dynamic> Artreg() async {
     await FirebaseFirestore.instance.collection("ArtReg").add({
@@ -30,14 +31,18 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
       "Re-enter password": reenterpassword.text,
       "Address": address.text,
       "Phone": phone.text,
-      "Social media id": socialmediaid.text,
+      "Place": place.text,
       "Fee per program": feeperprogram.text,
-      "city": city.text,
-
+      "Experience": exp.text,
+      "Category": selectedvalue,
     });
     print('done');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ArtistLogin()));
   }
 
+  List<String> locationlist = ['Dancer', 'Musician', 'Singer'];
+  String? selectedvalue;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -98,8 +103,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                   border: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black)),
-                                  labelText: "Name",
-                                  labelStyle: TextStyle(color: Colors.black)),
+                                  hintText: "Name",
+                                  hintStyle: TextStyle(color: Colors.black)),
                             ),
                           ),
                           Container(
@@ -117,9 +122,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Email",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Email",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
@@ -135,9 +139,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Password",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Password",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
@@ -153,9 +156,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Re-Enter Password",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Re-Enter Password",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
@@ -171,9 +173,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Address",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Address",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
@@ -190,14 +191,13 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Phone",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Phone",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
                             child: TextFormField(
-                                controller: socialmediaid,
+                                controller: place,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter required details";
@@ -208,9 +208,46 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Social Media Id",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Place",
+                                    hintStyle: TextStyle(color: Colors.black))),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 314,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Colors.transparent,
+                                ),
+                                child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    elevation: 0,
+                                    dropdownColor: Color(0XFF68AAC2),
+                                    hint: const Text(
+                                      "Category",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    underline: const SizedBox(),
+                                    value: selectedvalue,
+                                    items: locationlist.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                          value: value, child: Text(value));
+                                    }).toList(),
+                                    onChanged: (newvalue) {
+                                      setState(() {
+                                        selectedvalue = newvalue;
+                                        print(selectedvalue);
+                                      });
+                                    },
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10)),
+                              ),
+                            ],
                           ),
                           Container(
                             height: 50,
@@ -221,19 +258,19 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     return "Enter required details";
                                   }
                                 },
+                                keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Fee per Program",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Fee per Program",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           Container(
                             height: 50,
                             child: TextFormField(
-                                controller: city,
+                                controller: exp,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter required details";
@@ -244,9 +281,8 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "City",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Experience",
+                                    hintStyle: TextStyle(color: Colors.black))),
                           ),
                           SizedBox(
                             height: 12,
@@ -254,7 +290,25 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                           InkWell(
                             onTap: () {
                               if (formkey.currentState!.validate()) {
-                                Artreg();
+                                if (password.text == reenterpassword.text) {
+                                  if (selectedvalue == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                            content: Text(
+                                      "Select category",
+                                      style: TextStyle(color: Colors.red),
+                                    )));
+                                  } else {
+                                    Artreg();
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                          content: Text(
+                                    "password donot match",
+                                    style: TextStyle(color: Colors.red),
+                                  )));
+                                }
                               }
                             },
                             child: Container(

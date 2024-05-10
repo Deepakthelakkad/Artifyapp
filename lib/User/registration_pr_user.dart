@@ -1,4 +1,5 @@
 import 'package:artify_app/User/user_login_pr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,182 +12,267 @@ class RegistrationPr extends StatefulWidget {
 }
 
 class _RegistrationPrState extends State<RegistrationPr> {
-  final List<String> selectedrole = [
-    'premium','normal'
-  ];
-  String selectedValue = "normal";
+  List<String> locationlist = ['Normal', 'Premium'];
+  String? selectedvalue;
+  final formkey = GlobalKey<FormState>();
+  var name = TextEditingController();
+  var email = TextEditingController();
+  var password = TextEditingController();
+  var reenterpassword = TextEditingController();
+  var address = TextEditingController();
+  var phone = TextEditingController();
+
+  Future<dynamic> Premiumreg() async {
+    await FirebaseFirestore.instance.collection("PremiumReg").add({
+      "Name": name.text,
+      "Email": email.text,
+      "Password": password.text,
+      "Re-enter password": reenterpassword.text,
+      "Address": address.text,
+      "Phone": phone.text,
+      "Category": selectedvalue,
+    });
+    print('done');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => UserLogin()));
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Color(0XFF68AAC2),
-            image: DecorationImage(
-                image: AssetImage('assets/regman.png'),
-                fit: BoxFit.none,
-                alignment: Alignment.bottomLeft)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 32),
-                  child: Container(
-                    child: Text(
-                      'Registration',
-                      style: TextStyle(fontSize: 28),
+    return Form(
+      key: formkey,
+      child: Scaffold(
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: Color(0XFF68AAC2),
+              image: DecorationImage(
+                  image: AssetImage('assets/regman.png'),
+                  fit: BoxFit.none,
+                  alignment: Alignment.bottomLeft)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32),
+                    child: Container(
+                      child: Text(
+                        'Registration',
+                        style: TextStyle(fontSize: 28),
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        height: 112,
-                        width: 114,
-                        child: Image.asset("assets/A13.png"))
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 50,
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(5),
-                                border: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                labelText: "FirstName",
-                                labelStyle: TextStyle(color: Colors.black)),
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          child: TextFormField(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          height: 112,
+                          width: 114,
+                          child: Image.asset("assets/A13.png"))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                              controller: name,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Enter required details";
+                                }
+                              },
                               decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black)),
-                                  labelText: "Email",
-                                  labelStyle: TextStyle(color: Colors.black))),
-                        ),
-                        Container(
-                          height: 50,
-                          child: TextFormField(
-                              decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(5),
-                                  border: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
-                                  labelText: "Password",
-                                  labelStyle: TextStyle(color: Colors.black))),
-                        ),
-                        Container(
-                          height: 50,
-                          child: TextFormField(
-                              decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(5),
-                                  border: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
-                                  labelText: "Re-Enter Password",
-                                  labelStyle: TextStyle(color: Colors.black))),
-                        ),
-                        Container(
-                          height: 50,
-                          child: TextFormField(
-                              decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(5),
-                                  border: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
-                                  labelText: "Address",
-                                  labelStyle: TextStyle(color: Colors.black))),
-                        ),
-                        Container(
-                          height: 50,
-                          child: TextFormField(
-                              decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(5),
-                                  border: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
-                                  labelText: "Phone",
-                                  labelStyle: TextStyle(color: Colors.black))),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: 155,
-                          child: DropdownButtonFormField(
-                            value: selectedValue,
-                            decoration: const InputDecoration(
-                              contentPadding:
-                              EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.black)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.black)),
-                              border: InputBorder.none,
-                              hintText: "Blood Type",
+                                  labelText: "Name",
+                                  labelStyle: TextStyle(color: Colors.black)),
                             ),
-                            items: selectedrole.map((String e) => DropdownMenuItem<String>(
-                              value: e,
-                              child: Text(e,style: TextStyle(color: Colors.white,backgroundColor: Color(0XFF1D2C6F),),),
-                            ))
-                                .toList(),
-
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedValue = value!;
-                              });
+                          ),
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                                controller: email,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter required details";
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(5),
+                                    border: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black)),
+                                    labelText: "Email",
+                                    labelStyle: TextStyle(color: Colors.black))),
+                          ),
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                                controller: password,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter required details";
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(5),
+                                    border: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black)),
+                                    labelText: "Password",
+                                    labelStyle: TextStyle(color: Colors.black))),
+                          ),
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                                controller: reenterpassword,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter required details";
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(5),
+                                    border: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black)),
+                                    labelText: "Re-Enter Password",
+                                    labelStyle: TextStyle(color: Colors.black))),
+                          ),
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                                controller: address,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter required details";
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(5),
+                                    border: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black)),
+                                    labelText: "Address",
+                                    labelStyle: TextStyle(color: Colors.black))),
+                          ),
+                          Container(
+                            height: 50,
+                            child: TextFormField(
+                                controller: phone,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter required details";
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(5),
+                                    border: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black)),
+                                    labelText: "Phone",
+                                    labelStyle: TextStyle(color: Colors.black))),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 314,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Colors.transparent,
+                                ),
+                                child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    elevation: 0,
+                                    dropdownColor: Color(0XFF68AAC2),
+                                    hint: const Text(
+                                      "Category",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    underline: const SizedBox(),
+                                    value: selectedvalue,
+                                    items: locationlist.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                          value: value, child: Text(value));
+                                    }).toList(),
+                                    onChanged: (newvalue) {
+                                      setState(() {
+                                        selectedvalue = newvalue;
+                                        print(selectedvalue);
+                                      });
+                                    },
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              if (formkey.currentState!.validate()) {
+                                if (password.text == reenterpassword.text) {
+                                  if (selectedvalue == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                        content: Text(
+                                          "Select category",
+                                          style: TextStyle(color: Colors.red),
+                                        )));
+                                  } else {
+                                    Premiumreg();
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                      content: Text(
+                                        "password donot match",
+                                        style: TextStyle(color: Colors.red),
+                                      )));
+                                }
+                              }
                             },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserLogin()));
-                          },
-                          child: Container(
-                            height: 51,
-                            width: 190,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white,
-                            ),
-                            child: Center(
-                              child: Text("SignUp",
-                                  style: GoogleFonts.ubuntu(
-                                      color: Colors.black, fontSize: 32)),
+                            child: Container(
+                              height: 51,
+                              width: 190,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: Text("SignUp",
+                                    style: GoogleFonts.ubuntu(
+                                        color: Colors.black, fontSize: 32)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

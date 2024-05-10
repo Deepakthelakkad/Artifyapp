@@ -18,12 +18,12 @@ class _ArtistLoginState extends State<ArtistLogin> {
   var email = TextEditingController();
   var password = TextEditingController();
   String id ="";
-  void mechLogin() async {
+  void artLogin() async {
     final user = await FirebaseFirestore.instance
         .collection('ArtReg')
-        .where('email', isEqualTo: email.text)
-        .where('password', isEqualTo: password.text)
-    // .where('status', isEqualTo: 1)
+        .where('Email', isEqualTo: email.text)
+        .where('Password', isEqualTo: password.text)
+
         .get();
     if (user.docs.isNotEmpty) {
       id = user.docs[0].id;
@@ -35,7 +35,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
 
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return ArtistProfile();
+          return BottomButtonArtist();
         },
       ));
     } else {
@@ -83,19 +83,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                       child: Column(
                         children: [
                           TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter required details";
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                border: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                labelText: "UserName",
-                                labelStyle: TextStyle(color: Colors.black54)),
-                          ),
-                          TextFormField(
+                            controller: email,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -112,6 +100,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                             height: 0,
                           ),
                           TextFormField(
+                            controller: password,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -131,11 +120,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
                           InkWell(
                             onTap: () {
                               if (formkey.currentState!.validate()) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomButtonArtist()));
+                                artLogin();
                               }
                             },
                             child: Container(

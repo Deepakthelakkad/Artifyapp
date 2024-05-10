@@ -1,7 +1,9 @@
 import 'package:artify_app/NormalUser/bottom_button_nr.dart';
 import 'package:artify_app/NormalUser/registration_nr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NormalUserLogin extends StatefulWidget {
   const NormalUserLogin({super.key});
@@ -12,6 +14,37 @@ class NormalUserLogin extends StatefulWidget {
 
 class _NormalUserLoginState extends State<NormalUserLogin> {
   final formkey = GlobalKey<FormState>();
+  var email = TextEditingController();
+  var password = TextEditingController();
+  String id ="";
+  void normLogin() async {
+    final user = await FirebaseFirestore.instance
+        .collection('NormalReg')
+        .where('Email', isEqualTo: email.text)
+        .where('Password', isEqualTo: password.text)
+    // .where('status', isEqualTo: 1)
+        .get();
+    if (user.docs.isNotEmpty) {
+      id = user.docs[0].id;
+
+
+      SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('id', id);
+
+
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return BottomButtonNr();
+        },
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "username and password error",
+            style: TextStyle(color: Colors.red),
+          )));
+    }
+  }
   final List<String> selectedrole = ['premium', 'normal'];
   String selectedValue = "normal";
   @override
@@ -29,6 +62,7 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -51,19 +85,7 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
                       child: Column(
                         children: [
                           TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter required details";
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                border: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                labelText: "UserName",
-                                labelStyle: TextStyle(color: Colors.black54)),
-                          ),
-                          TextFormField(
+                            controller: email,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -77,6 +99,7 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
                                   labelStyle:
                                       TextStyle(color: Colors.black54))),
                           TextFormField(
+                            controller: password,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -93,51 +116,10 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
-                          Container(
-                            width: 200,
-                            child: DropdownButtonFormField(
-                              value: selectedValue,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                border: InputBorder.none,
-                                hintText: "Select Type",
-                              ),
-                              items: selectedrole
-                                  .map((String e) => DropdownMenuItem<String>(
-                                        value: e,
-                                        child: Text(
-                                          e,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value!;
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
                           InkWell(
                             onTap: () {
                               if (formkey.currentState!.validate()) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomButtonNr()));
+                                normLogin();
                               }
                             },
                             child: Container(
@@ -175,6 +157,7 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
+
                         ],
                       ),
                     ),

@@ -1,9 +1,11 @@
 import 'package:artify_app/User/bottom_button_pr.dart';
 import 'package:artify_app/User/registration_pr_user.dart';
 import 'package:artify_app/User/user_homepage_pr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
@@ -14,6 +16,36 @@ class UserLogin extends StatefulWidget {
 
 class _UserLoginState extends State<UserLogin> {
   final formkey = GlobalKey<FormState>();
+  var email = TextEditingController();
+  var password = TextEditingController();
+  String id ="";
+  void premiumLogin() async {
+    final user = await FirebaseFirestore.instance
+        .collection('PremiumReg')
+        .where('Email', isEqualTo: email.text)
+        .where('Password', isEqualTo: password.text)
+    // .where('status', isEqualTo: 1)
+        .get();
+    if (user.docs.isNotEmpty) {
+      id = user.docs[0].id;
+
+      SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('id', id);
+
+
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return BottomButton();
+        },
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "username and password error",
+            style: TextStyle(color: Colors.red),
+          )));
+    }
+  }
   final List<String> selectedrole = ['premium', 'normal'];
   String selectedValue = "normal";
   @override
@@ -52,20 +84,9 @@ class _UserLoginState extends State<UserLogin> {
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Column(
                         children: [
+
                           TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter required details";
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                border: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                labelText: "UserName",
-                                labelStyle: TextStyle(color: Colors.black54)),
-                          ),
-                          TextFormField(
+                            controller: email,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -79,6 +100,7 @@ class _UserLoginState extends State<UserLogin> {
                                   labelStyle:
                                       TextStyle(color: Colors.black54))),
                           TextFormField(
+                            controller: password,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter required details";
@@ -95,50 +117,10 @@ class _UserLoginState extends State<UserLogin> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
-                          Container(
-                            width: 200,
-                            child: DropdownButtonFormField(
-                              value: selectedValue,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                border: InputBorder.none,
-                                hintText: "Select Type",
-                              ),
-                              items: selectedrole
-                                  .map((String e) => DropdownMenuItem<String>(
-                                        value: e,
-                                        child: Text(
-                                          e,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value!;
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
                           InkWell(
                             onTap: () {
                               if (formkey.currentState!.validate()) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => BottomButton()));
+                                premiumLogin();
                               }
                             },
                             child: Container(
