@@ -40,7 +40,7 @@ class _AboutUsArtistState extends State<AboutUsArtist> {
                                 )),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 130, top: 30),
+                            padding: const EdgeInsets.only(left: 100, top: 30),
                             child: Text(
                               'About us',
                               style: GoogleFonts.ubuntu(

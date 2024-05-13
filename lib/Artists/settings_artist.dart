@@ -99,7 +99,7 @@ class _SettingsArtistState extends State<SettingsArtist> {
                             borderRadius: BorderRadius.circular(20),
                             child: Container(
                               width: 330,
-                              height: 385,
+                              height: 425,
                               child: Column(
                                 children: [
                                   ListTile(
@@ -114,10 +114,10 @@ class _SettingsArtistState extends State<SettingsArtist> {
                                       height: 30,
                                       width: 30,
                                       decoration: BoxDecoration(
-                                          color: Color(0XFFF18A5C),
+                                          color: Color(0XFF5CCBF1),
                                           borderRadius: BorderRadius.circular(10)),
                                       child: Icon(
-                                        CupertinoIcons.lock_fill,
+                                        CupertinoIcons.pencil_ellipsis_rectangle,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -271,7 +271,7 @@ class _SettingsArtistState extends State<SettingsArtist> {
                             ),
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -300,8 +300,8 @@ class _SettingsArtistState extends State<SettingsArtist> {
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Color.fromRGBO(123, 191, 69, 1),
-                                  Color.fromRGBO(126, 203, 64, 1),
+                                  Color.fromRGBO(222, 49, 49, 1),
+                                  Color.fromRGBO(182, 34, 34, 1),
                                 ],
                               ),
                             ),

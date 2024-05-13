@@ -39,7 +39,7 @@ class _ChangePasswordArtistState extends State<ChangePasswordArtist> {
                                 )),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 140,top: 30),
+                            padding: const EdgeInsets.only(left: 100,top: 30),
                             child: Column(
                               children: [
                                 Text(

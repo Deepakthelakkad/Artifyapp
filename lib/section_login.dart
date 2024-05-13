@@ -154,7 +154,7 @@ class _SectionLoginState extends State<SectionLogin> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserType()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));
                           },
                           child: Container(
                             height: 78,

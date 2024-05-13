@@ -56,7 +56,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
             child: Column(
               children: [
                 Container(
-                  height: 200,
+                  height: 210,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
@@ -75,23 +75,23 @@ class _ArtistProfileState extends State<ArtistProfile> {
                   ),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SettingsArtist()));
-                            },
-                            icon: Icon(
-                              CupertinoIcons.square_grid_2x2_fill,
-                              color: Colors.white,
-                              size: 30,
-                            )),
-                      ),
-                      SizedBox(
-                        height: 9,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SettingsArtist()));
+                              },
+                              icon: Icon(
+                                CupertinoIcons.square_grid_2x2_fill,
+                                color: Colors.white,
+                                size: 30,
+                              )),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -172,7 +172,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
                           Text(
                             artist!["Fee per program"],
                             style: GoogleFonts.ubuntu(
-                              fontSize: 15,
+                              fontSize: 24,
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                             ),
@@ -183,25 +183,53 @@ class _ArtistProfileState extends State<ArtistProfile> {
                   ),
                 ),
                 SizedBox(
-                  height: 12,
+                  height: 5,
                 ),
-                Container(
-                  child: Card(
-                    color: Colors.red.shade50,
-                    surfaceTintColor: Colors.deepOrange.shade50,
-                    elevation: 4,
-                    child: ListTile(
-                      leading: Text(
-                        "Place",
-                        style: GoogleFonts.ubuntu(
-                            fontSize: 15,
-                            color: Color.fromRGBO(134, 135, 142, 1)),
-                      ),
-                      trailing: Text(
-                        artist!["Place"],
-                        style: GoogleFonts.ubuntu(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
-                      ),
+                Card(
+                  color: Colors.red.shade50,
+                  surfaceTintColor: Colors.deepOrange.shade50,
+                  elevation: 4,
+                  child:artist!["Bio"]==null?ListTile(
+                    leading: Text(
+                      "Bio",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15,
+                          color: Color.fromRGBO(134, 135, 142, 1)),
+                    ),
+                    trailing: Text(
+                      "",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
+                  ): ListTile(
+                    leading: Text(
+                      "Bio",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15,
+                          color: Color.fromRGBO(134, 135, 142, 1)),
+                    ),
+                    trailing: Text(
+                      artist!['Bio'],
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
+                  ),
+                ),
+                Card(
+                  color: Colors.red.shade50,
+                  surfaceTintColor: Colors.deepOrange.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Text(
+                      "Place",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15,
+                          color: Color.fromRGBO(134, 135, 142, 1)),
+                    ),
+                    trailing: Text(
+                      artist!["Place"],
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
                     ),
                   ),
                 ),
@@ -231,12 +259,12 @@ class _ArtistProfileState extends State<ArtistProfile> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
                     children: [
                       Container(
                         height: 225,
-                        width: 150,
+                        width: 155,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage('assets/Eventss.png'),
@@ -321,7 +349,7 @@ class _ArtistProfileState extends State<ArtistProfile> {
                           MaterialPageRoute(builder: (context) => Schedule()));
                     },
                     child: Container(
-                      height: 87,
+                      height: 72,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: LinearGradient(

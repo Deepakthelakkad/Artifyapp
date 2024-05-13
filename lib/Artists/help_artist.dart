@@ -39,7 +39,7 @@ class _HelpArtistState extends State<HelpArtist> {
                                 )),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 140,top: 30),
+                            padding: const EdgeInsets.only(left: 120,top: 30),
                             child: Text(
                               'Help',
                               style: GoogleFonts.ubuntu(
@@ -99,7 +99,7 @@ class _HelpArtistState extends State<HelpArtist> {
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.4,),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
                         InkWell(onTap: (){
                           Navigator.pop(context);
                         },

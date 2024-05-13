@@ -50,7 +50,7 @@ class _ArtistManageState extends State<ArtistManage> {
               itemCount: artist.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                   child: Card(
                     elevation: 0,
                     child: ListTile(
@@ -69,10 +69,9 @@ class _ArtistManageState extends State<ArtistManage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ArtistViewNr()));
+                              setState(() {
+                                FirebaseFirestore.instance.collection("ArtReg").doc(artist[index].id).delete();
+                              });
                             },
                             child: Container(
                               height: 28,

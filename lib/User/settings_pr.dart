@@ -98,7 +98,7 @@ class _SettingPrState extends State<SettingPr> {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           width: 330,
-                          height: 305,
+                          height: 336,
                           child: Column(
                             children: [
                               ListTile(
@@ -229,7 +229,7 @@ class _SettingPrState extends State<SettingPr> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                     InkWell(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));

@@ -35,6 +35,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
       "Fee per program": feeperprogram.text,
       "Experience": exp.text,
       "Category": selectedvalue,
+      "Bio":'',
     });
     print('done');
     Navigator.push(
