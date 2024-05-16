@@ -31,6 +31,7 @@ class _RegistrationPrState extends State<RegistrationPr> {
       "Address": address.text,
       "Phone": phone.text,
       "Category": selectedvalue,
+      "Premium":1,
     });
     print('done');
     Navigator.push(
@@ -96,8 +97,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   border: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black)),
-                                  labelText: "Name",
-                                  labelStyle: TextStyle(color: Colors.black)),
+                                  hintText: "Name",
+                                  hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
                             ),
                           ),
                           Container(
@@ -114,8 +115,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Email",
-                                    labelStyle: TextStyle(color: Colors.black))),
+                                    hintText: "Email",
+                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -131,8 +132,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Password",
-                                    labelStyle: TextStyle(color: Colors.black))),
+                                    hintText: "Password",
+                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -148,8 +149,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Re-Enter Password",
-                                    labelStyle: TextStyle(color: Colors.black))),
+                                    hintText: "Re-Enter Password",
+                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -165,8 +166,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Address",
-                                    labelStyle: TextStyle(color: Colors.black))),
+                                    hintText: "Address",
+                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -182,8 +183,8 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Phone",
-                                    labelStyle: TextStyle(color: Colors.black))),
+                                    hintText: "Phone",
+                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(
                             height: 10,

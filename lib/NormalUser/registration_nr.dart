@@ -96,8 +96,8 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                   border: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black)),
-                                  labelText: "Name",
-                                  labelStyle: TextStyle(color: Colors.black)),
+                                  hintText: "Name",
+                                  hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
                             ),
                           ),
                           Container(
@@ -114,9 +114,9 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Email",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Email",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -132,9 +132,9 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Password",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Password",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -150,9 +150,9 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Re-Enter Password",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Re-Enter Password",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -168,9 +168,9 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Address",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Address",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -186,28 +186,29 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                     border: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
-                                    labelText: "Phone",
-                                    labelStyle:
-                                        TextStyle(color: Colors.black))),
+                                    hintText: "Phone",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(
                             height: 14,
                           ),
                           Container(
-                            width: 200,
+                            width: 314,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.transparent,
+                            ),
                             child: DropdownButtonFormField(
                               value: selectedValue,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                                border: InputBorder.none,
-                                hintText: "Select Type",
+                              dropdownColor: Color(0XFF68AAC2),
+                              hint: const Text(
+                                "Category",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal),
                               ),
                               items: selectedrole
                                   .map((String e) => DropdownMenuItem<String>(
@@ -216,6 +217,7 @@ class _RegistrationNrState extends State<RegistrationNr> {
                                           e,
                                           style: TextStyle(
                                             color: Colors.black,
+
                                           ),
                                         ),
                                       ))
@@ -235,7 +237,17 @@ class _RegistrationNrState extends State<RegistrationNr> {
                               ? InkWell(
                                   onTap: () {
                                     if (formkey.currentState!.validate()) {
-                                      Normalreg();
+                                      if (password.text == reenterpassword.text) {
+                                        Normalreg();
+                                      }
+                                      else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                            content: Text(
+                                              "password donot match",
+                                              style: TextStyle(color: Colors.red),
+                                            )));
+                                      }
                                     }
                                   },
                                   child: Container(

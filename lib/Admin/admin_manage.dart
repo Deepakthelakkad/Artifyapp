@@ -2,6 +2,7 @@ import 'package:artify_app/Admin/admin_artist_view.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
 import 'package:artify_app/Admin/artists_manage.dart';
 import 'package:artify_app/Admin/rating.dart';
+import 'package:artify_app/Admin/user_manage.dart';
 import 'package:artify_app/section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class _AdminManageState extends State<AdminManage> {
                     height: MediaQuery.of(context).size.height * 0.1,),
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminUserView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>UserManage()));
                         },
                         child: Container(
                           height: 80,
