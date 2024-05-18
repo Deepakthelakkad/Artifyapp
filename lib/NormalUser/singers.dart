@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../User/artist_view.dart';
+
 class Singers extends StatefulWidget {
   const Singers({super.key});
 
@@ -34,7 +36,7 @@ class _SingersState extends State<Singers> {
                         leading: Container(
                           child: ClipOval(
                             child: Image.asset(
-                              "assets/AMLU.png",
+                              "assets/pp.png",
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,
@@ -42,7 +44,13 @@ class _SingersState extends State<Singers> {
                           ),
                         ),
                         trailing: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ArtistView(id: artist[index].id)));
+                          },
                           child: Container(
                             height: 28,
                             width: 54,

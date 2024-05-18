@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../User/artist_view.dart';
+import 'artist_view.dart';
 
-class Musicians extends StatefulWidget {
-  const Musicians({super.key});
+class MusiciansPre extends StatefulWidget {
+  const MusiciansPre({super.key});
 
   @override
-  State<Musicians> createState() => _MusiciansState();
+  State<MusiciansPre> createState() => _MusiciansPreState();
 }
 
-class _MusiciansState extends State<Musicians> {
+class _MusiciansPreState extends State<MusiciansPre> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +62,7 @@ class _MusiciansState extends State<Musicians> {
                               padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                               child: Text("Check",
                                   style:
-                                      GoogleFonts.ubuntu(color: Colors.white)),
+                                  GoogleFonts.ubuntu(color: Colors.white)),
                             ),
                           ),
                         ),

@@ -45,7 +45,7 @@ class _SettingPrState extends State<SettingPr> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 140, top: 30),
+                        padding: const EdgeInsets.only(left: 110, top: 30),
                         child: Text(
                           'Settings',
                           style: TextStyle(
@@ -255,8 +255,8 @@ class _SettingPrState extends State<SettingPr> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Color.fromRGBO(123, 191, 69, 1),
-                              Color.fromRGBO(126, 203, 64, 1),
+                              Color.fromRGBO(222, 49, 49, 1),
+                              Color.fromRGBO(182, 34, 34, 1),
                             ],
                           ),
                         ),

@@ -76,7 +76,7 @@ class _SavedArtistsViewNrState extends State<SavedArtistsViewNr> {
                     children: [
                       ClipOval(
                         child: Image.asset(
-                          "assets/AMLU.png",
+                          "assets/pp.png",
                           height: 100,
                           width: 100,
                           fit: BoxFit.fill,

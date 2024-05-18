@@ -1,6 +1,7 @@
 import 'package:artify_app/Admin/admin_artist_view.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
 import 'package:artify_app/Admin/artists_manage.dart';
+import 'package:artify_app/Admin/help_requests.dart';
 import 'package:artify_app/Admin/rating.dart';
 import 'package:artify_app/Admin/user_manage.dart';
 import 'package:artify_app/section_login.dart';
@@ -146,6 +147,27 @@ class _AdminManageState extends State<AdminManage> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.1,),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpRequests()));
+                        },
+                        child: Container(
+                          height: 80,
+                          width: 312,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromRGBO(94, 213, 233, 1),
+                                Color.fromRGBO(194, 223, 228, 1),
+                              ],
+                            ),
+                          ),
+                          child: Center(child: Text('Help Requests',style: GoogleFonts.ubuntu(fontSize: 35,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(left: 168,top: 94),
                         child: InkWell(

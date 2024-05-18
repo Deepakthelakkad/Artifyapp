@@ -57,7 +57,7 @@ class _ArtistManageState extends State<ArtistManage> {
                       leading: Container(
                         child: ClipOval(
                           child: Image.asset(
-                            "assets/AMLU.png",
+                            "assets/pp.png",
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,

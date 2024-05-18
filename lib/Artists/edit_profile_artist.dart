@@ -119,15 +119,15 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                             top: 0,
                             child: Container(
                               width: 90,
-                              height: 80,
+                              height: 85,
                               decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: Colors.grey,
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   image: _imageFile != null
                                       ? FileImage(_imageFile!)
-                                      : const AssetImage('assets/AMLU.png')
+                                      : const AssetImage('assets/pp.png')
                                           as ImageProvider<Object>,
                                 ),
                               ),

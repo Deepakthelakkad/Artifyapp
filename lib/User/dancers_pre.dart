@@ -2,22 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../User/artist_view.dart';
+import 'artist_view.dart';
 
-class Dancers extends StatefulWidget {
-  const Dancers({super.key});
+class DancersPre extends StatefulWidget {
+  const DancersPre({super.key});
 
   @override
-  State<Dancers> createState() => _DancersState();
+  State<DancersPre> createState() => _DancersPreState();
 }
 
-class _DancersState extends State<Dancers> {
+class _DancersPreState extends State<DancersPre> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("ArtReg").where("Category",isEqualTo:"Dancer" ).get(),
+        future: FirebaseFirestore.instance
+            .collection("ArtReg")
+            .where("Category", isEqualTo: "Dancer")
+            .get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

@@ -24,9 +24,12 @@ class _NormalUserHomepageState extends State<NormalUserHomepage> {
         initialIndex: 0,
         child: Scaffold(
             appBar: AppBar(
-              leading: GestureDetector(
-                  // child: Icon(CupertinoIcons.back,color: Color.fromRGBO(194, 74, 107, 1),),
-                  ),
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(CupertinoIcons.back,
+                      color: Color.fromRGBO(194, 74, 107, 1))),
               title: Padding(
                 padding: const EdgeInsets.only(left: 80, top: 10),
                 child: Container(
@@ -53,9 +56,8 @@ class _NormalUserHomepageState extends State<NormalUserHomepage> {
                       unselectedLabelColor: Colors.black,
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(194, 74, 107, 1)
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromRGBO(194, 74, 107, 1)),
                       tabs: [
                         Tab(
                             child: Text(
@@ -95,12 +97,12 @@ class _NormalUserHomepageState extends State<NormalUserHomepage> {
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(children: [
-                    Musicians(),Dancers(),Singers()
-                  ]),
+                  child:
+                      TabBarView(children: [Musicians(), Dancers(), Singers()]),
                 )
               ],
-            )),
+            )
+        ),
       ),
     );
   }

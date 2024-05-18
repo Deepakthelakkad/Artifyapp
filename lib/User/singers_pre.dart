@@ -2,21 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../User/artist_view.dart';
+import 'artist_view.dart';
 
-class Musicians extends StatefulWidget {
-  const Musicians({super.key});
+class SingersPre extends StatefulWidget {
+  const SingersPre({super.key});
 
   @override
-  State<Musicians> createState() => _MusiciansState();
+  State<SingersPre> createState() => _SingersPreState();
 }
 
-class _MusiciansState extends State<Musicians> {
+class _SingersPreState extends State<SingersPre> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: FirebaseFirestore.instance.collection("ArtReg").where("Category",isEqualTo:"Musician" ).get(),
+          future: FirebaseFirestore.instance.collection("ArtReg").where("Category",isEqualTo:"Singer" ).get(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -62,7 +62,7 @@ class _MusiciansState extends State<Musicians> {
                               padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                               child: Text("Check",
                                   style:
-                                      GoogleFonts.ubuntu(color: Colors.white)),
+                                  GoogleFonts.ubuntu(color: Colors.white)),
                             ),
                           ),
                         ),
