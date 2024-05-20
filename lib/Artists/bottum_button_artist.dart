@@ -31,10 +31,10 @@ class _BottomButtonArtistState extends State<BottomButtonArtist> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                CupertinoIcons.ellipses_bubble_fill,
+                Icons.call,
                 size: 30,
               ),
-              label: currentindex == 0 ? 'Message' : ''),
+              label: currentindex == 0 ? 'Call' : ''),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person_fill, size: 30),
               label: currentindex == 1 ? 'Profile' : ''),

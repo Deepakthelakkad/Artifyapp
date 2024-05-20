@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 
 class ArtistAchievement extends StatefulWidget {
   const ArtistAchievement({super.key});
@@ -11,10 +12,20 @@ class ArtistAchievement extends StatefulWidget {
   @override
   State<ArtistAchievement> createState() => _ArtistAchievementState();
 }
+List<Color> color = [
+  Color(0XFFE9EAF4),
+  Color(0XFFFFEEEA),
+  Color(0XFFCDF2E0),
+  Color(0XFFF4EEE1),
+  Color(0XFFEBFAFE),
+  Color(0XFFE9EAF4),
+  Color(0XFFFFEEEA),
+  Color(0XFFCDF2E0),
+  Color(0XFFF4EEE1),
+  Color(0XFFEBFAFE),
+];
 
 class _ArtistAchievementState extends State<ArtistAchievement> {
-
-
   final Uri _url = Uri.parse('https://flutter.dev');
 
   Future<void> _launchUrl() async {
@@ -27,7 +38,7 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: FirebaseFirestore.instance.collection("Achieveadd").get(),
-      builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
@@ -46,7 +57,7 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                   color: Color.fromRGBO(191, 68, 116, 1),
                 )),
             title: Padding(
-              padding: const EdgeInsets.only(left: 70),
+              padding: const EdgeInsets.only(left: 50),
               child: Text(
                 'Acheivements',
                 style: TextStyle(
@@ -61,7 +72,7 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                 return Padding(
                   padding: const EdgeInsets.all(15),
                   child: Card(
-                    color: Colors.cyan.shade50,
+                    color: color[index],
                     elevation: 4,
                     child: Padding(
                       padding: EdgeInsets.all(25),
@@ -69,13 +80,18 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image.asset(
                                 'assets/Vector.png', // Replace with your image path
                                 width: 24, // Adjust image size as needed
                                 height: 24,
                               ),
+                              IconButton(onPressed: (){
+                                setState(() {
+                                  FirebaseFirestore.instance.collection("Achieveadd").doc(achieve[index].id).delete();
+                                });
+                              }, icon: Icon(CupertinoIcons.delete_solid,color: Colors.red,))
                             ],
                           ),
                           SizedBox(height: 16),
@@ -100,15 +116,23 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                                   fontSize: 24,
                                 ),
                               ),
-                              IconButton(
-                                onPressed: _launchUrl,
-                                icon: Icon(
-                                  CupertinoIcons.link,
-                                  size: 34,
-                                ),
-                              )
+
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Link(
+                                uri: Uri.parse(achieve[index]["Link"]),
+                                builder: (context, followLink) => TextButton(
+                                    onPressed: followLink,
+                                    child: Text(
+                                      "click to view",
+                                      style: TextStyle(color: Colors.blue),
+                                    )),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -119,7 +143,10 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
             padding: EdgeInsets.all(16.0),
             child: InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddAchievement()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddAchievement()));
                 },
                 child: Container(
                     height: 33,
@@ -141,14 +168,11 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                           style: GoogleFonts.ubuntu(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white
-
-                          )),
+                              color: Colors.white)),
                     ))),
           ),
         );
       },
-
     );
   }
 }

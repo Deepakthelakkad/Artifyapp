@@ -33,8 +33,8 @@ class _ChangePasswordArtistState extends State<ChangePasswordArtist> {
   String id ="";
   Future<dynamic> Passchange() async {
     await FirebaseFirestore.instance.collection("ArtReg").doc(ID).update({
-      "Fee per program": newpass.text,
-      "Experience": renewpass.text,
+      "Password": newpass.text,
+      "Re-enter password": renewpass.text,
     });
     print('done');
     Navigator.pop(context);

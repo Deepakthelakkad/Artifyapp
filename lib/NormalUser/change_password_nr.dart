@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordNr extends StatefulWidget {
   const ChangePasswordNr({super.key});
@@ -10,6 +12,55 @@ class ChangePasswordNr extends StatefulWidget {
 }
 
 class _ChangePasswordNrState extends State<ChangePasswordNr> {
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  var ID;
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString("id");
+      print(ID.toString());
+    });
+    print('data updated');
+  }
+  final formkey = GlobalKey<FormState>();
+  var currentnrpass = TextEditingController();
+  var newnrpass = TextEditingController();
+  var renewnrpass = TextEditingController();
+  String id ="";
+  Future<dynamic> Passchange() async {
+    await FirebaseFirestore.instance.collection("NormalReg").doc(ID).update({
+      "Password": newnrpass.text,
+      "Re-enter password": renewnrpass.text,
+    });
+    print('done');
+    Navigator.pop(context);
+  }
+  void artLogin() async {
+    final user = await FirebaseFirestore.instance
+        .collection('NormalReg')
+        .where('Password', isEqualTo: currentnrpass.text)
+        .get();
+    if (user.docs.isNotEmpty) {
+      id = user.docs[0].id;
+
+
+      SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('id', id);
+
+
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "username and password error",
+            style: TextStyle(color: Colors.red),
+          )));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
