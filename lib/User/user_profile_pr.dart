@@ -90,7 +90,7 @@ class _UserProfileState extends State<UserProfile> {
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: ClipOval(
                               child: Image.asset(
-                                "assets/devanand.png",
+                                "assets/pp.png",
                                 height: 80,
                                 width: 80,
                                 fit: BoxFit.fill,

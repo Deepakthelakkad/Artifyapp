@@ -36,30 +36,15 @@ class _ChangePasswordArtistState extends State<ChangePasswordArtist> {
       "Password": newpass.text,
       "Re-enter password": renewpass.text,
     });
-    print('done');
+    print('password changed successfully');
     Navigator.pop(context);
   }
-  void artLogin() async {
-    final user = await FirebaseFirestore.instance
+  void checkpass() async {
+    await FirebaseFirestore.instance
         .collection('ArtReg')
         .where('Password', isEqualTo: currentpass.text)
         .get();
-    if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
-
-
-      SharedPreferences data = await SharedPreferences.getInstance();
-      data.setString('id', id);
-
-
-      Navigator.pop(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "username and password error",
-            style: TextStyle(color: Colors.red),
-          )));
-    }
+    Passchange();
   }
   @override
   Widget build(BuildContext context) {
@@ -210,7 +195,7 @@ class _ChangePasswordArtistState extends State<ChangePasswordArtist> {
                             if (formkey.currentState!.validate()) {
                                 if (newpass.text == renewpass.text) {
                                   setState(() {
-                                    Passchange();
+                                    checkpass();
                                   });
                                 }
                             }

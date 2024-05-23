@@ -2,6 +2,7 @@ import 'package:artify_app/User/about_us_pr.dart';
 import 'package:artify_app/User/change_password_pr.dart';
 import 'package:artify_app/User/help_pr.dart';
 import 'package:artify_app/User/user_login_pr.dart';
+import 'package:artify_app/section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -232,7 +233,7 @@ class _SettingPrState extends State<SettingPr> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>SectionLogin()));
                       },
                       child: Container(
                         height: 50,

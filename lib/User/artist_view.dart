@@ -4,7 +4,9 @@ import 'package:artify_app/User/user_homepage_pr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'achievement_pr.dart';
 
@@ -25,16 +27,42 @@ class _ArtistViewState extends State<ArtistView> {
         .get();
   }
 
-  DocumentSnapshot? artist;
+  var ID;
 
-  deletedata() {
-    FirebaseFirestore.instance.collection("favartist").doc(widget.id).delete();
+  void initState() {
+    super.initState();
+    getData();
   }
 
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString("id");
+      print(ID.toString());
+    });
+    print('data updated');
+  }
+
+  DocumentSnapshot? artist;
+
   adddata() {
-    FirebaseFirestore.instance
-        .collection("favartist")
-        .add({"userid": widget.id});
+    FirebaseFirestore.instance.collection("favartist").add({
+      "artistid": widget.id,
+      "artistname": artist!["Name"],
+      "userid": ID,
+      "artistcategory": artist!["Category"],
+      "artistexp": artist!["Experience"]
+    });
+
+    AddFav();
+  }
+
+  void AddFav() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+      "Added to Favorite",
+      style: TextStyle(color: Colors.green),
+    )));
   }
 
   @override
@@ -89,50 +117,42 @@ class _ArtistViewState extends State<ArtistView> {
                                     color: Colors.white),
                               ),
                               Spacer(),
-                              fav == 0
-                                  ? IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          fav = 1;
-                                          print("object");
-                                          adddata();
-                                        });
-                                      },
-                                      icon: Icon(
-                                        CupertinoIcons.bookmark,
-                                        color: Colors.white,
-                                      ))
-                                  : IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          fav = 0;
-                                          print("delete");
-                                          deletedata();
-                                        });
-                                      },
-                                      icon: Icon(
-                                        CupertinoIcons.bookmark_fill,
-                                        color: Colors.white,
-                                      )),
-                              // IconButton(
-                              //   onPressed: () {
-                              //     setState(() {
-                              //       _isBookmarked = !_isBookmarked;
-                              //       if (_isBookmarked = true) {
-                              //         fav = 1;
-                              //       }
-                              //       if (_isBookmarked = false) {
-                              //         fav = 0;
-                              //       }
-                              //     });
-                              //   },
-                              //   icon: Icon(
-                              //     fav == 1
-                              //         ? CupertinoIcons.bookmark_fill
-                              //         : CupertinoIcons.bookmark,
-                              //     color: Colors.white,
-                              //   ),
-                              // ),
+                              InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    adddata();
+                                  });
+                                },
+                                child: Container(
+                                  height: 33,
+                                  width: 81,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color.fromRGBO(63, 166, 160, 1.0),
+                                        Color.fromRGBO(54, 141, 135, 1.0),
+                                      ],
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Fav',
+                                          style: GoogleFonts.ubuntu(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 5),
+                                        child: Icon(CupertinoIcons.heart_fill,color: Colors.white,size: 15,),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -249,24 +269,22 @@ class _ArtistViewState extends State<ArtistView> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Card(
-                      color: Colors.red.shade50,
-                      surfaceTintColor: Colors.deepOrange.shade50,
-                      elevation: 4,
-                      child: ListTile(
-                        leading: Text(
-                          "Place",
-                          style: GoogleFonts.ubuntu(
-                              fontSize: 15,
-                              color: Color.fromRGBO(134, 135, 142, 1)),
-                        ),
-                        trailing: Text(
-                          artist!["Place"],
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color.fromRGBO(43, 44, 47, 1)),
-                        ),
+                  Card(
+                    color: Colors.red.shade50,
+                    surfaceTintColor: Colors.deepOrange.shade50,
+                    elevation: 4,
+                    child: ListTile(
+                      leading: Text(
+                        "Place",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15,
+                            color: Color.fromRGBO(134, 135, 142, 1)),
+                      ),
+                      trailing: Text(
+                        artist!["Place"],
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color.fromRGBO(43, 44, 47, 1)),
                       ),
                     ),
                   ),

@@ -1,35 +1,36 @@
-import 'package:artify_app/Admin/admin_artist_view.dart';
+import 'package:artify_app/Admin/admin_manage.dart';
+import 'package:artify_app/Admin/admin_user_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ArtistManage extends StatefulWidget {
-  const ArtistManage({super.key});
+class NormalUserManage extends StatefulWidget {
+  const NormalUserManage({super.key});
 
   @override
-  State<ArtistManage> createState() => _ArtistManageState();
+  State<NormalUserManage> createState() => _NormalUserManageState();
 }
 
-class _ArtistManageState extends State<ArtistManage> {
+class _NormalUserManageState extends State<NormalUserManage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              CupertinoIcons.back,
-              color: Color.fromRGBO(194, 74, 107, 1),
-              size: 23,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            CupertinoIcons.back,
+            color: Color.fromRGBO(194, 74, 107, 1),
+          ),
+        ),
         title: Padding(
-          padding: const EdgeInsets.only(left: 90),
+          padding: const EdgeInsets.only(left: 100),
           child: Container(
             child: Text(
-              "Artists",
+              "User",
               style: TextStyle(
                   fontSize: 25, color: Color.fromRGBO(194, 74, 107, 1)),
             ),
@@ -37,7 +38,7 @@ class _ArtistManageState extends State<ArtistManage> {
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("ArtReg").get(),
+        future: FirebaseFirestore.instance.collection("NormalReg").get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -45,12 +46,12 @@ class _ArtistManageState extends State<ArtistManage> {
           if (snapshot.hasError) {
             return Text("Error${snapshot.error}");
           }
-          final artist = snapshot.data?.docs ?? [];
+          final user = snapshot.data?.docs ?? [];
           return ListView.builder(
-              itemCount: artist.length,
+              itemCount: user.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: Card(
                     elevation: 0,
                     child: ListTile(
@@ -70,7 +71,7 @@ class _ArtistManageState extends State<ArtistManage> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                FirebaseFirestore.instance.collection("ArtReg").doc(artist[index].id).delete();
+                                FirebaseFirestore.instance.collection("PremiumReg").doc(user[index].id).delete();
                               });
                             },
                             child: Container(
@@ -89,13 +90,13 @@ class _ArtistManageState extends State<ArtistManage> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
+                              width: MediaQuery.of(context).size.width * 0.03),
                           InkWell(
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AdminArtistView()));
+                                      builder: (context) => AdminUserView()));
                             },
                             child: Container(
                               height: 28,
@@ -105,7 +106,7 @@ class _ArtistManageState extends State<ArtistManage> {
                                 color: Color.fromRGBO(47, 128, 237, 1),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(9, 6, 5, 6),
+                                padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
                                 child: Text("Check",
                                     style: GoogleFonts.ubuntu(
                                         color: Colors.white)),
@@ -114,20 +115,9 @@ class _ArtistManageState extends State<ArtistManage> {
                           ),
                         ],
                       ),
-                      title: Text(artist[index]["Name"]),
-                      subtitle: Row(
-                        children: [
-                          Text(artist[index]["Category"]),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Row(
-                            children: [
-                              Text(artist[index]["Experience"]),
-                              Text("y exp")
-                            ],
-                          ),
-                        ],
+                      title: Text(
+                        user[index]["Name"],
+                        style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

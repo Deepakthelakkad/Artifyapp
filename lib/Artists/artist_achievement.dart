@@ -12,6 +12,7 @@ class ArtistAchievement extends StatefulWidget {
   @override
   State<ArtistAchievement> createState() => _ArtistAchievementState();
 }
+
 List<Color> color = [
   Color(0XFFE9EAF4),
   Color(0XFFFFEEEA),
@@ -26,14 +27,6 @@ List<Color> color = [
 ];
 
 class _ArtistAchievementState extends State<ArtistAchievement> {
-  final Uri _url = Uri.parse('https://flutter.dev');
-
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -87,11 +80,19 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                                 width: 24, // Adjust image size as needed
                                 height: 24,
                               ),
-                              IconButton(onPressed: (){
-                                setState(() {
-                                  FirebaseFirestore.instance.collection("Achieveadd").doc(achieve[index].id).delete();
-                                });
-                              }, icon: Icon(CupertinoIcons.delete_solid,color: Colors.red,))
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      FirebaseFirestore.instance
+                                          .collection("Achieveadd")
+                                          .doc(achieve[index].id)
+                                          .delete();
+                                    });
+                                  },
+                                  icon: Icon(
+                                    CupertinoIcons.delete_solid,
+                                    color: Colors.red,
+                                  ))
                             ],
                           ),
                           SizedBox(height: 16),
@@ -116,7 +117,6 @@ class _ArtistAchievementState extends State<ArtistAchievement> {
                                   fontSize: 24,
                                 ),
                               ),
-
                             ],
                           ),
                           Row(

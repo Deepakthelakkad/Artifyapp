@@ -18,19 +18,21 @@ class _ArtistLoginState extends State<ArtistLogin> {
   var email = TextEditingController();
   var password = TextEditingController();
   String id ="";
+  String mail ="";
   void artLogin() async {
     final user = await FirebaseFirestore.instance
         .collection('ArtReg')
         .where('Email', isEqualTo: email.text)
         .where('Password', isEqualTo: password.text)
-
         .get();
     if (user.docs.isNotEmpty) {
       id = user.docs[0].id;
+      mail= user.docs[0]['Email'];
 
 
       SharedPreferences data = await SharedPreferences.getInstance();
       data.setString('id', id);
+      data.setString('EMAIL', mail);
 
 
       Navigator.push(context, MaterialPageRoute(

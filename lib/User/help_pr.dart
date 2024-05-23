@@ -16,7 +16,7 @@ class _HelpPrState extends State<HelpPr> {
   var help = TextEditingController();
   Future<dynamic> Helpuser() async {
     await FirebaseFirestore.instance.collection("Helpuser").add({
-      "Name": help.text,
+      "Help": help.text,
       "premiumuserid":ID,
     });
     print('done');

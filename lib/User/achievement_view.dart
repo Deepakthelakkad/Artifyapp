@@ -1,8 +1,10 @@
 import 'package:artify_app/User/saved_artist_view_pr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 
 import 'artist_view.dart';
 
@@ -12,102 +14,126 @@ class AchievementView extends StatefulWidget {
   @override
   State<AchievementView> createState() => _AchievementViewState();
 }
-
+List<Color> color = [
+  Color(0XFFE9EAF4),
+  Color(0XFFFFEEEA),
+  Color(0XFFCDF2E0),
+  Color(0XFFF4EEE1),
+  Color(0XFFEBFAFE),
+  Color(0XFFE9EAF4),
+  Color(0XFFFFEEEA),
+  Color(0XFFCDF2E0),
+  Color(0XFFF4EEE1),
+  Color(0XFFEBFAFE),
+];
 class _AchievementViewState extends State<AchievementView> {
-  var feature = "abc";
-
-  final Uri _url = Uri.parse('https://flutter.dev');
-
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              CupertinoIcons.back,
-              color: Color.fromRGBO(191, 68, 116, 1),
-            )),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70),
-          child: Text(
-            'Acheivements',
-            style: TextStyle(
+    return FutureBuilder(
+        future: FirebaseFirestore.instance.collection("Achieveadd").get(),
+    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      }
+      if (snapshot.hasError) {
+        return Text("Error${snapshot.error}");
+      }
+      final achieve = snapshot.data?.docs ?? [];
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                CupertinoIcons.back,
                 color: Color.fromRGBO(191, 68, 116, 1),
-                fontWeight: FontWeight.bold),
+              )),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 70),
+            child: Text(
+              'Acheivements',
+              style: TextStyle(
+                  color: Color.fromRGBO(191, 68, 116, 1),
+                  fontWeight: FontWeight.bold),
+            ),
           ),
         ),
-      ),
-      body: Container(
-        child: ListView.builder(
-            itemCount: feature.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(15),
-                child: Card(
-                  color: Colors.cyan.shade50,
-                  elevation: 4,
-                  child: Padding(
-                    padding: EdgeInsets.all(25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/Vector.png', // Replace with your image path
-                              width: 24, // Adjust image size as needed
-                              height: 24,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Shared a collaboration work with Asianet',
-                              style: GoogleFonts.ubuntu(
-                                  fontSize: 14,
-                                  color: Color.fromRGBO(42, 40, 40, 1)),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Asianet Film Award',
-                              style: GoogleFonts.ubuntu(
-                                fontSize: 24,
+        body: Container(
+          child: ListView.builder(
+              itemCount: achieve.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Card(
+                    color: Colors.cyan.shade50,
+                    elevation: 4,
+                    child: Padding(
+                      padding: EdgeInsets.all(25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/Vector.png',
+                                // Replace with your image path
+                                width: 24, // Adjust image size as needed
+                                height: 24,
                               ),
-                            ),
-                            IconButton(
-                              onPressed: _launchUrl,
-                              icon: Icon(
-                                CupertinoIcons.link,
-                                size: 34,
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                achieve[index]["Content"],
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 14,
+                                    color: Color.fromRGBO(42, 40, 40, 1)),
                               ),
-                            )
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                achieve[index]["Title"],
+                                style: GoogleFonts.ubuntu(
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Link(
+                                uri: Uri.parse(achieve[index]["Link"]),
+                                builder: (context, followLink) =>
+                                    TextButton(
+                                        onPressed: followLink,
+                                        child: Text(
+                                          "click to view",
+                                          style: TextStyle(
+                                              color: Colors.blue),
+                                        )),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
-      ),
+                );
+              }),
+        ),
+      );
+    }
     );
   }
 }

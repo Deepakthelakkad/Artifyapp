@@ -15,9 +15,11 @@ class _DancersState extends State<Dancers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("ArtReg").where("Category",isEqualTo:"Dancer" ).get(),
+        future: FirebaseFirestore.instance
+            .collection("ArtReg")
+            .where("Category", isEqualTo: "Dancer")
+            .get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

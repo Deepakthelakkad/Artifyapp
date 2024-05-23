@@ -1,27 +1,24 @@
 import 'dart:ui';
 
-import 'package:artify_app/NormalUser/normal_user_login.dart';
-import 'package:artify_app/User/user_login_pr.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:artify_app/Admin/normal_user_manage.dart';
+import 'package:artify_app/Admin/user_manage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UserType extends StatefulWidget {
-  const UserType({super.key});
+class UserTypeAdmin extends StatefulWidget {
+  const UserTypeAdmin({super.key});
 
   @override
-  State<UserType> createState() => _UserTypeState();
+  State<UserTypeAdmin> createState() => _UserTypeAdminState();
 }
 
-class _UserTypeState extends State<UserType> {
+class _UserTypeAdminState extends State<UserTypeAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(103, 169, 193, 1),
-              image: DecorationImage(
-                  image: AssetImage('assets/people.png'), fit: BoxFit.cover)),
+              ),
           width: double.infinity,
           height: double.infinity,
           child: Stack(
@@ -72,7 +69,7 @@ class _UserTypeState extends State<UserType> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserLogin()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserManage()));
                           },
                           child: Container(
                             height: 78,
@@ -97,7 +94,7 @@ class _UserTypeState extends State<UserType> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NormalUserLogin()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NormalUserManage()));
                           },
                           child: Container(
                             height: 78,
