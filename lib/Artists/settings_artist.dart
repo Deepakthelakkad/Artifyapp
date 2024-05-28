@@ -1,3 +1,4 @@
+import 'package:artify_app/2section_login.dart';
 import 'package:artify_app/Artists/about_us_artist.dart';
 import 'package:artify_app/Artists/artist_login.dart';
 import 'package:artify_app/Artists/change_password_artist.dart';
@@ -274,10 +275,10 @@ class _SettingsArtistState extends State<SettingsArtist> {
                         SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ArtistLogin()));
+                                    builder: (context) => SectionLogin()));
                           },
                           child: Container(
                             height: 50,

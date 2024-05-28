@@ -1,4 +1,4 @@
-import 'package:artify_app/Admin/admin_artist_view.dart';
+import 'package:artify_app/Admin/31admin_artist_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

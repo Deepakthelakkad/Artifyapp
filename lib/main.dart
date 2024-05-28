@@ -1,9 +1,9 @@
-import 'package:artify_app/Admin/admin_artist_view.dart';
+import 'package:artify_app/Admin/31admin_artist_view.dart';
 import 'package:artify_app/Admin/2admin_manage.dart';
-import 'package:artify_app/Admin/admin_user_view.dart';
+import 'package:artify_app/Admin/422admin_nor_user_view.dart';
 import 'package:artify_app/Admin/3artists_manage.dart';
 import 'package:artify_app/Admin/rating.dart';
-import 'package:artify_app/Admin/user_manage.dart';
+import 'package:artify_app/Admin/41user_manage.dart';
 import 'package:artify_app/Artists/artist_profile.dart';
 import 'package:artify_app/Artists/edit_profile_artist.dart';
 import 'package:artify_app/Artists/settings_artist.dart';

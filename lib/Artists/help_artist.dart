@@ -65,7 +65,7 @@ class _HelpArtistState extends State<HelpArtist> {
                                   )),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 120,top: 30),
+                              padding: const EdgeInsets.only(left: 100,top: 30),
                               child: Text(
                                 'Suggestion',
                                 style: GoogleFonts.ubuntu(
@@ -112,7 +112,7 @@ class _HelpArtistState extends State<HelpArtist> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Describe your problem')
+                              Text('Describe your Suggestion')
                             ],
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
@@ -127,7 +127,7 @@ class _HelpArtistState extends State<HelpArtist> {
                             keyboardType: TextInputType.multiline,
                             maxLines: null, // Allows multiline input
                             decoration: InputDecoration(
-                              hintText: 'Enter your complaint here...',
+                              hintText: 'Enter your Suggestion here...',
                               border: OutlineInputBorder(),
                             ),
                           ),

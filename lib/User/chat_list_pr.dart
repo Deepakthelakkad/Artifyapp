@@ -18,17 +18,20 @@ class _ChatListState extends State<ChatList> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Image.asset("assets/logo small.png")
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Image.asset("assets/logo small.png"),
+              )
             ],
           ),
           Container(
             height: 80,
             child: Column(children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20 ),
                 child: Row(
                   children: [
-                    Text('messages',style: TextStyle(fontSize: 32),)
+                    Text('Calls',style: TextStyle(fontSize: 32),)
                   ],
                 ),
               ),
@@ -36,7 +39,7 @@ class _ChatListState extends State<ChatList> {
                 padding: const EdgeInsets.only(left: 20),
                 child: Row(
                   children: [
-                    Text('7 conveners',style: TextStyle(fontSize: 16,color: Color(0XFFADB5BD)),)
+                    Text(' conveners',style: TextStyle(fontSize: 16,color: Color(0XFFADB5BD)),)
                   ],
                 ),
               ),
@@ -52,12 +55,13 @@ class _ChatListState extends State<ChatList> {
             padding: const EdgeInsets.only(left: 20),
             child: Row(
               children: [
-                Text('Chats',style: TextStyle(fontSize: 16),)
+                Text('contacts',style: TextStyle(fontSize: 16),)
               ],
             ),
           ),
           Card(
             child: ListTile(
+              trailing: IconButton(onPressed: (){}, icon: Icon(Icons.call,color: Colors.blueAccent,)),
               leading: Container(
                 child: ClipOval(
                   child: Image.asset(
@@ -69,7 +73,7 @@ class _ChatListState extends State<ChatList> {
                 ),
               ),
               title: Text("Akash"),
-              subtitle: Text("online"),
+              subtitle: Text("call now",style: TextStyle(color: Color.fromRGBO(86, 227, 159, 1)),),
             ),
           )
         ],

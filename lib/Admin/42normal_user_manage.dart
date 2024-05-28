@@ -1,16 +1,18 @@
+import 'package:artify_app/Admin/2admin_manage.dart';
+import 'package:artify_app/Admin/422admin_nor_user_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UserManage extends StatefulWidget {
-  const UserManage({super.key});
+class NormalUserManage extends StatefulWidget {
+  const NormalUserManage({super.key});
 
   @override
-  State<UserManage> createState() => _UserManageState();
+  State<NormalUserManage> createState() => _NormalUserManageState();
 }
 
-class _UserManageState extends State<UserManage> {
+class _NormalUserManageState extends State<NormalUserManage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,7 @@ class _UserManageState extends State<UserManage> {
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("PremiumReg").get(),
+        future: FirebaseFirestore.instance.collection("NormalReg").get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -44,9 +46,9 @@ class _UserManageState extends State<UserManage> {
           if (snapshot.hasError) {
             return Text("Error${snapshot.error}");
           }
-          final user = snapshot.data?.docs ?? [];
+          final usernr = snapshot.data?.docs ?? [];
           return ListView.builder(
-              itemCount: user.length,
+              itemCount: usernr.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -69,7 +71,7 @@ class _UserManageState extends State<UserManage> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                FirebaseFirestore.instance.collection("PremiumReg").doc(user[index].id).delete();
+                                FirebaseFirestore.instance.collection("NormalReg").doc(usernr[index].id).delete();
                               });
                             },
                             child: Container(
@@ -91,10 +93,10 @@ class _UserManageState extends State<UserManage> {
                               width: MediaQuery.of(context).size.width * 0.03),
                           InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ArtistViewNr()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AdminNormalUserView(id: usernr[index].id)));
                             },
                             child: Container(
                               height: 28,
@@ -114,7 +116,7 @@ class _UserManageState extends State<UserManage> {
                         ],
                       ),
                       title: Text(
-                        user[index]["Name"],
+                        usernr[index]["Name"],
                         style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                       ),
                     ),

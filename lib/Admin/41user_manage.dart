@@ -1,18 +1,17 @@
-import 'package:artify_app/Admin/2admin_manage.dart';
-import 'package:artify_app/Admin/admin_user_view.dart';
+import 'package:artify_app/Admin/411admin_pre_user_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NormalUserManage extends StatefulWidget {
-  const NormalUserManage({super.key});
+class UserManage extends StatefulWidget {
+  const UserManage({super.key});
 
   @override
-  State<NormalUserManage> createState() => _NormalUserManageState();
+  State<UserManage> createState() => _UserManageState();
 }
 
-class _NormalUserManageState extends State<NormalUserManage> {
+class _UserManageState extends State<UserManage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("NormalReg").get(),
+        future: FirebaseFirestore.instance.collection("PremiumReg").get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -71,7 +70,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                FirebaseFirestore.instance.collection("NormalReg").doc(user[index].id).delete();
+                                FirebaseFirestore.instance.collection("PremiumReg").doc(user[index].id).delete();
                               });
                             },
                             child: Container(
@@ -96,7 +95,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AdminNormalUserView()));
+                                      builder: (context) => AdminPreUserView(id: user[index].id)));
                             },
                             child: Container(
                               height: 28,

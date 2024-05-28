@@ -10,6 +10,7 @@ class ChatArtist extends StatefulWidget {
 }
 
 class _ChatArtistState extends State<ChatArtist> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +62,6 @@ class _ChatArtistState extends State<ChatArtist> {
           ),
           Card(
             child: ListTile(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatArtistProfile()));
-              },
               trailing: IconButton(onPressed: (){}, icon: Icon(Icons.call,color: Colors.blueAccent,)),
               leading: Container(
                 child: ClipOval(

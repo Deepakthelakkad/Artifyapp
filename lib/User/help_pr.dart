@@ -67,7 +67,7 @@ class _HelpPrState extends State<HelpPr> {
                               )),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 130, top: 30),
+                          padding: const EdgeInsets.only(left: 100, top: 30),
                           child: Text(
                             'Suggestion',
                             style: TextStyle(
@@ -116,7 +116,7 @@ class _HelpPrState extends State<HelpPr> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [Text('Describe  your problem')],
+                        children: [Text('Describe your Suggestion')],
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
@@ -132,7 +132,7 @@ class _HelpPrState extends State<HelpPr> {
                         keyboardType: TextInputType.multiline,
                         maxLines: null, // Allows multiline input
                         decoration: InputDecoration(
-                          hintText: 'Enter your complaint here...',
+                          hintText: 'Enter your Suggestion here...',
                           border: OutlineInputBorder(),
                         ),
                       ),

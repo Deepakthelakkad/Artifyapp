@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:artify_app/Admin/normal_user_manage.dart';
-import 'package:artify_app/Admin/user_manage.dart';
+import 'package:artify_app/Admin/42normal_user_manage.dart';
+import 'package:artify_app/Admin/41user_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,5 +1,5 @@
-import 'package:artify_app/Admin/achievement_ad.dart';
-import 'package:artify_app/Admin/event_ad.dart';
+import 'package:artify_app/Admin/32achievement_ad.dart';
+import 'package:artify_app/Admin/33event_ad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
