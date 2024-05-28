@@ -69,7 +69,7 @@ class _HelpPrState extends State<HelpPr> {
                         Padding(
                           padding: const EdgeInsets.only(left: 130, top: 30),
                           child: Text(
-                            'Help',
+                            'Suggestion',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

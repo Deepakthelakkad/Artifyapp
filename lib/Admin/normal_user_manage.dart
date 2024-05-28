@@ -1,4 +1,4 @@
-import 'package:artify_app/Admin/admin_manage.dart';
+import 'package:artify_app/Admin/2admin_manage.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,7 +71,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                FirebaseFirestore.instance.collection("PremiumReg").doc(user[index].id).delete();
+                                FirebaseFirestore.instance.collection("NormalReg").doc(user[index].id).delete();
                               });
                             },
                             child: Container(
@@ -96,7 +96,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AdminUserView()));
+                                      builder: (context) => AdminNormalUserView()));
                             },
                             child: Container(
                               height: 28,

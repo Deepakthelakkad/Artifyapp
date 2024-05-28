@@ -67,7 +67,7 @@ class _HelpNrState extends State<HelpNr> {
                             Padding(
                               padding: const EdgeInsets.only(left: 120,top: 30),
                               child: Text(
-                                'Help',
+                                'Suggestion',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,fontSize: 20),

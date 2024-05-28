@@ -1,4 +1,4 @@
-import 'package:artify_app/section_login.dart';
+import 'package:artify_app/2section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AdminUserView extends StatefulWidget {
-  const AdminUserView({super.key});
+class AdminNormalUserView extends StatefulWidget {
+  const AdminNormalUserView({super.key});
 
   @override
-  State<AdminUserView> createState() => _AdminUserViewState();
+  State<AdminNormalUserView> createState() => _AdminNormalUserViewState();
 }
 
-class _AdminUserViewState extends State<AdminUserView> {
+class _AdminNormalUserViewState extends State<AdminNormalUserView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,7 +50,7 @@ class _AdminUserViewState extends State<AdminUserView> {
                             padding: const EdgeInsets.symmetric(horizontal: 25,),
                             child: ClipOval(
                               child: Image.asset(
-                                "assets/devanand.png",
+                                "assets/pp.png",
                                 height: 90,
                                 width: 90,
                                 fit: BoxFit.fill,

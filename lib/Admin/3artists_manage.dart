@@ -95,7 +95,7 @@ class _ArtistManageState extends State<ArtistManage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AdminArtistView()));
+                                      builder: (context) => AdminArtistView(id: artist[index].id)));
                             },
                             child: Container(
                               height: 28,

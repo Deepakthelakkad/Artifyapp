@@ -67,7 +67,7 @@ class _HelpArtistState extends State<HelpArtist> {
                             Padding(
                               padding: const EdgeInsets.only(left: 120,top: 30),
                               child: Text(
-                                'Help',
+                                'Suggestion',
                                 style: GoogleFonts.ubuntu(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,fontSize: 20),

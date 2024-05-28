@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:artify_app/Admin/admin_manage.dart';
+import 'package:artify_app/Admin/2admin_manage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

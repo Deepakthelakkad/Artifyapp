@@ -1,7 +1,7 @@
 import 'package:artify_app/Admin/admin_artist_view.dart';
-import 'package:artify_app/Admin/admin_manage.dart';
+import 'package:artify_app/Admin/2admin_manage.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
-import 'package:artify_app/Admin/artists_manage.dart';
+import 'package:artify_app/Admin/3artists_manage.dart';
 import 'package:artify_app/Admin/rating.dart';
 import 'package:artify_app/Admin/user_manage.dart';
 import 'package:artify_app/Artists/artist_profile.dart';
@@ -20,11 +20,11 @@ import 'package:artify_app/User/change_password_pr.dart';
 import 'package:artify_app/User/help_pr.dart';
 import 'package:artify_app/User/settings_pr.dart';
 import 'package:artify_app/firebase_options.dart';
-import 'package:artify_app/intro.dart';
-import 'package:artify_app/user_type.dart';
-import 'package:artify_app/section_login.dart';
+import 'package:artify_app/1intro.dart';
+import 'package:artify_app/3user_type.dart';
+import 'package:artify_app/2section_login.dart';
 import 'package:artify_app/url_launcher.dart';
-import 'package:artify_app/Admin/admin_login.dart';
+import 'package:artify_app/Admin/1admin_login.dart';
 import 'package:artify_app/Artists/artist_registration.dart';
 import 'package:artify_app/Artists/artist_login.dart';
 import 'package:artify_app/User/achievement_pr.dart';
@@ -42,7 +42,7 @@ import 'package:artify_app/User/user_profile_pr.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'Admin/admin_login.dart';
+import 'Admin/1admin_login.dart';
 import 'User/add_booking.dart';
 
 Future<void> main() async {

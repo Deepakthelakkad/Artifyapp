@@ -20,10 +20,10 @@ class _HelpRequestsState extends State<HelpRequests> {
         child: Scaffold(
             appBar: AppBar(automaticallyImplyLeading: false,
               title: Padding(
-                padding: const EdgeInsets.only(left: 100),
+                padding: const EdgeInsets.only(left: 115),
                 child: Container(
                   child: Text(
-                    "Help Requests",
+                    "Suggestion",
                     style: TextStyle(
                         fontSize: 25, color: Color.fromRGBO(194, 74, 107, 1)),
                   ),

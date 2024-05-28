@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:artify_app/Admin/admin_login.dart';
+import 'package:artify_app/Admin/1admin_login.dart';
 import 'package:artify_app/Artists/artist_login.dart';
 import 'package:artify_app/Artists/schedule.dart';
 import 'package:artify_app/User/user_login_pr.dart';
-import 'package:artify_app/user_type.dart';
+import 'package:artify_app/3user_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

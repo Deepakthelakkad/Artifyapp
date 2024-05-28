@@ -1,11 +1,11 @@
 import 'package:artify_app/Admin/admin_artist_view.dart';
 import 'package:artify_app/Admin/admin_user_view.dart';
-import 'package:artify_app/Admin/artists_manage.dart';
+import 'package:artify_app/Admin/3artists_manage.dart';
 import 'package:artify_app/Admin/help_requests.dart';
 import 'package:artify_app/Admin/rating.dart';
 import 'package:artify_app/Admin/user_manage.dart';
 import 'package:artify_app/Admin/user_type_admin.dart';
-import 'package:artify_app/section_login.dart';
+import 'package:artify_app/2section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -2,7 +2,7 @@ import 'package:artify_app/User/about_us_pr.dart';
 import 'package:artify_app/User/change_password_pr.dart';
 import 'package:artify_app/User/help_pr.dart';
 import 'package:artify_app/User/user_login_pr.dart';
-import 'package:artify_app/section_login.dart';
+import 'package:artify_app/2section_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
