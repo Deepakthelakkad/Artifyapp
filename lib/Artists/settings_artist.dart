@@ -2,6 +2,7 @@ import 'package:artify_app/2section_login.dart';
 import 'package:artify_app/Artists/about_us_artist.dart';
 import 'package:artify_app/Artists/artist_login.dart';
 import 'package:artify_app/Artists/change_password_artist.dart';
+import 'package:artify_app/Artists/current_password.dart';
 import 'package:artify_app/Artists/edit_profile_artist.dart';
 import 'package:artify_app/Artists/help_artist.dart';
 import 'package:flutter/cupertino.dart';
@@ -143,7 +144,7 @@ class _SettingsArtistState extends State<SettingsArtist> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ChangePasswordArtist()));
+                                                  CurrentPassword()));
                                     },
                                     leading: Container(
                                       height: 30,
@@ -191,11 +192,11 @@ class _SettingsArtistState extends State<SettingsArtist> {
                                         ),
                                       ),
                                       title: Text(
-                                        'Help',
+                                        'Suggestion',
                                         style: GoogleFonts.ubuntu(fontSize: 14),
                                       ),
                                       subtitle: Text(
-                                        'Report a problem',
+                                        'Suggest your opinion',
                                         style: GoogleFonts.ubuntu(
                                             fontSize: 12, color: Colors.grey),
                                       ),

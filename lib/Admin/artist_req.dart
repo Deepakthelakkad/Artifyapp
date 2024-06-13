@@ -13,61 +13,68 @@ class _ArtistReqState extends State<ArtistReq> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection("ArtReg")
-              .where("Category", isEqualTo: "Dancer")
-              .get(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Text("Error${snapshot.error}");
-            }
-            final artist = snapshot.data?.docs ?? [];
-        return ListView.builder(
-            itemCount: artist.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                child: Card(
-                  elevation: 0,
-                  child: ListTile(
-                    leading: Container(
-                      child: ClipOval(
-                        child: Image.asset(
-                          "assets/pp.png",
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
+        body: FutureBuilder(
+            future: FirebaseFirestore.instance.collection("Helpartist").get(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Text("Error${snapshot.error}");
+              }
+              final suggart = snapshot.data?.docs ?? [];
+              return ListView.builder(
+                  itemCount: suggart.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 1,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      suggart[index]["ARpath"],
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                          width: 260,
+                                          child:
+                                              Text(suggart[index]["Suggestion"],style: TextStyle(fontSize: 16),)),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(suggart[index]["ARname"],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    trailing: InkWell(
-                      onTap: () {
-                      },
-                      child: Container(
-                        height: 28,
-                        width: 54,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(47, 128, 237, 1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-                          child: Text("Check",
-                              style: GoogleFonts.ubuntu(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                    title: artist[index]['Name'],
-                  ),
-                ),
-              );
-            });
-  }
-      ),
+                    );
+                  });
+            }
+            )
     );
   }
 }

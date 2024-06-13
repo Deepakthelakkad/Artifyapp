@@ -56,8 +56,8 @@ class _UserManageState extends State<UserManage> {
                     child: ListTile(
                       leading: Container(
                         child: ClipOval(
-                          child: Image.asset(
-                            "assets/pp.png",
+                          child: Image.network(
+                            user[index]["path"],
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,

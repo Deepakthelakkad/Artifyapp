@@ -155,11 +155,11 @@ class _SettingsNrState extends State<SettingsNr> {
                                     ),
                                   ),
                                   title: Text(
-                                    'Help',
+                                    'Suggestion',
                                     style: GoogleFonts.ubuntu(fontSize: 14),
                                   ),
                                   subtitle: Text(
-                                    'Report a problem',
+                                    'Suggest your opinion',
                                     style: GoogleFonts.ubuntu(
                                         fontSize: 12, color: Colors.grey),
                                   ),
@@ -265,8 +265,8 @@ class _SettingsNrState extends State<SettingsNr> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Color.fromRGBO(123, 191, 69, 1),
-                              Color.fromRGBO(126, 203, 64, 1),
+                              Color.fromRGBO(222, 49, 49, 1),
+                              Color.fromRGBO(182, 34, 34, 1),
                             ],
                           ),
                         ),

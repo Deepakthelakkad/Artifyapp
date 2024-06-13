@@ -1,3 +1,4 @@
+import 'package:artify_app/NormalUser/artist_view_nr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,8 +36,8 @@ class _SingersState extends State<Singers> {
                       child: ListTile(
                         leading: Container(
                           child: ClipOval(
-                            child: Image.asset(
-                              "assets/pp.png",
+                            child: Image.network(
+                              artist[index]["path"],
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,
@@ -49,7 +50,7 @@ class _SingersState extends State<Singers> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ArtistView(id: artist[index].id)));
+                                        ArtistViewNr(id: artist[index].id)));
                           },
                           child: Container(
                             height: 28,

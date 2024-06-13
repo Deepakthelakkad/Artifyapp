@@ -35,8 +35,8 @@ class _MusiciansPreState extends State<MusiciansPre> {
                       child: ListTile(
                         leading: Container(
                           child: ClipOval(
-                            child: Image.asset(
-                              "assets/pp.png",
+                            child: Image.network(
+                              artist[index]["path"],
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,

@@ -219,18 +219,6 @@ class _EditProfileNrState extends State<EditProfileNr> {
                   ),
                 ),
               ),
-              Positioned(
-                  top: 120,
-                  left: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 80,
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundImage: AssetImage('assets/devanand.png'),
-                    ),
-                  )),
             ],
           ),
         ),

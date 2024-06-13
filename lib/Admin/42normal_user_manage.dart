@@ -57,8 +57,8 @@ class _NormalUserManageState extends State<NormalUserManage> {
                     child: ListTile(
                       leading: Container(
                         child: ClipOval(
-                          child: Image.asset(
-                            "assets/pp.png",
+                          child: Image.network(
+                            usernr[index]["path"],
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,

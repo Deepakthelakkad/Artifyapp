@@ -51,7 +51,8 @@ class _ArtistViewState extends State<ArtistView> {
       "artistname": artist!["Name"],
       "userid": ID,
       "artistcategory": artist!["Category"],
-      "artistexp": artist!["Experience"]
+      "artistexp": artist!["Experience"],
+      "artpath":artist!["path"]
     });
 
     AddFav();
@@ -164,8 +165,8 @@ class _ArtistViewState extends State<ArtistView> {
                           child: Row(
                             children: [
                               ClipOval(
-                                child: Image.asset(
-                                  "assets/pp.png",
+                                child: Image.network(
+                                  artist!["path"],
                                   height: 100,
                                   width: 100,
                                   fit: BoxFit.fill,
@@ -401,7 +402,7 @@ class _ArtistViewState extends State<ArtistView> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Booking()));
+                            MaterialPageRoute(builder: (context) => CalendarScreenpremium()));
                       },
                       child: Container(
                         height: 87,

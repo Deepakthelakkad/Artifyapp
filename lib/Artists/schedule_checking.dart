@@ -1,23 +1,20 @@
-import 'package:artify_app/NormalUser/booking_nr2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class CalendarScreenpremium extends StatefulWidget {
+class CalendarScreen extends StatefulWidget {
   @override
-  _CalendarScreenpremiumState createState() => _CalendarScreenpremiumState();
+  _CalendarScreenState createState() => _CalendarScreenState();
 }
 
-class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
+class _CalendarScreenState extends State<CalendarScreen> {
   List<Meeting> meetings = [];
-  bool canAddMeeting = true;
 
   @override
   void initState() {
     super.initState();
     _loadMeetingsFromFirestore();
-    _checkAddMeetingAvailability();
   }
 
   Future<void> _loadMeetingsFromFirestore() async {
@@ -37,26 +34,38 @@ class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
     });
   }
 
-  void _checkAddMeetingAvailability() {
-    final DateTime now = DateTime.now();
-    final DateTime sevenDaysFromNow = now.add(Duration(days: 7));
-    setState(() {
-      canAddMeeting = now.isBefore(sevenDaysFromNow);
-    });
-  }
-
-  void _navigateToMeetingDetails(BuildContext context, Meeting meeting) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MeetingDetailsPageNr(
-          eventName: meeting.eventName,
-          from: meeting.from,
-          to: meeting.to,
-          background: meeting.background,
-          isAllDay: meeting.isAllDay,
-        ),
-      ),
+  void _showMeetingDetailsDialog(BuildContext context, List<Meeting> meetings) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Meetings'),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: meetings.length,
+              itemBuilder: (BuildContext context, int index) {
+                final meeting = meetings[index];
+                return ListTile(
+                  title: Text(meeting.eventName),
+                  subtitle: Text(
+                    '${meeting.from} - ${meeting.to}',
+                  ),
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -70,13 +79,12 @@ class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
             Padding(
               padding: const EdgeInsets.only(right: 30),
               child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(CupertinoIcons.back),
-              ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(CupertinoIcons.back)),
             ),
-            Text('Booking'),
+            Text('Schedule'),
           ],
         ),
       ),
@@ -88,17 +96,15 @@ class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
         ),
         onTap: (CalendarTapDetails details) {
           if (details.appointments != null) {
-            final Meeting selectedMeeting = details.appointments!.cast<Meeting>().first;
-            _navigateToMeetingDetails(context, selectedMeeting);
+            final List<Meeting> selectedMeetings = details.appointments!.cast<Meeting>();
+            _showMeetingDetailsDialog(context, selectedMeetings);
           }
         },
       ),
-      floatingActionButton: canAddMeeting
-          ? FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddMeetingDialog(context),
         child: Icon(Icons.add),
-      )
-          : null,
+      ),
     );
   }
 
@@ -113,7 +119,6 @@ class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
             });
             _saveMeetingToFirestore(meeting);
           },
-          existingMeetings: meetings,
         );
       },
     );
@@ -132,9 +137,8 @@ class _CalendarScreenpremiumState extends State<CalendarScreenpremium> {
 
 class AddMeetingDialog extends StatefulWidget {
   final Function(Meeting) onAddMeeting;
-  final List<Meeting> existingMeetings;
 
-  AddMeetingDialog({required this.onAddMeeting, required this.existingMeetings});
+  AddMeetingDialog({required this.onAddMeeting});
 
   @override
   _AddMeetingDialogState createState() => _AddMeetingDialogState();
@@ -145,7 +149,6 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay(hour: 9, minute: 0);
   TimeOfDay _endTime = TimeOfDay(hour: 11, minute: 0);
-  String? _errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -174,14 +177,6 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
             trailing: Icon(Icons.access_time),
             onTap: _pickEndTime,
           ),
-          if (_errorMessage != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                _errorMessage!,
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
         ],
       ),
       actions: <Widget>[
@@ -193,84 +188,45 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
         ),
         TextButton(
           child: Text('Add'),
-          onPressed: _addMeeting,
+          onPressed: () {
+            final String title = _titleController.text;
+            if (title.isNotEmpty) {
+              final DateTime startTime = DateTime(
+                _selectedDate.year,
+                _selectedDate.month,
+                _selectedDate.day,
+                this._startTime.hour,
+                this._startTime.minute,
+              );
+              final DateTime endTime = DateTime(
+                _selectedDate.year,
+                _selectedDate.month,
+                _selectedDate.day,
+                this._endTime.hour,
+                this._endTime.minute,
+              );
+              final Meeting newMeeting = Meeting(
+                title,
+                startTime,
+                endTime,
+                Colors.blue,
+                false,
+              );
+              widget.onAddMeeting(newMeeting);
+              Navigator.of(context).pop();
+            }
+          },
         ),
       ],
     );
   }
 
-  void _addMeeting() {
-    final String title = _titleController.text;
-    if (title.isEmpty) {
-      setState(() {
-        _errorMessage = 'Title cannot be empty';
-      });
-      return;
-    }
-
-    final DateTime startTime = DateTime(
-      _selectedDate.year,
-      _selectedDate.month,
-      _selectedDate.day,
-      _startTime.hour,
-      _startTime.minute,
-    );
-    final DateTime endTime = DateTime(
-      _selectedDate.year,
-      _selectedDate.month,
-      _selectedDate.day,
-      _endTime.hour,
-      _endTime.minute,
-    );
-
-    // Check for overlapping meetings and maximum meetings per day
-    final overlappingMeetings = widget.existingMeetings.where((meeting) {
-      final isSameDay = isSameDate(meeting.from, _selectedDate);
-      final isOverlapping = startTime.isBefore(meeting.to) && endTime.isAfter(meeting.from);
-      return isSameDay && isOverlapping;
-    }).isNotEmpty;
-
-    final meetingsOnSameDay = widget.existingMeetings.where((meeting) {
-      return isSameDate(meeting.from, _selectedDate);
-    }).length;
-
-    if (overlappingMeetings) {
-      setState(() {
-        _errorMessage = 'Meeting times overlap with an existing meeting';
-      });
-      return;
-    }
-
-    if (meetingsOnSameDay >= 2) {
-      setState(() {
-        _errorMessage = 'Cannot add more than 2 meetings on the same day';
-      });
-      return;
-    }
-
-    final Meeting newMeeting = Meeting(
-      title,
-      startTime,
-      endTime,
-      Colors.blue,
-      false,
-    );
-    widget.onAddMeeting(newMeeting);
-    Navigator.of(context).pop();
-  }
-
-  bool isSameDate(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
-  }
-
   Future<void> _pickDate() async {
-    final DateTime now = DateTime.now();
-    final DateTime sevenDaysFromNow = now.add(Duration(days: 7));
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
-      firstDate: now,
-      lastDate: sevenDaysFromNow,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
     );
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {

@@ -146,24 +146,24 @@ class _ChangePasswordNrState extends State<ChangePasswordNr> {
                       child: Column(
                         children: [
                           SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Current Password:'),
-                            ],
-                          ),
-                          TextFormField(
-                            controller: currentnrpass,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter required details";
-                              }
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                                hintText: 'Enter Password',
-                                labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     Text('Current Password:'),
+                          //   ],
+                          // ),
+                          // TextFormField(
+                          //   controller: currentnrpass,
+                          //   validator: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return "Enter required details";
+                          //     }
+                          //   },
+                          //   decoration: InputDecoration(
+                          //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          //       hintText: 'Enter Password',
+                          //       labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                          // ),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,

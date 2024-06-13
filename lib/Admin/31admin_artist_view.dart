@@ -98,11 +98,11 @@ class _AdminArtistViewState extends State<AdminArtistView> {
                           child: Row(
                             children: [
                               ClipOval(
-                                child: Image.asset(
-                                  "assets/pp.png",
+                                child: Image.network(
+                                  artist!["path"],
                                   height: 100,
                                   width: 100,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               SizedBox(
@@ -271,7 +271,7 @@ class _AdminArtistViewState extends State<AdminArtistView> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => EventAd()));
+                                            builder: (context) => EventsAd()));
                                   },
                                   child: Text("Events"),
                                   style: ElevatedButton.styleFrom(

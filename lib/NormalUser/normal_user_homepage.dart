@@ -31,7 +31,7 @@ class _NormalUserHomepageState extends State<NormalUserHomepage> {
                   icon: Icon(CupertinoIcons.back,
                       color: Color.fromRGBO(194, 74, 107, 1))),
               title: Padding(
-                padding: const EdgeInsets.only(left: 80, top: 10),
+                padding: const EdgeInsets.only(left: 100, top: 10),
                 child: Container(
                   child: Text(
                     "Artists",
@@ -98,7 +98,7 @@ class _NormalUserHomepageState extends State<NormalUserHomepage> {
                 ),
                 Expanded(
                   child:
-                      TabBarView(children: [Musicians(), Dancers(), Singers()]),
+                    TabBarView(children: [Musicians(), Dancers(), Singers()]),
                 )
               ],
             )

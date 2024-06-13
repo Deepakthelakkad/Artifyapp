@@ -72,7 +72,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 left: 0,
                 right: 0,
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey.shade300,
+                  backgroundColor: Color.fromRGBO(150, 241, 235, 1.0),
                   radius: 80,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8),

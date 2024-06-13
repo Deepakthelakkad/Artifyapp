@@ -1,3 +1,4 @@
+import 'package:artify_app/NormalUser/artist_view_nr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,10 @@ class _MusiciansState extends State<Musicians> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: FirebaseFirestore.instance.collection("ArtReg").where("Category",isEqualTo:"Musician" ).get(),
+          future: FirebaseFirestore.instance
+              .collection("ArtReg")
+              .where("Category", isEqualTo: "Musician")
+              .get(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -35,8 +39,8 @@ class _MusiciansState extends State<Musicians> {
                       child: ListTile(
                         leading: Container(
                           child: ClipOval(
-                            child: Image.asset(
-                              "assets/pp.png",
+                            child: Image.network(
+                              artist[index]["path"],
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,
@@ -49,7 +53,7 @@ class _MusiciansState extends State<Musicians> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ArtistView(id: artist[index].id)));
+                                        ArtistViewNr(id: artist[index].id)));
                           },
                           child: Container(
                             height: 28,

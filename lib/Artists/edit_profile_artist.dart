@@ -18,18 +18,7 @@ class EditProfileArtist extends StatefulWidget {
 }
 
 class _EditProfileArtistState extends State<EditProfileArtist> {
-  final picker = ImagePicker();
-  File? _imageFile;
 
-  Future<void> getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _imageFile = File(pickedFile.path);
-      }
-    });
-  }
 
   var ID;
   void initState() {
@@ -114,24 +103,6 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                         children: [
                           SizedBox(
                             width: 15,
-                          ),
-                          Positioned(
-                            top: 0,
-                            child: Container(
-                              width: 90,
-                              height: 85,
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: _imageFile != null
-                                      ? FileImage(_imageFile!)
-                                      : const AssetImage('assets/pp.png')
-                                          as ImageProvider<Object>,
-                                ),
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -276,20 +247,6 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                         )
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 75,
-                top: 100,
-                child: IconButton(
-                  onPressed: () async {
-                    await getImage();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.plus_circle_fill,
-                    color: Colors.black,
-                    size: 25,
                   ),
                 ),
               ),

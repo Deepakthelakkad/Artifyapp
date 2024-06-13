@@ -57,8 +57,8 @@ class _SavedArtistsState extends State<SavedArtists> {
                       child: ListTile(
                         leading: Container(
                           child: ClipOval(
-                            child: Image.asset(
-                              "assets/pp.png",
+                            child: Image.network(
+                              artist[index]["artpath"],
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,

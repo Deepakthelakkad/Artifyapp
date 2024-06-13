@@ -1,134 +1,346 @@
+import 'package:artify_app/NormalUser/booking_nr2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class BookingViewSavedNr extends StatefulWidget {
-  const BookingViewSavedNr({super.key});
-
   @override
-  State<BookingViewSavedNr> createState() => _BookingViewSavedNrState();
+  _BookingViewSavedNrState createState() => _BookingViewSavedNrState();
 }
-List<Color> color = [
-  Color(0XFFE9EAF4),
-  Color(0XFFFFEEEA),
-  Color(0XFFCDF2E0),
-  Color(0XFFF4EEE1),
-  Color(0XFFEBFAFE),
-  Color(0XFFE9EAF4),
-  Color(0XFFFFEEEA),
-  Color(0XFFCDF2E0),
-  Color(0XFFF4EEE1),
-  Color(0XFFEBFAFE),
-];
-List<Color> textcolor = [
-  Color(0XFF4D56A2),
-  Color(0XFFFD6540),
-  Color(0XFF04D76F),
-  Color(0XFFF0B604),
-  Color(0XFF07CEDA),
-  Color(0XFF4D56A2),
-  Color(0XFFFD6540),
-  Color(0XFF04D76F),
-  Color(0XFFF0B604),
-  Color(0XFF07CEDA),
-];
-List<Color> secondtextcolor = [
-  Color(0XFF737BC1),
-  Color(0XFFED947F),
-  Color(0XFF04D76F),
-  Color(0XFFEBC758),
-  Color(0XFF63D3E2),
-  Color(0XFF737BC1),
-  Color(0XFFED947F),
-  Color(0XFF04D76F),
-  Color(0XFFEBC758),
-  Color(0XFF63D3E2),
-];
-List<Color> circlecolor = [
-  Color(0XFFBABDDB),
-  Color(0XFFFFCABD),
-  Color(0XFFA8E1C5),
-  Color(0XFFFFE8B2),
-  Color(0XFFC0EFFC),
-  Color(0XFFBABDDB),
-  Color(0XFFFFCABD),
-  Color(0XFFA8E1C5),
-  Color(0XFFFFE8B2),
-  Color(0XFFC0EFFC),
-];
 
 class _BookingViewSavedNrState extends State<BookingViewSavedNr> {
-  var feature = "1234567890";
+  List<Meeting> meetings = [];
+  bool canAddMeeting = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMeetingsFromFirestore();
+    _checkAddMeetingAvailability();
+  }
+
+  Future<void> _loadMeetingsFromFirestore() async {
+    FirebaseFirestore.instance.collection('Events').get().then((querySnapshot) {
+      setState(() {
+        meetings = querySnapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          return Meeting(
+            data['title'],
+            (data['startTime'] as Timestamp).toDate(),
+            (data['endTime'] as Timestamp).toDate(),
+            Color(data['background']),
+            data['isAllDay'],
+          );
+        }).toList();
+      });
+    });
+  }
+
+  void _checkAddMeetingAvailability() {
+    final DateTime now = DateTime.now();
+    final DateTime sevenDaysFromNow = now.add(Duration(days: 7));
+    setState(() {
+      canAddMeeting = now.isBefore(sevenDaysFromNow);
+    });
+  }
+
+  void _navigateToMeetingDetails(BuildContext context, Meeting meeting) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MeetingDetailsPageNr(
+          eventName: meeting.eventName,
+          from: meeting.from,
+          to: meeting.to,
+          background: meeting.background,
+          isAllDay: meeting.isAllDay,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              CupertinoIcons.back,
-              color: Color.fromRGBO(191, 68, 116, 1),
-            )),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 80),
-          child: Text(
-            'Booking',
-            style: TextStyle(
-                color: Color.fromRGBO(191, 68, 116, 1),
-                fontWeight: FontWeight.bold),
-          ),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CupertinoIcons.back),
+              ),
+            ),
+            Text('Booking'),
+          ],
         ),
       ),
-      body: Container(
-          child: ListView.builder(
-              itemCount: feature.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Card(
-                    color: color[index],
-                    elevation: 4,
-                    child: ListTile(
-                      onTap: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBookingView()));
-                      },
-                      leading: Container(
-                        child: CircleAvatar(
-                            backgroundColor: circlecolor[index]),
-                        height: 50,
-                        width: 50,
-                      ),
-                      title: Row(
-                        children: [
-                          Text("Kochi",
-                              style: TextStyle(
-                                  color: textcolor[index],
-                                  fontWeight: FontWeight.bold)),
-                          Spacer(),
-                          Text("--",
-                              style: TextStyle(
-                                  color: textcolor[index],
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      subtitle: Row(
-                        children: [
-                          Text("Morning Section",
-                              style: TextStyle(
-                                  color: secondtextcolor[index],
-                                  fontWeight: FontWeight.bold)),
-                          Spacer(),
-                          Text("Night Section",
-                              style: TextStyle(
-                                  color: secondtextcolor[index],
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              })),
+      body: SfCalendar(
+        view: CalendarView.month,
+        dataSource: MeetingDataSource(meetings),
+        monthViewSettings: MonthViewSettings(
+          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+        ),
+        onTap: (CalendarTapDetails details) {
+          if (details.appointments != null) {
+            final Meeting selectedMeeting = details.appointments!.cast<Meeting>().first;
+            _navigateToMeetingDetails(context, selectedMeeting);
+          }
+        },
+      ),
+      floatingActionButton: canAddMeeting
+          ? FloatingActionButton(
+        onPressed: () => _showAddMeetingDialog(context),
+        child: Icon(Icons.add),
+      )
+          : null,
     );
   }
+
+  void _showAddMeetingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddMeetingDialog(
+          onAddMeeting: (meeting) {
+            setState(() {
+              meetings.add(meeting);
+            });
+            _saveMeetingToFirestore(meeting);
+          },
+          existingMeetings: meetings,
+        );
+      },
+    );
+  }
+
+  Future<void> _saveMeetingToFirestore(Meeting meeting) async {
+    await FirebaseFirestore.instance.collection('Events').add({
+      'title': meeting.eventName,
+      'startTime': meeting.from,
+      'endTime': meeting.to,
+      'background': meeting.background.value,
+      'isAllDay': meeting.isAllDay,
+    });
+  }
+}
+
+class AddMeetingDialog extends StatefulWidget {
+  final Function(Meeting) onAddMeeting;
+  final List<Meeting> existingMeetings;
+
+  AddMeetingDialog({required this.onAddMeeting, required this.existingMeetings});
+
+  @override
+  _AddMeetingDialogState createState() => _AddMeetingDialogState();
+}
+
+class _AddMeetingDialogState extends State<AddMeetingDialog> {
+  final TextEditingController _titleController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  TimeOfDay _startTime = TimeOfDay(hour: 9, minute: 0);
+  TimeOfDay _endTime = TimeOfDay(hour: 11, minute: 0);
+  String? _errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Add Meeting'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          TextField(
+            controller: _titleController,
+            decoration: InputDecoration(labelText: 'Title'),
+          ),
+          SizedBox(height: 8),
+          ListTile(
+            title: Text('Date: ${_selectedDate.toLocal()}'.split(' ')[0]),
+            trailing: Icon(Icons.calendar_today),
+            onTap: _pickDate,
+          ),
+          ListTile(
+            title: Text('Start Time: ${_startTime.format(context)}'),
+            trailing: Icon(Icons.access_time),
+            onTap: _pickStartTime,
+          ),
+          ListTile(
+            title: Text('End Time: ${_endTime.format(context)}'),
+            trailing: Icon(Icons.access_time),
+            onTap: _pickEndTime,
+          ),
+          if (_errorMessage != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Text(
+                _errorMessage!,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text('Add'),
+          onPressed: _addMeeting,
+        ),
+      ],
+    );
+  }
+
+  void _addMeeting() {
+    final String title = _titleController.text;
+    if (title.isEmpty) {
+      setState(() {
+        _errorMessage = 'Title cannot be empty';
+      });
+      return;
+    }
+
+    final DateTime startTime = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+      _startTime.hour,
+      _startTime.minute,
+    );
+    final DateTime endTime = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+      _endTime.hour,
+      _endTime.minute,
+    );
+
+    // Check for overlapping meetings and maximum meetings per day
+    final overlappingMeetings = widget.existingMeetings.where((meeting) {
+      final isSameDay = isSameDate(meeting.from, _selectedDate);
+      final isOverlapping = startTime.isBefore(meeting.to) && endTime.isAfter(meeting.from);
+      return isSameDay && isOverlapping;
+    }).isNotEmpty;
+
+    final meetingsOnSameDay = widget.existingMeetings.where((meeting) {
+      return isSameDate(meeting.from, _selectedDate);
+    }).length;
+
+    if (overlappingMeetings) {
+      setState(() {
+        _errorMessage = 'Meeting times overlap with an existing meeting';
+      });
+      return;
+    }
+
+    if (meetingsOnSameDay >= 2) {
+      setState(() {
+        _errorMessage = 'Cannot add more than 2 meetings on the same day';
+      });
+      return;
+    }
+
+    final Meeting newMeeting = Meeting(
+      title,
+      startTime,
+      endTime,
+      Colors.blue,
+      false,
+    );
+    widget.onAddMeeting(newMeeting);
+    Navigator.of(context).pop();
+  }
+
+  bool isSameDate(DateTime date1, DateTime date2) {
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+  }
+
+  Future<void> _pickDate() async {
+    final DateTime now = DateTime.now();
+    final DateTime sevenDaysFromNow = now.add(Duration(days: 7));
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: now,
+      lastDate: sevenDaysFromNow,
+    );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _pickStartTime() async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: _startTime,
+    );
+    if (pickedTime != null && pickedTime != _startTime) {
+      setState(() {
+        _startTime = pickedTime;
+      });
+    }
+  }
+
+  Future<void> _pickEndTime() async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: _endTime,
+    );
+    if (pickedTime != null && pickedTime != _endTime) {
+      setState(() {
+        _endTime = pickedTime;
+      });
+    }
+  }
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Meeting> source) {
+    appointments = source;
+  }
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments![index].from;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments![index].to;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments![index].eventName;
+  }
+
+  @override
+  Color getColor(int index) {
+    return appointments![index].background;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return appointments![index].isAllDay;
+  }
+}
+
+class Meeting {
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+
+  String eventName;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
 }

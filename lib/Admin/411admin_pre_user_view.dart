@@ -85,11 +85,11 @@ class _AdminPreUserViewState extends State<AdminPreUserView> {
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 25,),
                               child: ClipOval(
-                                child: Image.asset(
-                                  "assets/pp.png",
+                                child: Image.network(
+                                  user!["path"],
                                   height: 90,
                                   width: 90,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),

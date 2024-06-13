@@ -93,11 +93,11 @@ class _AdminNormalUserViewState extends State<AdminNormalUserView> {
                                 horizontal: 25,
                               ),
                               child: ClipOval(
-                                child: Image.asset(
-                                  "assets/pp.png",
+                                child: Image.network(
+                                  usernr!["path"],
                                   height: 90,
                                   width: 90,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),

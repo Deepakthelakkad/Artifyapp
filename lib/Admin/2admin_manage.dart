@@ -166,7 +166,7 @@ class _AdminManageState extends State<AdminManage> {
                               ],
                             ),
                           ),
-                          child: Center(child: Text('Help Requests',style: GoogleFonts.ubuntu(fontSize: 35,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
+                          child: Center(child: Text('Suggestions',style: GoogleFonts.ubuntu(fontSize: 35,fontWeight: FontWeight.bold,color: Color.fromRGBO(4, 56, 68, 1)),)),
                         ),
                       ),
                       Padding(

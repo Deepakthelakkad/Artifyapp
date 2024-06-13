@@ -152,11 +152,11 @@ class _SettingPrState extends State<SettingPr> {
                                   ),
                                 ),
                                 title: Text(
-                                  'Help',
+                                  'Suggestion',
                                   style: TextStyle(fontSize: 14),
                                 ),
                                 subtitle: Text(
-                                  'Report a problem',
+                                  'Suggest your opinion',
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                 ),
@@ -233,7 +233,7 @@ class _SettingPrState extends State<SettingPr> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                     InkWell(
                       onTap: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>SectionLogin()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SectionLogin()));
                       },
                       child: Container(
                         height: 50,

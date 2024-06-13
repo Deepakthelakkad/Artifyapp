@@ -85,20 +85,15 @@ class _SavedArtistViewState extends State<SavedArtistView> {
                       height: 5,
                       width: 8,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Row(
-                        children: [
-                          IconButton(onPressed: () {
-                            Navigator.pop(context);
-                          },
-                            icon: Icon(
-                                CupertinoIcons.back, color: Colors.white),),
-                          Spacer(),
-                          Icon(CupertinoIcons.bookmark_fill,
-                              color: Colors.white),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(onPressed: () {
+                          Navigator.pop(context);
+                        },
+                          icon: Icon(
+                              CupertinoIcons.back, color: Colors.white),),
+                      ],
                     ),
                     SizedBox(
                       height: 9,
@@ -108,8 +103,8 @@ class _SavedArtistViewState extends State<SavedArtistView> {
                       child: Row(
                         children: [
                           ClipOval(
-                            child: Image.asset(
-                              "assets/pp.png",
+                            child: Image.network(
+                              artist!["path"],
                               height: 100,
                               width: 100,
                               fit: BoxFit.fill,

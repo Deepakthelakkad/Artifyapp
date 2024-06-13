@@ -16,8 +16,10 @@ class _HelpPrState extends State<HelpPr> {
   var help = TextEditingController();
   Future<dynamic> Helpuser() async {
     await FirebaseFirestore.instance.collection("Helpuser").add({
-      "Help": help.text,
+      "Suggestion": help.text,
       "premiumuserid":ID,
+      "PRname":premuser!["Name"],
+      "PRpath":premuser!["path"]
     });
     print('done');
     Navigator.pop(context);
@@ -34,12 +36,29 @@ class _HelpPrState extends State<HelpPr> {
     });
     print("done");
   }
-
+  DocumentSnapshot? premuser;
+  GETDetail() async {
+    premuser =
+    await FirebaseFirestore.instance.collection("PremiumReg").doc(ID).get();
+    print("get");
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formkey,
       child: Scaffold(
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 730,right: 300),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  CupertinoIcons.back,
+                  color: Colors.white,
+                  size: 23,
+                )),
+          ),
           body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -54,27 +73,36 @@ class _HelpPrState extends State<HelpPr> {
                   children: [
                     Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                CupertinoIcons.back,
-                                color: Colors.white,
-                                size: 23,
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 100, top: 30),
-                          child: Text(
-                            'Suggestion',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
+                        FutureBuilder(
+                          future: GETDetail(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            if (snapshot.hasError) {
+                              return Text("Error${snapshot.error}");
+                            }
+                            return Padding(
+                              padding:
+                              const EdgeInsets.only(left: 130, top: 30),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Suggestion',
+                                    style: GoogleFonts.ubuntu(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 80),
+                                    child: Text(premuser!["Name"],style: GoogleFonts.uchen(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),

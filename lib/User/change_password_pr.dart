@@ -39,7 +39,7 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                                 )),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 140,top: 30),
+                            padding: const EdgeInsets.only(left: 100,top: 30),
                             child: Column(
                               children: [
                                 Text(
@@ -93,18 +93,18 @@ class _ChangePasswordprState extends State<ChangePasswordpr> {
                     child: Column(
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Current Password:'),
-                          ],
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter Password',
-                              labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     Text('Current Password:'),
+                        //   ],
+                        // ),
+                        // TextFormField(
+                        //   decoration: InputDecoration(
+                        //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        //       hintText: 'Enter Password',
+                        //       labelStyle: GoogleFonts.ubuntu(color: Colors.grey,fontSize: 20)),
+                        // ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
