@@ -31,13 +31,14 @@ class _RegistrationPrState extends State<RegistrationPr> {
       "Address": address.text,
       "Phone": phone.text,
       "Category": selectedvalue,
-      "Premium":1,
-      "path":'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
+      "Premium": 1,
+      "path": 'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
     });
     print('done');
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => UserLogin()));
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -97,9 +98,9 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   hintText: "Name",
-                                  hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
+                                  hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal)),
                             ),
                           ),
                           Container(
@@ -115,9 +116,9 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Email",
-                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
+                                    hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -132,9 +133,9 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
+                                    hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -149,9 +150,9 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Re-Enter Password",
-                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
+                                    hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -166,9 +167,9 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Address",
-                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
+                                    hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal))),
                           ),
                           Container(
                             height: 50,
@@ -177,56 +178,20 @@ class _RegistrationPrState extends State<RegistrationPr> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter required details";
+                                  } else if (value.length != 10) {
+                                    return "Phone number must be 10 digits";
                                   }
                                 },
                                 decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Phone",
-                                    hintStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.normal))),
+                                    hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(
                             height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 314,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Colors.transparent,
-                                ),
-                                child: DropdownButton<String>(
-                                    isExpanded: true,
-                                    elevation: 0,
-                                    dropdownColor: Color(0XFF68AAC2),
-                                    hint: const Text(
-                                      "Category",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-                                    underline: const SizedBox(),
-                                    value: selectedvalue,
-                                    items: locationlist.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                          value: value, child: Text(value));
-                                    }).toList(),
-                                    onChanged: (newvalue) {
-                                      setState(() {
-                                        selectedvalue = newvalue;
-                                        print(selectedvalue);
-                                      });
-                                    },
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10)),
-                              ),
-                            ],
                           ),
                           SizedBox(
                             height: 10,
@@ -235,37 +200,28 @@ class _RegistrationPrState extends State<RegistrationPr> {
                             onTap: () {
                               if (formkey.currentState!.validate()) {
                                 if (password.text == reenterpassword.text) {
-                                  if (selectedvalue == null) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                        content: Text(
-                                          "Select category",
-                                          style: TextStyle(color: Colors.red),
-                                        )));
-                                  } else {
-                                    Premiumreg();
-                                  }
+                                  Premiumreg();
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                       content: Text(
-                                        "password donot match",
+                                        "Passwords do not match",
                                         style: TextStyle(color: Colors.red),
                                       )));
                                 }
                               }
                             },
                             child: Container(
-                              height: 51,
-                              width: 190,
+                              height: 50,
+                              width: 150,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.white,
-                              ),
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(30)),
                               child: Center(
-                                child: Text("SignUp",
-                                    style: GoogleFonts.ubuntu(
-                                        color: Colors.black, fontSize: 32)),
+                                child: Text(
+                                  " pay 299",
+                                  style: GoogleFonts.ubuntu(color: Colors.white),
+                                ),
                               ),
                             ),
                           ),

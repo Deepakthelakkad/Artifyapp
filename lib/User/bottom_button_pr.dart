@@ -35,10 +35,10 @@ class _BottomButtonState extends State<BottomButton> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                CupertinoIcons.ellipses_bubble_fill,
+                Icons.call,
                 size: 30,
               ),
-              label: currentindex == 0 ? 'message' : ''),
+              label: currentindex == 0 ? 'Call' : ''),
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 child: Icon(

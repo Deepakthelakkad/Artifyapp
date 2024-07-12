@@ -11,7 +11,7 @@ class BottomButtonArtist extends StatefulWidget {
 }
 
 class _BottomButtonArtistState extends State<BottomButtonArtist> {
-  int currentindex = 1;
+  int currentindex = 1;   
   final pages = [
     const
     ChatArtist(),

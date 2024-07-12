@@ -12,6 +12,10 @@ class UserManage extends StatefulWidget {
 }
 
 class _UserManageState extends State<UserManage> {
+  String searchQuery = '';
+  int currentPage = 0;
+  static const int itemsPerPage = 10;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +39,30 @@ class _UserManageState extends State<UserManage> {
             ),
           ),
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search by name',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value.toLowerCase();
+                  currentPage = 0; // Reset to the first page when searching
+                });
+              },
+            ),
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance.collection("PremiumReg").get(),
@@ -45,84 +73,137 @@ class _UserManageState extends State<UserManage> {
           if (snapshot.hasError) {
             return Text("Error${snapshot.error}");
           }
-          final user = snapshot.data?.docs ?? [];
-          return ListView.builder(
-              itemCount: user.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Card(
-                    elevation: 0,
-                    child: ListTile(
-                      leading: Container(
-                        child: ClipOval(
-                          child: Image.network(
-                            user[index]["path"],
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
+          final users = snapshot.data?.docs ?? [];
+          final filteredUsers = users.where((doc) {
+            final name = doc['Name'].toString().toLowerCase();
+            return name.contains(searchQuery);
+          }).toList();
+
+          final paginatedUsers = filteredUsers
+              .skip(currentPage * itemsPerPage)
+              .take(itemsPerPage)
+              .toList();
+          final totalPages = (filteredUsers.length / itemsPerPage).ceil();
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: paginatedUsers.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Card(
+                        elevation: 0,
+                        child: ListTile(
+                          leading: Container(
+                            child: ClipOval(
+                              child: Image.network(
+                                paginatedUsers[index]["path"],
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("PremiumReg")
+                                        .doc(paginatedUsers[index].id)
+                                        .delete();
+                                  });
+                                },
+                                child: Container(
+                                  height: 28,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(237, 47, 47, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
+                                    child: Text("BAN",
+                                        style: GoogleFonts.ubuntu(
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.03),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AdminPreUserView(
+                                              id: paginatedUsers[index].id)));
+                                },
+                                child: Container(
+                                  height: 28,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(47, 128, 237, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
+                                    child: Text("Check",
+                                        style: GoogleFonts.ubuntu(
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          title: Text(
+                            paginatedUsers[index]["Name"],
+                            style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                FirebaseFirestore.instance.collection("PremiumReg").doc(user[index].id).delete();
-                              });
-                            },
-                            child: Container(
-                              height: 28,
-                              width: 54,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(237, 47, 47, 1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
-                                child: Text("BAN",
-                                    style: GoogleFonts.ubuntu(
-                                        color: Colors.white)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.03),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AdminPreUserView(id: user[index].id)));
-                            },
-                            child: Container(
-                              height: 28,
-                              width: 54,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(47, 128, 237, 1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
-                                child: Text("Check",
-                                    style: GoogleFonts.ubuntu(
-                                        color: Colors.white)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: Text(
-                        user[index]["Name"],
-                        style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                );
-              });
+                    );
+                  },
+                ),
+              ),
+              if (totalPages > 1) _buildPaginationControls(totalPages),
+            ],
+          );
         },
+      ),
+    );
+  }
+
+  Widget _buildPaginationControls(int totalPages) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (currentPage > 0)
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  currentPage--;
+                });
+              },
+              child: Text('Previous'),
+            ),
+          Text('Page ${currentPage + 1} of $totalPages'),
+          if (currentPage < totalPages - 1)
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  currentPage++;
+                });
+              },
+              child: Text('Next'),
+            ),
+        ],
       ),
     );
   }

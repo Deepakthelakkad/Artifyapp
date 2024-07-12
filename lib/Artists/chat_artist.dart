@@ -19,10 +19,10 @@ class _ChatArtistState extends State<ChatArtist> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 Text("Call"),
                 SizedBox(height: 10),
                 Text(
@@ -30,7 +30,7 @@ class _ChatArtistState extends State<ChatArtist> {
                   style: TextStyle(
                       fontSize: 14, color: Color.fromRGBO(122, 115, 115, 1.0)),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
               ],
             ),
           ),

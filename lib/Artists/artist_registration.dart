@@ -36,7 +36,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
       "Experience": exp.text,
       "Category": selectedvalue,
       "path":
-          'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
+      'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
       "Bio": '',
     });
     print('done');
@@ -105,7 +105,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                   contentPadding: EdgeInsets.all(5),
                                   border: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      BorderSide(color: Colors.black)),
                                   hintText: "Name",
                                   hintStyle: TextStyle(color: Colors.black)),
                             ),
@@ -124,7 +124,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Email",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -141,7 +141,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Password",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -158,7 +158,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Re-Enter Password",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -175,7 +175,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Address",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -187,13 +187,17 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                   if (value!.isEmpty) {
                                     return "Enter required details";
                                   }
+                                  if (value.length != 10) {
+                                    return "Phone number must be 10 digits";
+                                  }
+                                  return null;
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Phone",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -210,7 +214,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Place",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -266,7 +270,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Fee per Program",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -283,7 +287,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black)),
+                                        BorderSide(color: Colors.black)),
                                     hintText: "Experience",
                                     hintStyle: TextStyle(color: Colors.black))),
                           ),
@@ -297,20 +301,20 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                                   if (selectedvalue == null) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
-                                            content: Text(
-                                      "Select category",
-                                      style: TextStyle(color: Colors.red),
-                                    )));
+                                        content: Text(
+                                          "Select category",
+                                          style: TextStyle(color: Colors.red),
+                                        )));
                                   } else {
                                     Artreg();
                                   }
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
-                                          content: Text(
-                                    "password donot match",
-                                    style: TextStyle(color: Colors.red),
-                                  )));
+                                      content: Text(
+                                        "Password does not match",
+                                        style: TextStyle(color: Colors.red),
+                                      )));
                                 }
                               }
                             },

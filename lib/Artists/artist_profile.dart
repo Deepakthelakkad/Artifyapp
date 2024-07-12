@@ -46,7 +46,11 @@ class _ArtistProfileState extends State<ArtistProfile> {
   }
 
   PickedFile? _image;
+  bool isloading = false;
   Future<void> _getImage() async {
+    setState(() {
+      isloading = true;
+    });
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -81,6 +85,9 @@ class _ArtistProfileState extends State<ArtistProfile> {
             content: Text('Profile updated successfully'),
           ),
         );
+        setState(() {
+          isloading = false;
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -157,23 +164,27 @@ class _ArtistProfileState extends State<ArtistProfile> {
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: Row(
                             children: [
-                              artist!["path"] == "1"
-                                  ? ClipOval(
-                                      child: Image.asset(
-                                        "assets/pp.png",
-                                        height: 100,
-                                        width: 90,
-                                        fit: BoxFit.fill,
-                                      ),
+                              isloading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
                                     )
-                                  : ClipOval(
-                                      child: Image.network(
-                                        artist!["path"],
-                                        height: 90,
-                                        width: 90,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
+                                  : artist!["path"] == "1"
+                                      ? ClipOval(
+                                          child: Image.asset(
+                                            "assets/pp.png",
+                                            height: 100,
+                                            width: 90,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : ClipOval(
+                                          child: Image.network(
+                                            artist!["path"],
+                                            height: 90,
+                                            width: 90,
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                        ),
                               SizedBox(
                                 width: 15,
                               ),

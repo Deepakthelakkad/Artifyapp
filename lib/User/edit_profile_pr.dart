@@ -10,27 +10,50 @@ class EditProfile extends StatefulWidget {
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
+
 class _EditProfileState extends State<EditProfile> {
+  @override
   void initState() {
     super.initState();
     getData();
   }
+
   var ID;
+  String? fetchedName;
+  String? fetchedEmail;
+  String? fetchedAddress;
+  String? fetchedPhone;
+
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
       ID = spref.getString("id");
       print(ID.toString());
     });
+
+    if (ID != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection("PremiumReg").doc(ID).get();
+      setState(() {
+        fetchedName = userDoc.get("Name");
+        fetchedEmail = userDoc.get("Email");
+        fetchedAddress = userDoc.get("Address");
+        fetchedPhone = userDoc.get("Phone");
+        name.text = fetchedName ?? "";
+        email.text = fetchedEmail ?? "";
+        address.text = fetchedAddress ?? "";
+        phone.text = fetchedPhone ?? "";
+      });
+    }
     print('data updated');
   }
+
   final formkey = GlobalKey<FormState>();
   var name = TextEditingController();
   var email = TextEditingController();
   var address = TextEditingController();
   var phone = TextEditingController();
 
-  Future<dynamic> Editpr() async {
+  Future<void> Editpr() async {
     await FirebaseFirestore.instance.collection("PremiumReg").doc(ID).update({
       "Name": name.text,
       "Email": email.text,
@@ -59,9 +82,9 @@ class _EditProfileState extends State<EditProfile> {
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(
-                            'assets/A14.png'), // Replace with your image path
-                        fit: BoxFit.fill),
+                      image: AssetImage('assets/A14.png'), // Replace with your image path
+                      fit: BoxFit.fill,
+                    ),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -78,14 +101,15 @@ class _EditProfileState extends State<EditProfile> {
                         child: Row(
                           children: [
                             IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  CupertinoIcons.back,
-                                  color: Colors.white,
-                                  size: 25,
-                                )),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                CupertinoIcons.back,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -107,86 +131,91 @@ class _EditProfileState extends State<EditProfile> {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 120,
-                        ),
+                        SizedBox(height: 120),
                         TextFormField(
                           controller: name,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter your name',
-                              labelStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 20)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: fetchedName ?? 'Enter your name',
+                            labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: email,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Email",
-                              labelStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 20)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: fetchedEmail ?? "Email",
+                            labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: phone,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Mobile number",
-                              labelStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 20)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: fetchedPhone ?? "Mobile number",
+                            labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: address,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Address",
-                              labelStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 20)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: fetchedAddress ?? "Address",
+                            labelStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                         InkWell(
                           onTap: () {
                             if (formkey.currentState!.validate()) {
-                              setState(() {
-                                Editpr();
-                              });
+                              Editpr();
                             }
                           },
                           child: Container(

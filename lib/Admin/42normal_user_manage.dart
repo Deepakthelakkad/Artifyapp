@@ -1,4 +1,3 @@
-import 'package:artify_app/Admin/2admin_manage.dart';
 import 'package:artify_app/Admin/422admin_nor_user_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +12,10 @@ class NormalUserManage extends StatefulWidget {
 }
 
 class _NormalUserManageState extends State<NormalUserManage> {
+  String searchQuery = '';
+  int currentPage = 0;
+  static const int itemsPerPage = 10;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +39,30 @@ class _NormalUserManageState extends State<NormalUserManage> {
             ),
           ),
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search by name',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value.toLowerCase();
+                  currentPage = 0; // Reset to the first page when searching
+                });
+              },
+            ),
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance.collection("NormalReg").get(),
@@ -46,84 +73,137 @@ class _NormalUserManageState extends State<NormalUserManage> {
           if (snapshot.hasError) {
             return Text("Error${snapshot.error}");
           }
-          final usernr = snapshot.data?.docs ?? [];
-          return ListView.builder(
-              itemCount: usernr.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Card(
-                    elevation: 0,
-                    child: ListTile(
-                      leading: Container(
-                        child: ClipOval(
-                          child: Image.network(
-                            usernr[index]["path"],
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
+          final users = snapshot.data?.docs ?? [];
+          final filteredUsers = users.where((doc) {
+            final name = doc['Name'].toString().toLowerCase();
+            return name.contains(searchQuery);
+          }).toList();
+
+          final paginatedUsers = filteredUsers
+              .skip(currentPage * itemsPerPage)
+              .take(itemsPerPage)
+              .toList();
+          final totalPages = (filteredUsers.length / itemsPerPage).ceil();
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: paginatedUsers.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Card(
+                        elevation: 0,
+                        child: ListTile(
+                          leading: Container(
+                            child: ClipOval(
+                              child: Image.network(
+                                paginatedUsers[index]["path"],
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("NormalReg")
+                                        .doc(paginatedUsers[index].id)
+                                        .delete();
+                                  });
+                                },
+                                child: Container(
+                                  height: 28,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(237, 47, 47, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
+                                    child: Text("BAN",
+                                        style: GoogleFonts.ubuntu(
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.03),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AdminNormalUserView(
+                                              id: paginatedUsers[index].id)));
+                                },
+                                child: Container(
+                                  height: 28,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(47, 128, 237, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
+                                    child: Text("Check",
+                                        style: GoogleFonts.ubuntu(
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          title: Text(
+                            paginatedUsers[index]["Name"],
+                            style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                FirebaseFirestore.instance.collection("NormalReg").doc(usernr[index].id).delete();
-                              });
-                            },
-                            child: Container(
-                              height: 28,
-                              width: 54,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(237, 47, 47, 1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
-                                child: Text("BAN",
-                                    style: GoogleFonts.ubuntu(
-                                        color: Colors.white)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.03),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AdminNormalUserView(id: usernr[index].id)));
-                            },
-                            child: Container(
-                              height: 28,
-                              width: 54,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(47, 128, 237, 1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
-                                child: Text("Check",
-                                    style: GoogleFonts.ubuntu(
-                                        color: Colors.white)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: Text(
-                        usernr[index]["Name"],
-                        style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                );
-              });
+                    );
+                  },
+                ),
+              ),
+              if (totalPages > 1) _buildPaginationControls(totalPages),
+            ],
+          );
         },
+      ),
+    );
+  }
+
+  Widget _buildPaginationControls(int totalPages) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (currentPage > 0)
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  currentPage--;
+                });
+              },
+              child: Text('Previous'),
+            ),
+          Text('Page ${currentPage + 1} of $totalPages'),
+          if (currentPage < totalPages - 1)
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  currentPage++;
+                });
+              },
+              child: Text('Next'),
+            ),
+        ],
       ),
     );
   }

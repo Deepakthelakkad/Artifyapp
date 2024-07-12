@@ -245,20 +245,26 @@ class _NormalUserProfileState extends State<NormalUserProfile> {
                         leading: Text(
                           "Address",
                           style: GoogleFonts.ubuntu(
-                              fontSize: 15,
-                              color: Color.fromRGBO(134, 135, 142, 1)),
+                            fontSize: 15,
+                            color: Color.fromRGBO(134, 135, 142, 1),
+                          ),
                         ),
-                        trailing: Text(
-                          normaluser!["Address"],
-                          style: TextStyle(
+                        trailing: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            normaluser!["Address"],
+                            style: TextStyle(
                               fontSize: 15,
-                              color: Color.fromRGBO(43, 44, 47, 1)),
+                              color: Color.fromRGBO(43, 44, 47, 1),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
+
                   SizedBox(
-                    height: 80,
+                    height: 40,
                   ),
                   InkWell(
                       onTap: () {

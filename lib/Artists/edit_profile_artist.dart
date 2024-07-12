@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:artify_app/Artists/schedule.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileArtist extends StatefulWidget {
@@ -18,9 +15,15 @@ class EditProfileArtist extends StatefulWidget {
 }
 
 class _EditProfileArtistState extends State<EditProfileArtist> {
-
-
+  final formkey = GlobalKey<FormState>();
   var ID;
+  var name = TextEditingController();
+  var feePerProgram = TextEditingController();
+  var experience = TextEditingController();
+  var place = TextEditingController();
+  var bio = TextEditingController();
+
+  @override
   void initState() {
     super.initState();
     getData();
@@ -31,31 +34,39 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
     setState(() {
       ID = spref.getString("id");
     });
-    print("done");
+
+    if (ID != null) {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection("ArtReg").doc(ID).get();
+      if (documentSnapshot.exists) {
+        setState(() {
+          name.text = documentSnapshot.get('Name');
+          feePerProgram.text = documentSnapshot.get('Fee per program');
+          experience.text = documentSnapshot.get('Experience');
+          place.text = documentSnapshot.get('Place');
+          bio.text = documentSnapshot.get('Bio');
+        });
+      }
+    }
   }
 
-  final formkey = GlobalKey<FormState>();
-  var name = TextEditingController();
-  var feeperprogram = TextEditingController();
-  var experience = TextEditingController();
-  var place = TextEditingController();
-  var bio = TextEditingController();
-  Future<dynamic> Editart() async {
-    await FirebaseFirestore.instance.collection("ArtReg").doc(ID).update({
-      "Name": name.text,
-      "Fee per program": feeperprogram.text,
-      "Experience": experience.text,
-      "Place": place.text,
-      "Bio": bio.text
-    });
-    print('done');
-    Navigator.pop(context);
+  Future<void> editArt() async {
+    if (ID != null) {
+      await FirebaseFirestore.instance.collection("ArtReg").doc(ID).update({
+        "Name": name.text,
+        "Fee per program": feePerProgram.text,
+        "Experience": experience.text,
+        "Place": place.text,
+        "Bio": bio.text
+      });
+      print('done');
+      Navigator.pop(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formkey,
+      key: GlobalKey<FormState>(),
       child: Scaffold(
         body: Container(
           width: double.infinity,
@@ -70,8 +81,7 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                   height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(
-                            'assets/A14.png'), // Replace with your image path
+                        image: AssetImage('assets/A14.png'),
                         fit: BoxFit.fill),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -84,26 +94,24 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                       Row(
                         children: [
                           IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                CupertinoIcons.back,
-                                color: Colors.white,
-                                size: 25,
-                              )),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              CupertinoIcons.back,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
                         ],
                       ),
                       Row(
                         children: [
-                          SizedBox(
-                            width: 15,
-                          ),
+                          SizedBox(width: 15),
                         ],
                       ),
                     ],
@@ -124,99 +132,112 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 50,
-                        ),
+                        SizedBox(height: 50),
                         TextFormField(
                           controller: name,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: 'Enter your Name',
-                              hintStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 18)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: 'Enter your Name',
+                            hintStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: bio,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Enter your Bio",
-                              hintStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 18)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Enter your Bio",
+                            hintStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
-                          controller: feeperprogram,
+                          controller: feePerProgram,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Enter your payment",
-                              hintStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 18)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Enter your payment",
+                            hintStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: experience,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Experience",
-                              hintStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 18)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Experience",
+                            hintStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         TextFormField(
                           controller: place,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter required details";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Place",
-                              hintStyle: GoogleFonts.ubuntu(
-                                  color: Colors.grey, fontSize: 18)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Place",
+                            hintStyle: GoogleFonts.ubuntu(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                         InkWell(
                           onTap: () {
                             if (formkey.currentState!.validate()) {
                               setState(() {
-                                Editart();
+                                editArt();
                               });
                             }
                           },
@@ -244,7 +265,7 @@ class _EditProfileArtistState extends State<EditProfileArtist> {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
