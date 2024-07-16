@@ -21,7 +21,7 @@ class _NormalUserLoginState extends State<NormalUserLogin> {
     final user = await FirebaseFirestore.instance
         .collection('NormalReg')
         .where('Email', isEqualTo: email.text)
-        .where('Password', isEqualTo: password.text)
+        .where('Password', isEqualTo: password.text).where("status",isEqualTo: 1)
     // .where('status', isEqualTo: 1)
         .get();
     if (user.docs.isNotEmpty) {

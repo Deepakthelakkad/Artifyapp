@@ -38,6 +38,7 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
       "path":
       'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
       "Bio": '',
+      "status":0,
     });
     print('done');
     Navigator.push(
@@ -114,12 +115,12 @@ class _RegistrationArtistState extends State<RegistrationArtist> {
                             height: 50,
                             child: TextFormField(
                                 controller: email,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter required details";
-                                  }
-                                },
-                                keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Enter required details";
+                                    }
+                                  },
+                                  keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.all(5),
                                     border: UnderlineInputBorder(

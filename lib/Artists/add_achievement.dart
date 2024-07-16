@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddAchievement extends StatefulWidget {
   const AddAchievement({super.key});
@@ -16,14 +17,30 @@ class _AddAchievementState extends State<AddAchievement> {
   var content = TextEditingController();
   var title = TextEditingController();
   var link = TextEditingController();
+  var ID;
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString("id");
+      print(ID.toString());
+    });
+    print('data updated');
+  }
+
   Future<dynamic> AchieveAdd() async {
     await FirebaseFirestore.instance.collection("Achieveadd").add({
       "Content": content.text,
       "Title": title.text,
       "Link": link.text,
+      'artistId': ID,
     });
     print('done');
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => ArtistAchievement()));
   }
 

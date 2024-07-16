@@ -65,7 +65,7 @@ class _ArtistManageState extends State<ArtistManage> {
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("ArtReg").get(),
+        future: FirebaseFirestore.instance.collection("ArtReg").where("status",isEqualTo:0 ).get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -115,19 +115,19 @@ class _ArtistManageState extends State<ArtistManage> {
                                     FirebaseFirestore.instance
                                         .collection("ArtReg")
                                         .doc(paginatedArtists[index].id)
-                                        .delete();
+                                        .update({"status": 2});
                                   });
                                 },
                                 child: Container(
                                   height: 28,
-                                  width: 54,
+                                  width: 56,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Color.fromRGBO(237, 47, 47, 1),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
-                                    child: Text("BAN",
+                                    padding: const EdgeInsets.fromLTRB(5, 6, 0, 5),
+                                    child: Text("REJECT",
                                         style: GoogleFonts.ubuntu(
                                             color: Colors.white)),
                                   ),
@@ -137,22 +137,23 @@ class _ArtistManageState extends State<ArtistManage> {
                                   width: MediaQuery.of(context).size.width * 0.02),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AdminArtistView(
-                                              id: paginatedArtists[index].id)));
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("ArtReg")
+                                        .doc(paginatedArtists[index].id)
+                                        .update({"status": 1});
+                                  });
                                 },
                                 child: Container(
                                   height: 28,
-                                  width: 54,
+                                  width: 56,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Color.fromRGBO(47, 128, 237, 1),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(9, 6, 5, 6),
-                                    child: Text("Check",
+                                    padding: const EdgeInsets.fromLTRB(5, 6, 0, 6),
+                                    child: Text("ACCEPT",
                                         style: GoogleFonts.ubuntu(
                                             color: Colors.white)),
                                   ),

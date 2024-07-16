@@ -65,7 +65,7 @@ class _NormalUserManageState extends State<NormalUserManage> {
         ),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("NormalReg").get(),
+        future: FirebaseFirestore.instance.collection("NormalReg").where("status",isEqualTo: 0).get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -115,19 +115,19 @@ class _NormalUserManageState extends State<NormalUserManage> {
                                     FirebaseFirestore.instance
                                         .collection("NormalReg")
                                         .doc(paginatedUsers[index].id)
-                                        .delete();
+                                        .update({"status": 2});
                                   });
                                 },
                                 child: Container(
                                   height: 28,
-                                  width: 54,
+                                  width: 56,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Color.fromRGBO(237, 47, 47, 1),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(15, 6, 5, 5),
-                                    child: Text("BAN",
+                                    padding: const EdgeInsets.fromLTRB(5, 6, 0, 6),
+                                    child: Text("REJECT",
                                         style: GoogleFonts.ubuntu(
                                             color: Colors.white)),
                                   ),
@@ -137,22 +137,23 @@ class _NormalUserManageState extends State<NormalUserManage> {
                                   width: MediaQuery.of(context).size.width * 0.03),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AdminNormalUserView(
-                                              id: paginatedUsers[index].id)));
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("NormalReg")
+                                        .doc(paginatedUsers[index].id)
+                                        .update({"status": 2});
+                                  });
                                 },
                                 child: Container(
                                   height: 28,
-                                  width: 54,
+                                  width: 56,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Color.fromRGBO(47, 128, 237, 1),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(10, 6, 5, 5),
-                                    child: Text("Check",
+                                    padding: const EdgeInsets.fromLTRB(5, 6, 0, 6),
+                                    child: Text("ACCEPT",
                                         style: GoogleFonts.ubuntu(
                                             color: Colors.white)),
                                   ),

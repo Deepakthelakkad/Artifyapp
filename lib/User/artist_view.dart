@@ -4,7 +4,7 @@ import 'package:artify_app/User/user_homepage_pr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,8 +27,14 @@ class _ArtistViewState extends State<ArtistView> {
         .get();
   }
 
-  var ID;
+  getrating() async {
+     finalrating = await FirebaseFirestore.instance
+        .collection('Rating').doc()
+        .get();
+  }
 
+  var ID;
+  double rating = 0;
   void initState() {
     super.initState();
     getData();
@@ -44,6 +50,7 @@ class _ArtistViewState extends State<ArtistView> {
   }
 
   DocumentSnapshot? artist;
+  DocumentSnapshot? finalrating;
 
   adddata() {
     FirebaseFirestore.instance.collection("favartist").add({
@@ -52,7 +59,7 @@ class _ArtistViewState extends State<ArtistView> {
       "userid": ID,
       "artistcategory": artist!["Category"],
       "artistexp": artist!["Experience"],
-      "artpath":artist!["path"]
+      "artpath": artist!["path"]
     });
 
     AddFav();
@@ -119,7 +126,7 @@ class _ArtistViewState extends State<ArtistView> {
                               ),
                               Spacer(),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   setState(() {
                                     adddata();
                                   });
@@ -148,7 +155,11 @@ class _ArtistViewState extends State<ArtistView> {
                                               color: Colors.white)),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 5),
-                                        child: Icon(CupertinoIcons.heart_fill,color: Colors.white,size: 15,),
+                                        child: Icon(
+                                          CupertinoIcons.heart_fill,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -169,7 +180,7 @@ class _ArtistViewState extends State<ArtistView> {
                                   artist!["path"],
                                   height: 100,
                                   width: 100,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               SizedBox(
@@ -219,6 +230,35 @@ class _ArtistViewState extends State<ArtistView> {
                                         ],
                                       ),
                                     ],
+                                  ),
+                                  FutureBuilder(
+                                    future: getrating(),
+                                    builder: (context, snapshot) {
+                                      return Row(
+                                        children: [
+                                          RatingBar.builder(
+                                            initialRating: 4,
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemPadding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    2.0), // Adjust padding if needed
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Color.fromRGBO(
+                                                  230, 210, 28, 1),
+                                            ),
+                                            onRatingUpdate: (rating) {
+                                              print(rating);
+                                            },
+                                            itemSize:
+                                                20, // Adjust the size of each star here
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -284,8 +324,7 @@ class _ArtistViewState extends State<ArtistView> {
                       trailing: Text(
                         artist!["Place"],
                         style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromRGBO(43, 44, 47, 1)),
+                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
                       ),
                     ),
                   ),
@@ -300,18 +339,57 @@ class _ArtistViewState extends State<ArtistView> {
                             fontSize: 15,
                             color: Color.fromRGBO(134, 135, 142, 1)),
                       ),
-                      trailing: Wrap(children: [
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(217, 217, 217, 1)),
-                      ]),
+                      trailing: IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Rate this artist'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    RatingBar.builder(
+                                      initialRating: rating,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: false,
+                                      itemCount: 5,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        setState(() {
+                                          this.rating = rating;
+                                          print(rating);
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(height: 10),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection("Rating")
+                                            .add({
+                                          "rating": rating,
+                                          "artistId": widget.id,
+                                        });
+                                        // Handle saving the rating or any other action
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Submit'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        icon: Icon(CupertinoIcons.star_fill),
+                      ),
                     ),
                   ),
                   Padding(
@@ -401,8 +479,10 @@ class _ArtistViewState extends State<ArtistView> {
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 3),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => CalendarScreenpremium()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CalendarScreenpremium()));
                       },
                       child: Container(
                         height: 87,

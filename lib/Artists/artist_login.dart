@@ -23,7 +23,7 @@ class _ArtistLoginState extends State<ArtistLogin> {
     final user = await FirebaseFirestore.instance
         .collection('ArtReg')
         .where('Email', isEqualTo: email.text)
-        .where('Password', isEqualTo: password.text)
+        .where('Password', isEqualTo: password.text).where("status",isEqualTo: 1)
         .get();
     if (user.docs.isNotEmpty) {
       id = user.docs[0].id;

@@ -21,7 +21,7 @@ class _AdminLoginState extends State<AdminLogin> {
   var password = TextEditingController();
   login() {
     if (email.text == 'admin@gmail.com' && password.text == '123') {
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) {
           return AdminManage();
         },

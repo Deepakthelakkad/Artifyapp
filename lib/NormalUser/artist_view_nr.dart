@@ -6,16 +6,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ArtistViewNr extends StatefulWidget {
-  const ArtistViewNr({super.key,required this.id});
+  const ArtistViewNr({super.key, required this.id});
   final id;
+
   @override
   State<ArtistViewNr> createState() => _ArtistViewNrState();
 }
 
 class _ArtistViewNrState extends State<ArtistViewNr> {
   var fav = 0;
+
   GETFILE() async {
     artist = await FirebaseFirestore.instance
         .collection('ArtReg')
@@ -25,10 +28,13 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
 
   DocumentSnapshot? artist;
   var ID;
+
+  @override
   void initState() {
     super.initState();
     getData();
   }
+
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
@@ -38,7 +44,6 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
     print('data updated');
   }
 
-
   adddata() {
     FirebaseFirestore.instance.collection("favartistnr").add({
       "artistid": widget.id,
@@ -46,7 +51,7 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
       "userid": ID,
       "artistcategory": artist!["Category"],
       "artistexp": artist!["Experience"],
-      "artpath":artist!["path"],
+      "artpath": artist!["path"],
     });
 
     AddFav();
@@ -59,6 +64,8 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
           style: TextStyle(color: Colors.green),
         )));
   }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -112,7 +119,7 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                               ),
                               Spacer(),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   setState(() {
                                     adddata();
                                   });
@@ -140,8 +147,13 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white)),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 5),
-                                        child: Icon(CupertinoIcons.heart_fill,color: Colors.white,size: 15,),
+                                        padding:
+                                        const EdgeInsets.only(top: 5),
+                                        child: Icon(
+                                          CupertinoIcons.heart_fill,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -259,7 +271,8 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                       trailing: Text(
                         artist!['Bio'],
                         style: GoogleFonts.ubuntu(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                            fontSize: 15,
+                            color: Color.fromRGBO(43, 44, 47, 1)),
                       ),
                     ),
                   ),
@@ -277,8 +290,7 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                       trailing: Text(
                         artist!["Place"],
                         style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromRGBO(43, 44, 47, 1)),
+                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
                       ),
                     ),
                   ),
@@ -293,18 +305,22 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                             fontSize: 15,
                             color: Color.fromRGBO(134, 135, 142, 1)),
                       ),
-                      trailing: Wrap(children: [
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(230, 210, 28, 1)),
-                        Icon(CupertinoIcons.star_fill,
-                            color: Color.fromRGBO(217, 217, 217, 1)),
-                      ]),
+                      trailing: RatingBar.builder(
+
+                        initialRating: 4,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Color.fromRGBO(230, 210, 28, 1),
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
                     ),
                   ),
                   Padding(
@@ -331,7 +347,8 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => EventsNr()));
+                                            builder: (context) =>
+                                                EventsNr()));
                                   },
                                   child: Text("Events"),
                                   style: ElevatedButton.styleFrom(
@@ -394,8 +411,11 @@ class _ArtistViewNrState extends State<ArtistViewNr> {
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 3),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => CalendarScreenpremium()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CalendarScreenpremium()));
                       },
                       child: Container(
                         height: 87,
